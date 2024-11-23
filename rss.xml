@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="https://www.pysio.online/rss.xsl"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <atom:link href="https://www.pysio.online/rss.xml" rel="self" type="application/rss+xml"/>
+    <title>Pysio&amp;apos;s Home</title>
+    <link>https://www.pysio.online/</link>
+    <description>一个温暖的家</description>
+    <language>zh-CN</language>
+    <pubDate>Sat, 23 Nov 2024 16:56:42 GMT</pubDate>
+    <lastBuildDate>Sat, 23 Nov 2024 16:56:42 GMT</lastBuildDate>
+    <generator>@vuepress/plugin-feed</generator>
+    <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+    <category>develop</category>
+    <category>daily</category>
+    <category>NekoXii</category>
+    <item>
+      <title>随机图片API</title>
+      <link>https://www.pysio.online/posts/develop/randomimage.html</link>
+      <guid>https://www.pysio.online/posts/develop/randomimage.html</guid>
+      <source url="https://www.pysio.online/rss.xml">随机图片API</source>
+      <description>本站现在提供了一个随机图片的API 你可以直接使用下面的URL获取一张随机图片</description>
+      <category>develop</category>
+      <pubDate>Thu, 07 Nov 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>本站现在提供了一个随机图片的API 你可以直接使用下面的URL获取一张随机图片</p>
+<div class="language-url" data-highlighter="prismjs" data-ext="url" data-title="url"><pre><code><span class="line"><span class="token scheme">https<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">blogapi.pysio.online</span></span><span class="token path"><span class="token path-separator">/</span>random_image</span></span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+      <enclosure url="https://blogapi.pysio.online/random_image" type="image/"/>
+    </item>
+    <item>
+      <title>本博客自定义的FontAwesome</title>
+      <link>https://www.pysio.online/posts/develop/icon.html</link>
+      <guid>https://www.pysio.online/posts/develop/icon.html</guid>
+      <source url="https://www.pysio.online/rss.xml">本博客自定义的FontAwesome</source>
+      <description>使用 你可以直接引用以下JS文件来使用本博客自定义的FontAwesome 包含的图标 Destiny2 JetBrains JetBrains IntelliJ IDEA JetBrains PyCharm Github Issues Progressive Web Apps Proxmox Virtual Environment Modrinth ...</description>
+      <category>develop</category>
+      <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>使用</h2>
+<p>你可以直接引用以下JS文件来使用本博客自定义的FontAwesome</p>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line"><span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://files.pysio.online/files/Pysio-FontAwesome/js/custom-icons.js"</span> crossorigin<span class="token operator">=</span><span class="token string">"anonymous"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h2>包含的图标</h2>
+<h3>Destiny2 <i class="fa-kit fa-destiny2"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-destiny2"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>JetBrains <i class="fa-kit fa-jetbrains"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-jetbrains"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>JetBrains IntelliJ IDEA <i class="fa-kit fa-idea"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-idea"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>JetBrains PyCharm <i class="fa-kit fa-pycharm"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-pycharm"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>Github Issues <i class="fa-kit fa-issues"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-issues"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>Progressive Web Apps <i class="fa-kit fa-pwa"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-pwa"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>Proxmox Virtual Environment <i class="fa-kit fa-pve"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-pve"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>Modrinth <i class="fa-kit fa-modrinth"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-modrinth"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>Visual Studio Code <i class="fa-kit fa-vscode"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-vscode"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+    </item>
+    <item>
+      <title>从WordPress迁移到VuePress</title>
+      <link>https://www.pysio.online/posts/daily/WordPress%20to%20VuePress.html</link>
+      <guid>https://www.pysio.online/posts/daily/WordPress%20to%20VuePress.html</guid>
+      <source url="https://www.pysio.online/rss.xml">从WordPress迁移到VuePress</source>
+      <description>开篇 为什么要迁移？ 在过去的1年多 我都使用WordPress 作为我的博客系统，但是我手上的小鸡实在是太弱了，实在是带不动WordPress这个大家伙，所以我决定迁移到VuePress上来。 开始迁移 最开始 我看了很多静态资源生成系统，比如Hexo、Hugo、Jekyll，最后我选择了VuePress Theme Hope。 那么开始迁移吧！ 安...</description>
+      <category>daily</category>
+      <pubDate>Mon, 21 Oct 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>开篇 为什么要迁移？</h2>
+<p>在过去的1年多 我都使用WordPress 作为我的博客系统，但是我手上的小鸡实在是太弱了，实在是带不动WordPress这个大家伙，所以我决定迁移到VuePress上来。</p>
+<h2>开始迁移</h2>
+<p>最开始 我看了很多静态资源生成系统，比如Hexo、Hugo、Jekyll，最后我选择了<a href="https://theme-hope.vuejs.press/" target="_blank" rel="noopener noreferrer">VuePress Theme Hope</a>。</p>
+<p>那么开始迁移吧！</p>
+<h2>安装VuePress Theme Hope</h2>
+<p>首先 安装 Node.js 18.0.0+</p>
+<h3>然后创建项目模板</h3>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token function">npm</span> init vuepress-theme-hope@latest my-docs</span>
+<span class="line"></span></code></pre>
+</div><p>这里的 my-docs 是一个参数，代表 VuePress Theme Hope 项目的文件夹名称。</p>
+<p>执行完命令后根据提示，通过键盘 ↓ 选择 简体中文 并回车来按需选择。</p>
+<h3>项目命令</h3>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token comment"># 启动开发服务器</span></span>
+<span class="line"><span class="token function">npm</span> docs:dev</span>
+<span class="line"><span class="token comment"># 构建项目并输出</span></span>
+<span class="line"><span class="token function">npm</span> docs:build</span>
+<span class="line"><span class="token comment"># 清除缓存并启动开发服务器</span></span>
+<span class="line"><span class="token function">npm</span> docs:clean-dev</span>
+<span class="line"></span></code></pre>
+</div><p>启动项目，浏览器输入 <a href="http://localhost:8080/" target="_blank" rel="noopener noreferrer">http://localhost:8080/</a> 查看效果</p>
+<h3>目录结构</h3>
+<div class="language-text" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line">.</span>
+<span class="line">├── .github (可选的) → GitHub 配置文件存放路径</span>
+<span class="line">│    └── workflow → GitHub 工作流配置</span>
+<span class="line">│         └── docs-deploy.yml → 自动部署文档的工作流</span>
+<span class="line">│</span>
+<span class="line">├── src → 文档文件夹</span>
+<span class="line">│    │</span>
+<span class="line">│    ├── .vuepress (可选的) → VuePress 配置文件夹</span>
+<span class="line">│    │    │</span>
+<span class="line">│    │    ├── dist (默认的) → 构建输出目录</span>
+<span class="line">│    │    │</span>
+<span class="line">│    │    ├── public (可选的) → 静态资源目录</span>
+<span class="line">│    │    │</span>
+<span class="line">│    │    ├── styles (可选的) → 用于存放样式相关的文件</span>
+<span class="line">│    │    │</span>
+<span class="line">│    │    ├── config.{js,ts} (可选的) → 配置文件的入口文件</span>
+<span class="line">│    │    │</span>
+<span class="line">│    │    └── client.{js,ts} (可选的) → 客户端文件</span>
+<span class="line">│    │</span>
+<span class="line">│    ├── ... → 其他项目文档</span>
+<span class="line">│    │</span>
+<span class="line">│    └── README.md → 项目主页</span>
+<span class="line">│</span>
+<span class="line">└── package.json → Nodejs 配置文件</span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+</div><h3>接下来 做一些个性化的配置</h3>
+<h3>首页图片全屏设置</h3>
+<p>如果不想首页图片全屏,，打开README.md找到heroFullScreen修改为fasle</p>
+<div class="language-markdown" data-highlighter="prismjs" data-ext="md" data-title="md"><pre><code><span class="line">heroFullScreen: false</span>
+<span class="line"></span></code></pre>
+</div><p>效果：</p>
+<figure><img src="https://files.pysio.online/files/Pysio-Imges/blogdemo.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<h3>首页项目设置</h3>
+<p>初始化是会默认生成以下内容，如果要修改为自己的项目要怎么修改呢。</p>
+<figure><img src="https://files.pysio.online/files/Pysio-Imges/defpoj.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<p>打开<code>README.md</code>，找到<code>projects</code>，编辑成你要的内容即可。</p>
+<div class="language-markdown" data-highlighter="prismjs" data-ext="md" data-title="md"><pre><code><span class="line">projects:</span>
+<span class="line">  <span class="token list punctuation">-</span> icon: project</span>
+<span class="line">    name: 项目名称</span>
+<span class="line">    desc: 项目详细描述</span>
+<span class="line">    link: https://你的项目链接</span>
+<span class="line"></span>
+<span class="line">  <span class="token list punctuation">-</span> icon: link</span>
+<span class="line">    name: 链接名称</span>
+<span class="line">    desc: 链接详细描述</span>
+<span class="line">    link: https://链接地址</span>
+<span class="line"></span>
+<span class="line">  <span class="token list punctuation">-</span> icon: book</span>
+<span class="line">    name: 书籍名称</span>
+<span class="line">    desc: 书籍详细描述</span>
+<span class="line">    link: https://你的书籍链接</span>
+<span class="line"></span>
+<span class="line">  <span class="token list punctuation">-</span> icon: article</span>
+<span class="line">    name: 文章名称</span>
+<span class="line">    desc: 文章详细描述</span>
+<span class="line">    link: https://你的文章链接</span>
+<span class="line"></span>
+<span class="line">  <span class="token list punctuation">-</span> icon: friend</span>
+<span class="line">    name: 伙伴名称</span>
+<span class="line">    desc: 伙伴详细介绍</span>
+<span class="line">    link: https://你的伙伴链接</span>
+<span class="line"></span>
+<span class="line">  <span class="token list punctuation">-</span> icon: /logo.svg</span>
+<span class="line">    name: 自定义项目</span>
+<span class="line">    desc: 自定义详细介绍</span>
+<span class="line">    link: https://你的自定义链接</span>
+<span class="line"></span></code></pre>
+</div><p>如果不想显示，直接把<code>projects</code>的内容全部删除即可，效果如图：</p>
+<figure><img src="https://files.pysio.online/files/Pysio-Imges/blognopoj.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://files.pysio.online/files/Pysio-Imges/blogdemo.webp" type="image/webp"/>
+    </item>
+    <item>
+      <title>狠狠的石健你们</title>
+      <link>https://www.pysio.online/posts/NekoXii/Crazy.html</link>
+      <guid>https://www.pysio.online/posts/NekoXii/Crazy.html</guid>
+      <source url="https://www.pysio.online/rss.xml">狠狠的石健你们</source>
+      <description>你҉҉҈ 要҉҉҈ 永҉҉҈ 远҉҉҈ 爱҉҉҈ 我҉҉҈ 啊҉҉҈҉҉҈</description>
+      <category>NekoXii</category>
+      <pubDate>Sun, 20 Oct 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>你҉҉҈ 要҉҉҈ 永҉҉҈ 远҉҉҈ 爱҉҉҈ 我҉҉҈ 啊҉҉҈҉҉҈</p>
+<!-- more -->
+<figure><img src="https://files.pysio.online/files/Pysio-Imges/899f87e032161b04c94b0feeb972bdf3_720.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://files.pysio.online/files/Pysio-Imges/899f87e032161b04c94b0feeb972bdf3_720.png" type="image/png"/>
+    </item>
+    <item>
+      <title>火神80群里的梗图</title>
+      <link>https://www.pysio.online/posts/daily/HuoShen80Hub.html</link>
+      <guid>https://www.pysio.online/posts/daily/HuoShen80Hub.html</guid>
+      <source url="https://www.pysio.online/rss.xml">火神80群里的梗图</source>
+      <description>相关信息 这里会展示火神80群里的梗图</description>
+      <category>daily</category>
+      <pubDate>Fri, 11 Oct 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<!-- markdownlint-disable MD028 -->
+<div class="hint-container info">
+<p class="hint-container-title">相关信息</p>
+<p>这里会展示火神80群里的梗图</p>
+</div>
+<!-- markdownlint-enable MD028 -->
+<!-- more -->
+<h2>图片展示</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>有关于本博客的PWA</title>
+      <link>https://www.pysio.online/posts/daily/PWA.html</link>
+      <guid>https://www.pysio.online/posts/daily/PWA.html</guid>
+      <source url="https://www.pysio.online/rss.xml">有关于本博客的PWA</source>
+      <description>相关信息 渐进式网络应用程序（英语：Progressive Web Apps，简称：PWA）是一种普通网页或网站架构起来的网络应用程序，但它可以以传统应用程序或原生移动应用程序形式展示给用户。这种应用程序形态视图将目前最为现代化的浏览器提供的功能与移动设备的体验优势相结合。</description>
+      <pubDate>Wed, 09 Oct 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<!-- markdownlint-disable MD028 -->
+<!-- > [!warning] 
+> 因为目前在快速迭代中，PWA暂时关闭，等待后续开发完成后再开启。  -->
+<div class="hint-container info">
+<p class="hint-container-title">相关信息</p>
+<p>渐进式网络应用程序（英语：Progressive Web Apps，简称：PWA）是一种普通网页或网站架构起来的网络应用程序，但它可以以传统应用程序或原生移动应用程序形式展示给用户。这种应用程序形态视图将目前最为现代化的浏览器提供的功能与移动设备的体验优势相结合。</p>
+</div>
+<!-- markdownlint-enable MD028 -->]]></content:encoded>
+    </item>
+    <item>
+      <title>部署OpenMcim节点</title>
+      <link>https://www.pysio.online/posts/develop/OpenMCIM.html</link>
+      <guid>https://www.pysio.online/posts/develop/OpenMCIM.html</guid>
+      <source url="https://www.pysio.online/rss.xml">部署OpenMcim节点</source>
+      <description>相关信息 MCIM 需要提供文件镜像，但由于成本问题，以及受到 OpenBMCLAPI 的启发，本项目分发 Mod 文件基于网盘 感谢各位的支持~！感谢您为改善国内 Mod 下载环境的贡献！</description>
+      <category>develop</category>
+      <pubDate>Mon, 07 Oct 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<!-- markdownlint-disable MD028 -->
+<div class="hint-container info">
+<p class="hint-container-title">相关信息</p>
+<p>MCIM 需要提供文件镜像，但由于成本问题，以及受到 OpenBMCLAPI 的启发，本项目分发 Mod 文件基于网盘
+感谢各位的支持~！感谢您为改善国内 Mod 下载环境的贡献！</p>
+</div>
+<!-- markdownlint-enable MD028 -->
+<!-- more -->
+<h2>OpenBmclapi</h2>
+<div class="hint-container tip">
+<p class="hint-container-title">提示</p>
+<p>我更建议你使用已经修改过的OpenMcim执行上线</p>
+</div>
+<div class="hint-container warning">
+<p class="hint-container-title">注意</p>
+<p>因为 Modrinth 原因 会有很多Hash错误的文件 未修改的OpenBmclapi无法上线</p>
+</div>
+<h3>从源码运行</h3>
+<h4>环境</h4>
+<ul>
+<li>Node.js 18以上</li>
+<li>Windows/MacOS/Linux, x86/arm均可 (凡是nodejs支持的环境都可以)</li>
+</ul>
+<h4>设置环境</h4>
+<ol>
+<li>去 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener noreferrer">https://nodejs.org/zh-cn/</a> 下载LTS版本的nodejs并安装</li>
+<li>Clone 并安装依赖</li>
+</ol>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token function">git</span> clone https://github.com/bangbang93/openbmclapi</span>
+<span class="line"><span class="token builtin class-name">cd</span> openbmclapi</span>
+<span class="line"><span class="token comment">## 安装依赖</span></span>
+<span class="line"><span class="token function">npm</span> ci</span>
+<span class="line"><span class="token comment">## 编译</span></span>
+<span class="line"><span class="token function">npm</span> run build</span>
+<span class="line"><span class="token comment">## 运行</span></span>
+<span class="line"><span class="token function">node</span> dist/index.js</span>
+<span class="line"></span></code></pre>
+</div><ol start="3">
+<li>
+<p>如果你看到了 <code>CLUSTER_ID is not set</code> 的报错, 说明一切正常, 接下来 修改代码 使其运行在OpenMCIM</p>
+</li>
+<li>
+<p>修改 <code>dist/cluster.js</code> 文件, 找到</p>
+</li>
+</ol>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line"><span class="token keyword">const</span> whiteListDomain <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'localhost'</span><span class="token punctuation">,</span> <span class="token string">'bangbang93.com'</span><span class="token punctuation">]</span><span class="token punctuation">;</span></span>
+<span class="line"></span></code></pre>
+</div><p>修改为</p>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line"><span class="token keyword">const</span> whiteListDomain <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'localhost'</span><span class="token punctuation">,</span> <span class="token string">'bangbang93.com'</span><span class="token punctuation">,</span><span class="token string">'files.mcimirror.top'</span><span class="token punctuation">]</span><span class="token punctuation">;</span></span>
+<span class="line"></span></code></pre>
+</div><h4>设置参数</h4>
+<p>在项目根目录创建一个文件, 名为 <code>.env</code></p>
+<p>写入如下内容</p>
+<div class="language-env" data-highlighter="prismjs" data-ext="env" data-title="env"><pre><code><span class="line">CLUSTER_ID=你的CLUSTER_ID</span>
+<span class="line">CLUSTER_SECRET=你的CLUSTER_SECRET</span>
+<span class="line">CLUSTER_PORT=对外访问端口</span>
+<span class="line">CLUSTER_BMCLAPI=https://files.mcimirror.top</span>
+<span class="line"></span></code></pre>
+</div><p>CLUSTER_ID 和 CLUSTER_SECRET 请联系管理员获取</p>
+<p>如果配置无误的话, 运行程序, 就会开始拉取文件, 拉取完成后就会开始等待服务器分发请求了</p>
+<details class="hint-container details"><summary>这是一个简短的修改部署视频</summary>
+</details>
+<h2>Node-OpenMcim</h2>
+<h3>使用Docker</h3>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token punctuation">\</span></span>
+<span class="line"><span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_ID</span><span class="token operator">=</span><span class="token variable">${CLUSTER_ID}</span> <span class="token punctuation">\</span></span>
+<span class="line"><span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_SECRET</span><span class="token operator">=</span><span class="token variable">${CLUSTER_SECRET}</span> <span class="token punctuation">\</span></span>
+<span class="line"><span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_PUBLIC_PORT</span><span class="token operator">=</span><span class="token variable">${CLUSTER_PORT}</span> <span class="token punctuation">\</span></span>
+<span class="line"><span class="token parameter variable">-e</span> <span class="token assign-left variable">TZ</span><span class="token operator">=</span>Asia/Shanghai <span class="token punctuation">\</span></span>
+<span class="line"><span class="token parameter variable">-v</span> /data/mcim:/opt/mcim <span class="token punctuation">\</span></span>
+<span class="line"><span class="token parameter variable">-p</span> <span class="token variable">${CLUSTER_PORT}</span><span class="token builtin class-name">:</span><span class="token variable">${CLUSTER_PORT}</span> <span class="token punctuation">\</span></span>
+<span class="line"><span class="token parameter variable">--restart</span> unless-stop <span class="token punctuation">\</span></span>
+<span class="line"><span class="token parameter variable">--name</span> mcim <span class="token punctuation">\</span></span>
+<span class="line">zerowolf233/mcim</span>
+<span class="line"></span></code></pre>
+</div><h3>从源码安装</h3>
+<h4>环境</h4>
+<ul>
+<li>Node.js 18 以上</li>
+<li>Windows/MacOS/Linux</li>
+<li>x86/arm 均可 (需支持Nodejs)</li>
+</ul>
+<h4>设置环境</h4>
+<ol>
+<li>去 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener noreferrer">https://nodejs.org/zh-cn/</a> 下载LTS版本的nodejs并安装</li>
+<li>Clone 并安装依赖</li>
+</ol>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token function">git</span> clone https://github.com/ZeroWolf233/node-openmcim</span>
+<span class="line"><span class="token builtin class-name">cd</span> node-openmcim </span>
+<span class="line"><span class="token comment">## 安装依赖</span></span>
+<span class="line"><span class="token function">npm</span> ci</span>
+<span class="line"><span class="token comment">## 编译</span></span>
+<span class="line"><span class="token function">npm</span> run build</span>
+<span class="line"><span class="token comment">## 运行</span></span>
+<span class="line"><span class="token function">node</span> dist/index.js</span>
+<span class="line"></span></code></pre>
+</div><ol start="3">
+<li>如果你看到了 <code>CLUSTER_ID is not set</code> 的报错, 说明一切正常, 该设置参数了</li>
+</ol>
+<h4>设置参数</h4>
+<p>在项目根目录创建一个文件, 名为 <code>.env</code></p>
+<p>写入如下内容</p>
+<div class="language-env" data-highlighter="prismjs" data-ext="env" data-title="env"><pre><code><span class="line">CLUSTER_ID=你的节点ID</span>
+<span class="line">CLUSTER_SECRET=你的节点密钥</span>
+<span class="line">CLUSTER_PUBLIC_PORT=你的对外开放端口（用户请求时访问）</span>
+<span class="line">CLUSTER_PORT=你的本地开放端口</span>
+<span class="line">CLUSTER_STORAGE=存储类型</span>
+<span class="line">CLUSTER_STORAGE_OPTIONS=存储配置项（请参考上方Alist配置）</span>
+<span class="line"></span></code></pre>
+</div><p>如果配置无误的话, 运行程序, 就会开始拉取文件, 拉取完成后就会开始等待服务器分发请求了！</p>
+<h2>反向代理节点</h2>
+<h3>Windows 部署</h3>
+<ol>
+<li>
+<p>前往 <a href="https://www.pysio.tech/zh-CN/MCIM/" target="_blank" rel="noopener noreferrer">https://www.pysio.tech/zh-CN/MCIM/</a> 下载最新的MCIM反向代理节点</p>
+</li>
+<li>
+<p>解压文件</p>
+</li>
+<li>
+<p>修改.env文件 填写如下内容</p>
+</li>
+</ol>
+<div class="language-env" data-highlighter="prismjs" data-ext="env" data-title="env"><pre><code><span class="line">CLUSTER_ID=你的节点ID</span>
+<span class="line">CLUSTER_SECRET=你的节点密钥</span>
+<span class="line">CLUSTER_PUBLIC_PORT=你的对外开放端口（用户请求时访问）</span>
+<span class="line">CLUSTER_PORT=你的本地开放端口</span>
+<span class="line"></span></code></pre>
+</div><ol start="4">
+<li>运行<code>run.ps1</code> 上线</li>
+</ol>
+<h3>Linux 部署</h3>
+<h5>环境</h5>
+<ul>
+<li>Node.js 18 以上</li>
+<li>Windows/MacOS/Linux</li>
+<li>x86/arm 均可 (需支持Nodejs)</li>
+</ul>
+<h5>部署</h5>
+<ol>
+<li>
+<p>前往 <a href="https://www.pysio.tech/zh-CN/MCIM/" target="_blank" rel="noopener noreferrer">https://www.pysio.tech/zh-CN/MCIM/</a> 下载最新的MCIM反向代理节点</p>
+</li>
+<li>
+<p>解压文件</p>
+</li>
+<li>
+<p>执行如下命令获取依赖包</p>
+</li>
+</ol>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token function">npm</span> <span class="token function">install</span></span>
+<span class="line"></span></code></pre>
+</div><ol start="4">
+<li>修改.env文件 填写如下内容</li>
+</ol>
+<div class="language-env" data-highlighter="prismjs" data-ext="env" data-title="env"><pre><code><span class="line">CLUSTER_ID=你的节点ID</span>
+<span class="line">CLUSTER_SECRET=你的节点密钥</span>
+<span class="line">CLUSTER_PUBLIC_PORT=你的对外开放端口（用户请求时访问）</span>
+<span class="line">CLUSTER_PORT=你的本地开放端口</span>
+<span class="line"></span></code></pre>
+</div><ol start="5">
+<li>运行<code>node dist/index.js</code>上线</li>
+</ol>
+<h2>特别鸣谢</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>命运2 年7</title>
+      <link>https://www.pysio.online/posts/daily/Destiny%20Year7.html</link>
+      <guid>https://www.pysio.online/posts/daily/Destiny%20Year7.html</guid>
+      <source url="https://www.pysio.online/rss.xml">命运2 年7</source>
+      <description>这几天打年7打的脑子疼，凯德活了 但是没有完全活，最后还是死了。 8号凌晨1点开的Dayone 打了，6小时才过老一 直接向见证者投降，太难了。 截至发文时，目前只有1队通关 不多说了 放点截图</description>
+      <category>daily</category>
+      <pubDate>Sun, 09 Jun 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>这几天打年7打的脑子疼，凯德活了 但是没有完全活，最后还是死了。</p>
+<p>8号凌晨1点开的Dayone 打了，6小时才过老一 直接向见证者投降，太难了。</p>
+<p>截至发文时，目前只有1队通关</p>
+<p>不多说了 放点截图</p>
+<!-- more -->
+<p><img src="https://files.pysio.online/files/Pysio-Imges/20241006003452.png" alt="" loading="lazy">
+<img src="https://files.pysio.online/files/Pysio-Imges/20241006003529.png" alt="" loading="lazy">
+<img src="https://files.pysio.online/files/Pysio-Imges/20241006003549.png" alt="" loading="lazy">
+<img src="https://files.pysio.online/files/Pysio-Imges/20241006003612.png" alt="" loading="lazy">
+<img src="https://files.pysio.online/files/Pysio-Imges/20241006003632.png" alt="" loading="lazy"></p>
+]]></content:encoded>
+      <enclosure url="https://files.pysio.online/files/Pysio-Imges/20241006003452.png" type="image/png"/>
+    </item>
+    <item>
+      <title>有关于自托管Gitlab被拦截这件事</title>
+      <link>https://www.pysio.online/posts/daily/Gitlab%20Pollution.html</link>
+      <guid>https://www.pysio.online/posts/daily/Gitlab%20Pollution.html</guid>
+      <source url="https://www.pysio.online/rss.xml">有关于自托管Gitlab被拦截这件事</source>
+      <description>我今天闲的一Ping 我就在纳闷了，为啥会解析到这个IP上，直到我一访问。 Uh 这多少是有点离谱了。我也不知我犯了啥天条能被扔进去。。。。 先看看吧，如果被大范围屏蔽的话，还得考虑咋申诉。。。</description>
+      <pubDate>Mon, 18 Dec 2023 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>我今天闲的一Ping
+<img src="https://files.pysio.online/files/Pysio-Imges/20241006004058.png" alt="" loading="lazy"></p>
+<p>我就在纳闷了，为啥会解析到这个<a href="106.74.25.198">IP</a>上，直到我一访问。
+<img src="https://files.pysio.online/files/Pysio-Imges/20241006004137.png" alt="" loading="lazy"></p>
+<p>Uh 这多少是有点离谱了。我也不知我犯了啥天条能被扔进去。。。。</p>
+<p>先看看吧，如果被大范围屏蔽的话，还得考虑咋申诉。。。</p>
+]]></content:encoded>
+      <enclosure url="https://files.pysio.online/files/Pysio-Imges/20241006004058.png" type="image/png"/>
+    </item>
+    <item>
+      <title>公共DNS/DOH服务</title>
+      <link>https://www.pysio.online/posts/develop/Public%20DNS%20DOH.html</link>
+      <guid>https://www.pysio.online/posts/develop/Public%20DNS%20DOH.html</guid>
+      <source url="https://www.pysio.online/rss.xml">公共DNS/DOH服务</source>
+      <description>注意 如果你滥用DNS 则可能导致你的IP地址被封禁</description>
+      <category>develop</category>
+      <pubDate>Sun, 19 May 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>注意 如果你滥用DNS 则可能导致你的IP地址被封禁</p>
+<div class="language-text" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line"></span>
+<span class="line">DNS Server ：101.43.154.197</span>
+<span class="line"></span>
+<span class="line">DoH（中国大陆）: https://doh.pysio.online/dns-query</span>
+<span class="line"></span>
+<span class="line">DoT（中国大陆）：tls://doh.pysio.online:853</span>
+<span class="line"></span>
+<span class="line">DoH (非中国大陆 Cloudflare): https://dohk.pysio.online/dns-query</span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+    </item>
+    <item>
+      <title>1panel面板配置Redis Object Cache插件</title>
+      <link>https://www.pysio.online/posts/develop/1Panel%20Redis%20Object%20Cache.html</link>
+      <guid>https://www.pysio.online/posts/develop/1Panel%20Redis%20Object%20Cache.html</guid>
+      <source url="https://www.pysio.online/rss.xml">1panel面板配置Redis Object Cache插件</source>
+      <description>第一步 获取Redis的密码 [应用商店] -&amp;gt; [已安装] -&amp;gt; [Redis 参数] 就可以看见密码了 把密码记下来 第二步 修改object-cache.php文件 在网站根目录 wp-content/plugins/redis-cache/includes 下 可以找到 object-cache.php 文件 打开并编辑 添加或修改以下部分 其...</description>
+      <category>develop</category>
+      <pubDate>Sat, 14 Sep 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>第一步 获取Redis的密码</h2>
+<p><img src="https://files.pysio.online/files/Pysio-Imges/20241005215409.png" alt="" loading="lazy">
+[应用商店] -&gt; [已安装] -&gt; [Redis 参数] 就可以看见密码了 把密码记下来</p>
+<h2>第二步 修改object-cache.php文件</h2>
+<p>在网站根目录 <code>wp-content/plugins/redis-cache/includes</code> 下 可以找到 <code>object-cache.php</code> 文件
+打开并编辑<br>
+<img src="https://files.pysio.online/files/Pysio-Imges/20241005215426.png" alt="" loading="lazy"><br>
+添加或修改以下部分 其中PassWord是你刚刚获取的Redis密码</p>
+<div class="language-php" data-highlighter="prismjs" data-ext="php" data-title="php"><pre><code><span class="line"><span class="token variable">$parameters</span> <span class="token operator">=</span> <span class="token punctuation">[</span></span>
+<span class="line">   <span class="token string single-quoted-string">'scheme'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'tcp'</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'host'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'redis'</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'port'</span> <span class="token operator">=&gt;</span> <span class="token number">6379</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'database'</span> <span class="token operator">=&gt;</span> <span class="token number">0</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'password'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'你的Redis密码'</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'timeout'</span> <span class="token operator">=&gt;</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'read_timeout'</span> <span class="token operator">=&gt;</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'retry_interval'</span> <span class="token operator">=&gt;</span> <span class="token constant">null</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'persistent'</span> <span class="token operator">=&gt;</span> <span class="token constant boolean">false</span><span class="token punctuation">,</span></span>
+<span class="line"><span class="token punctuation">]</span><span class="token punctuation">;</span></span>
+<span class="line"></span></code></pre>
+</div><h2>第三步 修改wp-config.php文件</h2>
+<p>在网站根目录找到wp-config.php文件 在末尾添加</p>
+<div class="language-php" data-highlighter="prismjs" data-ext="php" data-title="php"><pre><code><span class="line"><span class="token doc-comment comment">/** Redis Cache */</span></span>
+<span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_CACHE_KEY_SALT'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'001'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_REDIS_SCHEME'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'tcp'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_REDIS_HOST'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'redis'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_REDIS_PORT'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'6379'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_REDIS_DATABASE'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_REDIS_PASSWORD'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'你的Redis密码'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>最后 启用插件</h3>
+<p>现在启用你的Redis Object Cache插件 他现在应该正常工作了</p>
+]]></content:encoded>
+      <enclosure url="https://files.pysio.online/files/Pysio-Imges/20241005215409.png" type="image/png"/>
+    </item>
+    <item>
+      <title>在PVE为OpenSuse启用xterm.js控制台</title>
+      <link>https://www.pysio.online/posts/develop/Enabling%20the%20xterm.js%20console%20for%20OpenSuse%20in%20PVE%20.html</link>
+      <guid>https://www.pysio.online/posts/develop/Enabling%20the%20xterm.js%20console%20for%20OpenSuse%20in%20PVE%20.html</guid>
+      <source url="https://www.pysio.online/rss.xml">在PVE为OpenSuse启用xterm.js控制台</source>
+      <description>关闭 VM，并给 VM 添加一个 serial port 在 PVE Host 中用 qm 命令建立 serial port，假设我的 VM ID 是 100 接着重开 VM，用 dmesg 确认是否有 ttyS 出現 OpenSuse修改 grub 配置 /etc/default/grub 的 GRUB_CMDLINE_LINUX 参数，添加 更新G...</description>
+      <category>develop</category>
+      <pubDate>Fri, 13 Sep 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>关闭 VM，并给 VM 添加一个 serial port</h2>
+<p>在 PVE Host 中用 qm 命令建立 serial port，假设我的 VM ID 是 100</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line">qm <span class="token builtin class-name">set</span> <span class="token number">100</span> <span class="token parameter variable">-serial0</span> socket</span>
+<span class="line"></span></code></pre>
+</div><p>接着重开 VM，用 dmesg 确认是否有 ttyS 出現</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token function">dmesg</span> <span class="token operator">|</span> <span class="token function">grep</span> ttyS</span>
+<span class="line"></span></code></pre>
+</div><h2>OpenSuse修改 grub 配置</h2>
+<p><code>/etc/default/grub</code> 的 <code>GRUB_CMDLINE_LINUX</code> 参数，添加</p>
+<div class="language-text" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line">console=tty0 console=ttyS0,115200</span>
+<span class="line"></span></code></pre>
+</div><p>更新Grub配置</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line">grub2-mkconfig <span class="token parameter variable">--output</span><span class="token operator">=</span>/boot/grub2/grub.cfg</span>
+<span class="line"></span></code></pre>
+</div><p>重启OpenSuse虚拟机 检查 xterm.js 是否可用</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>去除 PVE “无有效的订阅” 弹窗</title>
+      <link>https://www.pysio.online/posts/develop/Remove%20Pve%20No%20valid%20subscription.html</link>
+      <guid>https://www.pysio.online/posts/develop/Remove%20Pve%20No%20valid%20subscription.html</guid>
+      <source url="https://www.pysio.online/rss.xml">去除 PVE “无有效的订阅” 弹窗</source>
+      <description>修改 /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js 将 修改为 执行以下命令 重启PveProxy即可去除弹窗</description>
+      <category>develop</category>
+      <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>修改 <code>/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js</code> 将</p>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line">Ext<span class="token punctuation">.</span>Msg<span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">{</span></span>
+<span class="line"></span></code></pre>
+</div><p>修改为</p>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line">Ext<span class="token punctuation">.</span>Msg<span class="token punctuation">.</span><span class="token function">noshow</span><span class="token punctuation">(</span><span class="token punctuation">{</span></span>
+<span class="line"></span></code></pre>
+</div><p>执行以下命令 重启PveProxy即可去除弹窗</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line">systemctl restart pveproxy</span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+    </item>
+    <item>
+      <title>OpenBmclapi</title>
+      <link>https://www.pysio.online/posts/daily/OpenBmclapi.html</link>
+      <guid>https://www.pysio.online/posts/daily/OpenBmclapi.html</guid>
+      <source url="https://www.pysio.online/rss.xml">OpenBmclapi</source>
+      <description>搭建这玩意也是一时兴起，想想也该给免费的镜像服务贡献点自己的力量。 网盘节点地址：https://65d480a1f25ffe347bdf6820.openbmclapi.933.moe/</description>
+      <category>daily</category>
+      <pubDate>Wed, 27 Mar 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>搭建这玩意也是一时兴起，想想也该给免费的镜像服务贡献点自己的力量。</p>
+<p>网盘节点地址：https://65d480a1f25ffe347bdf6820.openbmclapi.933.moe/</p>
+<!-- more -->
+<figure><img src="https://files.pysio.online/files/Pysio-Imges/20241005133723.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://files.pysio.online/files/Pysio-Imges/20241005133723.png" type="image/png"/>
+    </item>
+    <item>
+      <title>本地手动合并Github上的Pull requests</title>
+      <link>https://www.pysio.online/posts/develop/Manual%20merge%20Pull%20requests.html</link>
+      <guid>https://www.pysio.online/posts/develop/Manual%20merge%20Pull%20requests.html</guid>
+      <source url="https://www.pysio.online/rss.xml">本地手动合并Github上的Pull requests</source>
+      <description>首先 通过命令添加远程的仓库信息 仓库添加成功后 通过 git fetch [远程仓库名称] 把仓库拉到本地 最后通过 merge 或者 cherry-pick 合并整个分支或者某个具体的提交 当我们合并完成之后，清理远程仓库的信息</description>
+      <category>develop</category>
+      <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>首先 通过命令添加远程的仓库信息</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token function">git</span> remote <span class="token function">add</span> <span class="token punctuation">[</span>远程仓库名称<span class="token punctuation">]</span> <span class="token punctuation">[</span>远程仓库地址<span class="token punctuation">]</span> </span>
+<span class="line"></span></code></pre>
+</div><p>仓库添加成功后 通过 <code>git fetch [远程仓库名称]</code> 把仓库拉到本地</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line">❯ <span class="token function">git</span> fetch pr2</span>
+<span class="line">remote: Enumerating objects: <span class="token number">26</span>, done.</span>
+<span class="line">remote: Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">26</span>/26<span class="token punctuation">)</span>, done.</span>
+<span class="line">remote: Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">9</span>/9<span class="token punctuation">)</span>, done.</span>
+<span class="line">remote: Total <span class="token number">18</span> <span class="token punctuation">(</span>delta <span class="token number">8</span><span class="token punctuation">)</span>, reused <span class="token number">17</span> <span class="token punctuation">(</span>delta <span class="token number">7</span><span class="token punctuation">)</span>, pack-reused <span class="token number">0</span> <span class="token punctuation">(</span>from <span class="token number">0</span><span class="token punctuation">)</span></span>
+<span class="line">展开对象中: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">18</span>/18<span class="token punctuation">)</span>, <span class="token number">3.26</span> KiB <span class="token operator">|</span> <span class="token number">371.00</span> KiB/s, 完成.</span>
+<span class="line">来自 github.com:pysio2007/SkyBlock-CN-WIKI</span>
+<span class="line"> * <span class="token punctuation">[</span>新分支<span class="token punctuation">]</span>          main       -<span class="token operator">&gt;</span> pr2/main</span>
+<span class="line"></span></code></pre>
+</div><p>最后通过 <code>merge</code> 或者 <code>cherry-pick</code> 合并整个分支或者某个具体的提交</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token comment"># 合并具体的 commitid</span></span>
+<span class="line">❯ <span class="token function">git</span> cherry-pick <span class="token punctuation">[</span>Commitid<span class="token punctuation">]</span></span>
+<span class="line"></span>
+<span class="line"><span class="token comment"># 合并具体的分支</span></span>
+<span class="line">❯ <span class="token function">git</span> merge <span class="token punctuation">[</span>远程仓库名称<span class="token punctuation">]</span>/<span class="token punctuation">[</span>分支名称<span class="token punctuation">]</span></span>
+<span class="line"></span></code></pre>
+</div><p>当我们合并完成之后，清理远程仓库的信息</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token function">git</span> remote <span class="token function">rm</span> <span class="token punctuation">[</span>远程仓库名称<span class="token punctuation">]</span></span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+    </item>
+  </channel>
+</rss>
