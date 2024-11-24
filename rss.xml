@@ -6,13 +6,35 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 24 Nov 2024 02:27:02 GMT</pubDate>
-    <lastBuildDate>Sun, 24 Nov 2024 02:27:02 GMT</lastBuildDate>
+    <pubDate>Sun, 24 Nov 2024 03:51:34 GMT</pubDate>
+    <lastBuildDate>Sun, 24 Nov 2024 03:51:34 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>develop</category>
     <category>daily</category>
     <category>NekoXii</category>
+    <item>
+      <title>博客目前的架构</title>
+      <link>https://www.pysio.online/posts/develop/Blog%20Architecture.html</link>
+      <guid>https://www.pysio.online/posts/develop/Blog%20Architecture.html</guid>
+      <source url="https://www.pysio.online/rss.xml">博客目前的架构</source>
+      <description>主站框架 使用框架 Vuepress-Theme-Hope 图片/头像/字体 分发 所有文件使用 Open93AtHome 分发 字体使用 Font Awesome 添加 自定义图标 图片存放在仓库 pysio2007/Imges 头像使用 Github Actions 自动获取并更新 仓库 pysio2007/Avatar-To-Img 分析脚本 C...</description>
+      <category>develop</category>
+      <pubDate>Sun, 24 Nov 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>主站框架</h2>
+<p>使用框架 <a href="https://github.com/vuepress-theme-hope/vuepress-theme-hope/" target="_blank" rel="noopener noreferrer">Vuepress-Theme-Hope</a></p>
+<h2>图片/头像/字体 分发</h2>
+<p>所有文件使用 <a href="https://github.com/SaltWood-Studio/Open93AtHome-V3" target="_blank" rel="noopener noreferrer">Open93AtHome</a> 分发</p>
+<p>字体使用 <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">Font Awesome</a> 添加 <a href="https://www.pysio.online/posts/develop/icon.html" target="_blank" rel="noopener noreferrer">自定义图标</a></p>
+<p>图片存放在仓库 <a href="https://github.com/pysio2007/Imges" target="_blank" rel="noopener noreferrer">pysio2007/Imges</a></p>
+<p>头像使用 Github Actions 自动获取并更新 仓库 <a href="https://github.com/pysio2007/avatar-to-img" target="_blank" rel="noopener noreferrer">pysio2007/Avatar-To-Img</a></p>
+<h2>分析脚本</h2>
+<p><a href="https://www.cloudflare.com/" target="_blank" rel="noopener noreferrer">Cloudflare Browser Insights</a></p>
+<p><a href="https://umami.is/" target="_blank" rel="noopener noreferrer">Umami</a></p>
+<h2>网页托管和分发</h2>
+<p>目前 网站部署在2个地方 分别是 阿里云 和 <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener noreferrer">Cloudflare Pages</a> 所有流量均由 Cloudflare 分发</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>随机图片API</title>
       <link>https://www.pysio.online/posts/develop/randomimage.html</link>
@@ -424,7 +446,7 @@
       <pubDate>Mon, 18 Dec 2023 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>我今天闲的一Ping
 <img src="https://files.pysio.online/files/Pysio-Imges/20241006004058.png" alt="" loading="lazy"></p>
-<p>我就在纳闷了，为啥会解析到这个<a href="106.74.25.198">IP</a>上，直到我一访问。
+<p>我就在纳闷了，为啥会解析到这个<a href="https://106.74.25.198/" target="_blank" rel="noopener noreferrer">IP</a>上，直到我一访问。
 <img src="https://files.pysio.online/files/Pysio-Imges/20241006004137.png" alt="" loading="lazy"></p>
 <p>Uh 这多少是有点离谱了。我也不知我犯了啥天条能被扔进去。。。。</p>
 <p>先看看吧，如果被大范围屏蔽的话，还得考虑咋申诉。。。</p>
