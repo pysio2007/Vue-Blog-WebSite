@@ -6,13 +6,35 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Fri, 13 Dec 2024 20:47:50 GMT</pubDate>
-    <lastBuildDate>Fri, 13 Dec 2024 20:47:50 GMT</lastBuildDate>
+    <pubDate>Sun, 15 Dec 2024 00:13:39 GMT</pubDate>
+    <lastBuildDate>Sun, 15 Dec 2024 00:13:39 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
-    <category>develop</category>
     <category>daily</category>
+    <category>develop</category>
     <category>NekoXii</category>
+    <item>
+      <title>GTNH笔记本</title>
+      <link>https://www.pysio.online/posts/daily/GTNH.html</link>
+      <guid>https://www.pysio.online/posts/daily/GTNH.html</guid>
+      <source url="https://www.pysio.online/rss.xml">GTNH笔记本</source>
+      <description>相关信息 这里存放着我游玩GTNH时的笔记本，记录了一些有用的配方和信息。 合金 耐酸铝 (Alumite) 熔炼 5 个铝锭 熔炼 2 个钢锭 熔炼 1 个黑曜石 得到 2 个耐酸铝</description>
+      <category>daily</category>
+      <pubDate>Sat, 14 Dec 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<div class="hint-container info">
+<p class="hint-container-title">相关信息</p>
+<p>这里存放着我游玩GTNH时的笔记本，记录了一些有用的配方和信息。</p>
+</div>
+<h2>合金</h2>
+<h3>耐酸铝 (Alumite)</h3>
+<ul>
+<li>熔炼 5 个铝锭</li>
+<li>熔炼 2 个钢锭</li>
+<li>熔炼 1 个黑曜石</li>
+</ul>
+<p>得到 2 个耐酸铝</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>博客目前的架构</title>
       <link>https://www.pysio.online/posts/develop/Blog%20Architecture.html</link>
@@ -88,6 +110,9 @@
 <span class="line"></span></code></pre>
 </div><h3>Visual Studio Code <i class="fa-kit fa-vscode"></i></h3>
 <div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-vscode"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>Minecraft Creeper <i class="fa-kit fa-creeper"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js" data-title="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-creeper"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div>]]></content:encoded>
     </item>
@@ -232,6 +257,7 @@
       <guid>https://www.pysio.online/posts/daily/PWA.html</guid>
       <source url="https://www.pysio.online/rss.xml">有关于本博客的PWA</source>
       <description>相关信息 渐进式网络应用程序（英语：Progressive Web Apps，简称：PWA）是一种普通网页或网站架构起来的网络应用程序，但它可以以传统应用程序或原生移动应用程序形式展示给用户。这种应用程序形态视图将目前最为现代化的浏览器提供的功能与移动设备的体验优势相结合。</description>
+      <category>daily</category>
       <pubDate>Wed, 09 Oct 2024 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<!-- markdownlint-disable MD028 -->
 <!-- > [!warning] 
@@ -443,14 +469,18 @@
       <link>https://www.pysio.online/posts/daily/Gitlab%20Pollution.html</link>
       <guid>https://www.pysio.online/posts/daily/Gitlab%20Pollution.html</guid>
       <source url="https://www.pysio.online/rss.xml">有关于自托管Gitlab被拦截这件事</source>
-      <description>我今天闲的一Ping 我就在纳闷了，为啥会解析到这个IP上，直到我一访问。 Uh 这多少是有点离谱了。我也不知我犯了啥天条能被扔进去。。。。 先看看吧，如果被大范围屏蔽的话，还得考虑咋申诉。。。</description>
+      <description>我今天闲的一Ping 我就在纳闷了，为啥会解析到这个 IP 上，直到我一访问。 Uh 这多少是有点离谱了。我也不知我犯了啥天条能被扔进去。。。。 先看看吧，如果被大范围屏蔽的话，还得考虑咋申诉。。。 Edit 2023-12-26 : 打屏蔽当地96110申诉 让我等待 一日后 重庆96110告诉我域名加白，网站就不跳转反诈中心了</description>
+      <category>daily</category>
       <pubDate>Mon, 18 Dec 2023 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>我今天闲的一Ping
+      <content:encoded><![CDATA[<p>我今天闲的一Ping<br>
 <img src="https://files.pysio.online/files/Pysio-Imges/20241006004058.png" alt="" loading="lazy"></p>
-<p>我就在纳闷了，为啥会解析到这个<a href="https://106.74.25.198/" target="_blank" rel="noopener noreferrer">IP</a>上，直到我一访问。
+<p>我就在纳闷了，为啥会解析到这个 <a href="https://106.74.25.198/" target="_blank" rel="noopener noreferrer">IP</a> 上，直到我一访问。<br>
 <img src="https://files.pysio.online/files/Pysio-Imges/20241006004137.png" alt="" loading="lazy"></p>
 <p>Uh 这多少是有点离谱了。我也不知我犯了啥天条能被扔进去。。。。</p>
 <p>先看看吧，如果被大范围屏蔽的话，还得考虑咋申诉。。。</p>
+<h3>Edit 2023-12-26 :</h3>
+<p>打屏蔽当地96110申诉 让我等待</p>
+<p>一日后 重庆96110告诉我域名加白，网站就不跳转反诈中心了</p>
 ]]></content:encoded>
       <enclosure url="https://files.pysio.online/files/Pysio-Imges/20241006004058.png" type="image/png"/>
     </item>
