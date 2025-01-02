@@ -6,8 +6,8 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Thu, 02 Jan 2025 07:57:09 GMT</pubDate>
-    <lastBuildDate>Thu, 02 Jan 2025 07:57:09 GMT</lastBuildDate>
+    <pubDate>Thu, 02 Jan 2025 19:18:15 GMT</pubDate>
+    <lastBuildDate>Thu, 02 Jan 2025 19:18:15 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>develop</category>
@@ -436,11 +436,13 @@
       <link>https://www.pysio.online/posts/daily/bye2024.html</link>
       <guid>https://www.pysio.online/posts/daily/bye2024.html</guid>
       <source url="https://www.pysio.online/rss.xml">再见2024！</source>
-      <description>又到了一年一度的跨年（什么废话）的时候，又是一年做总结的时候 至于今年干了啥 uh 2号再来补写把 笑 至于现在 我先去睡觉啦！</description>
+      <description>又到了一年一度的跨年（什么废话）的时候，又是一年做总结的时候 至于今年干了啥 uh 3-10 号再来补写把 笑 至于现在 我先去睡觉啦！ EDIT: 绝对不是偷懒喵uwu (x 先放一个Github统计图在下面uwu)</description>
       <category>daily</category>
       <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>又到了一年一度的跨年（什么废话）的时候，又是一年做总结的时候</p>
-<p>至于今年干了啥 uh 2号再来补写把 笑 至于现在 我先去睡觉啦！</p>
+<p>至于今年干了啥 uh 3-10 号再来补写把 笑 至于现在 我先去睡觉啦！</p>
+<p>EDIT: 绝对不是偷懒喵uwu (x 先放一个Github统计图在下面uwu)</p>
+<!-- <GithubUserStats :users="['Pysio2007', 'stuffed-cat']" :year="2024" /> -->
 ]]></content:encoded>
     </item>
     <item>
