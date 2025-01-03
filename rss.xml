@@ -6,8 +6,8 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Fri, 03 Jan 2025 05:44:33 GMT</pubDate>
-    <lastBuildDate>Fri, 03 Jan 2025 05:44:33 GMT</lastBuildDate>
+    <pubDate>Fri, 03 Jan 2025 20:18:05 GMT</pubDate>
+    <lastBuildDate>Fri, 03 Jan 2025 20:18:05 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>develop</category>
@@ -442,7 +442,6 @@
       <content:encoded><![CDATA[<p>又到了一年一度的跨年（什么废话）的时候，又是一年做总结的时候</p>
 <p>至于今年干了啥 uh 3-10 号再来补写把 笑 至于现在 我先去睡觉啦！</p>
 <p>EDIT: 绝对不是偷懒喵uwu (x 先放一个Github统计图在下面uwu)</p>
-<!-- <GithubUserStats :users="['Pysio2007', 'stuffed-cat']" :year="2024" /> -->
 ]]></content:encoded>
     </item>
     <item>
