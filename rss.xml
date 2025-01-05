@@ -6,13 +6,27 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 05 Jan 2025 11:20:13 GMT</pubDate>
-    <lastBuildDate>Sun, 05 Jan 2025 11:20:13 GMT</lastBuildDate>
+    <pubDate>Sun, 05 Jan 2025 14:21:27 GMT</pubDate>
+    <lastBuildDate>Sun, 05 Jan 2025 14:21:27 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>develop</category>
     <category>daily</category>
     <category>NekoXii</category>
+    <item>
+      <title>新博客开坑！</title>
+      <link>https://www.pysio.online/posts/develop/NewBlog.html</link>
+      <guid>https://www.pysio.online/posts/develop/NewBlog.html</guid>
+      <source url="https://www.pysio.online/rss.xml">新博客开坑！</source>
+      <description>没错你没看错，我又闲得慌开始重构我的博客了（UWU） 目前是打算拿Next.js 写 先放一张超级无敌早期的网页 QWQ ( 早期网页早期网页</description>
+      <category>develop</category>
+      <pubDate>Sun, 05 Jan 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>没错你没看错，我又闲得慌开始重构我的博客了（UWU）</p>
+<p>目前是打算拿Next.js 写 先放一张超级无敌早期的网页 QWQ (</p>
+<figure><img src="https://files.pysio.online/files/Pysio-Imges/73dc30f2d6ec844cda13e6aaa3ca03f2.png" alt="早期网页" tabindex="0" loading="lazy"><figcaption>早期网页</figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://files.pysio.online/files/Pysio-Imges/73dc30f2d6ec844cda13e6aaa3ca03f2.png" type="image/png"/>
+    </item>
     <item>
       <title>博客所有的API</title>
       <link>https://www.pysio.online/posts/develop/api.html</link>
