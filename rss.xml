@@ -6,8 +6,8 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Tue, 07 Jan 2025 08:23:16 GMT</pubDate>
-    <lastBuildDate>Tue, 07 Jan 2025 08:23:16 GMT</lastBuildDate>
+    <pubDate>Tue, 07 Jan 2025 09:04:31 GMT</pubDate>
+    <lastBuildDate>Tue, 07 Jan 2025 09:04:31 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>resource</category>
@@ -107,7 +107,7 @@
 <div class="language-text" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line">https://blogapi.pysio.online</span>
 <span class="line"></span></code></pre>
 </div><h3>API集合</h3>
-<p>您也可以直接下载JSON文件：<a href="https://www.pysio.online/blog-api-collection.json" target="_blank" rel="noopener noreferrer">下载API集合</a> 并导入 Postman 使用</p>
+<p>您也可以直接下载JSON文件：<a href="https://www.pysio.online/json/blog-api-collection.json" target="_blank" rel="noopener noreferrer">下载API集合</a> 并导入 Postman 使用</p>
 <div class="hint-container important">
 <p class="hint-container-title">重要</p>
 <p>在进行API调用时，请注意以下事项：</p>
