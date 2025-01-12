@@ -6,14 +6,80 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 12 Jan 2025 09:01:34 GMT</pubDate>
-    <lastBuildDate>Sun, 12 Jan 2025 09:01:34 GMT</lastBuildDate>
+    <pubDate>Sun, 12 Jan 2025 10:59:40 GMT</pubDate>
+    <lastBuildDate>Sun, 12 Jan 2025 10:59:40 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>resource</category>
     <category>develop</category>
     <category>daily</category>
     <category>NekoXii</category>
+    <item>
+      <title>DN42</title>
+      <link>https://www.pysio.online/dn42.html</link>
+      <guid>https://www.pysio.online/dn42.html</guid>
+      <source url="https://www.pysio.online/rss.xml">DN42</source>
+      <description>PYSIO-NetWork (AS213605) 由 Pysio 运营。 注意 本网络节点（中国大陆节点除外）不与中国大陆的服务器 Peer，以避免可能的法律问题 DN42 网络仅支持 IPv4 。目前仅支持 WireGuard。 BGP AS213605 网络仅支持 IPv6 。 Looking Glass: (http://lg.pysio.onl...</description>
+      <pubDate>Sun, 12 Jan 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>PYSIO-NetWork (<a href="https://apps.db.ripe.net/db-web-ui/lookup?source=ripe&amp;key=AS213605&amp;type=aut-num" target="_blank" rel="noopener noreferrer">AS213605</a>) 由 Pysio 运营。</p>
+<div class="hint-container warning">
+<p class="hint-container-title">注意</p>
+<p>本网络节点（中国大陆节点除外）不与中国大陆的服务器 Peer，以避免可能的法律问题</p>
+</div>
+<p>DN42 网络仅支持 IPv4 。目前仅支持 WireGuard。</p>
+<p>BGP AS213605 网络仅支持 IPv6 。</p>
+<p>Looking Glass: (http://lg.pysio.online/)[http://lg.pysio.online/]</p>
+<h2>前缀</h2>
+<h3>DN42 网络</h3>
+<div class="language-text" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line">IPv4: 172.20.183.0/27</span>
+<span class="line"></span></code></pre>
+</div><h3>BGP互联网</h3>
+<div class="language-text" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line">IPv6: 2a14:67c1:a020::/44</span>
+<span class="line"></span></code></pre>
+</div><h2>Peering</h2>
+<p>目前 PYSIO-NetWork 开放 Peering，您可以通过建立 WireGuard 隧道与我 Peering。</p>
+<p>请将以下信息通过电子邮件发送至 team@pysio.online 或 新建一个<a href="https://github.com/pysio2007/Vue-blog/issues/new/choose" target="_blank" rel="noopener noreferrer">Github Issues</a></p>
+<p>我会在七天左右配置好并回复邮件/Issues。</p>
+<div class="language-yaml" data-highlighter="prismjs" data-ext="yml" data-title="yml"><pre><code><span class="line"><span class="token key atrule">ASN</span><span class="token punctuation">:</span> 424242xxxx</span>
+<span class="line"><span class="token key atrule">Public IP</span><span class="token punctuation">:</span> x.x.x.x (使用 IPV4)</span>
+<span class="line"><span class="token key atrule">DN42 IPv4</span><span class="token punctuation">:</span></span>
+<span class="line"><span class="token key atrule">Server</span><span class="token punctuation">:</span> 你的服务器名称</span>
+<span class="line"><span class="token key atrule">WireGuard Public Key</span><span class="token punctuation">:</span></span>
+<span class="line"><span class="token key atrule">WireGuard Listen Port</span><span class="token punctuation">:</span> <span class="token number">13605</span></span>
+<span class="line"></span></code></pre>
+</div><h2>服务器列表</h2>
+<h3>SG新加坡</h3>
+<ul>
+<li>
+<p>WireGuard 公钥：hIvaNhslwKskpJRYogahHaZJuCh5VMPm1wLwpvpYFkg=</p>
+</li>
+<li>
+<p>端点： dn42.pysio.online:&lt;您 ASN 的最后五位数字&gt;</p>
+</li>
+<li>
+<p>公共 IP： dn42.pysio.online / 43.159.51.252</p>
+</li>
+<li>
+<p>DN42 IPv4： 172.20.183.1</p>
+</li>
+</ul>
+<h3>中国成都电信</h3>
+<ul>
+<li>
+<p>WireGuard 公钥：ViTlLbeCvEwYehAF6WbI7eekghVrkLoTbuhwzk0g0C8=</p>
+</li>
+<li>
+<p>端点： home.pysio.online:&lt;您 ASN 的最后五位数字&gt;</p>
+</li>
+<li>
+<p>公共 IP： home.pysio.online (DDNS)</p>
+</li>
+<li>
+<p>DN42 IPv4： 172.20.183.2</p>
+</li>
+</ul>
+]]></content:encoded>
+    </item>
     <item>
       <title>资源分享: 关于我转生变成史莱姆这档事小说</title>
       <link>https://www.pysio.online/posts/resource/ThatTimeIGotReincarnatedasaSlime.html</link>
