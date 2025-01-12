@@ -6,8 +6,8 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 12 Jan 2025 10:59:40 GMT</pubDate>
-    <lastBuildDate>Sun, 12 Jan 2025 10:59:40 GMT</lastBuildDate>
+    <pubDate>Sun, 12 Jan 2025 11:52:31 GMT</pubDate>
+    <lastBuildDate>Sun, 12 Jan 2025 11:52:31 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>resource</category>
@@ -19,7 +19,7 @@
       <link>https://www.pysio.online/dn42.html</link>
       <guid>https://www.pysio.online/dn42.html</guid>
       <source url="https://www.pysio.online/rss.xml">DN42</source>
-      <description>PYSIO-NetWork (AS213605) 由 Pysio 运营。 注意 本网络节点（中国大陆节点除外）不与中国大陆的服务器 Peer，以避免可能的法律问题 DN42 网络仅支持 IPv4 。目前仅支持 WireGuard。 BGP AS213605 网络仅支持 IPv6 。 Looking Glass: (http://lg.pysio.onl...</description>
+      <description>PYSIO-NetWork (AS213605) 由 Pysio 运营。 注意 本网络节点（中国大陆节点除外）不与中国大陆的服务器 Peer，以避免可能的法律问题 DN42 网络仅支持 IPv4 。目前仅支持 WireGuard。 BGP AS213605 网络仅支持 IPv6 。 Looking Glass: http://lg.pysio.onli...</description>
       <pubDate>Sun, 12 Jan 2025 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>PYSIO-NetWork (<a href="https://apps.db.ripe.net/db-web-ui/lookup?source=ripe&amp;key=AS213605&amp;type=aut-num" target="_blank" rel="noopener noreferrer">AS213605</a>) 由 Pysio 运营。</p>
 <div class="hint-container warning">
@@ -28,7 +28,7 @@
 </div>
 <p>DN42 网络仅支持 IPv4 。目前仅支持 WireGuard。</p>
 <p>BGP AS213605 网络仅支持 IPv6 。</p>
-<p>Looking Glass: (http://lg.pysio.online/)[http://lg.pysio.online/]</p>
+<p>Looking Glass: <a href="http://lg.pysio.online/" target="_blank" rel="noopener noreferrer">http://lg.pysio.online/</a></p>
 <h2>前缀</h2>
 <h3>DN42 网络</h3>
 <div class="language-text" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line">IPv4: 172.20.183.0/27</span>
