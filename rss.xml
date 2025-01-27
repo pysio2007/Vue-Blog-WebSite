@@ -6,14 +6,29 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Sat, 25 Jan 2025 14:02:17 GMT</pubDate>
-    <lastBuildDate>Sat, 25 Jan 2025 14:02:17 GMT</lastBuildDate>
+    <pubDate>Mon, 27 Jan 2025 08:22:42 GMT</pubDate>
+    <lastBuildDate>Mon, 27 Jan 2025 08:22:42 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+    <category>daily</category>
     <category>resource</category>
     <category>develop</category>
-    <category>daily</category>
     <category>NekoXii</category>
+    <item>
+      <title>命运2 鼠标宏</title>
+      <link>https://www.pysio.online/posts/daily/Dstiny2Macro.html</link>
+      <guid>https://www.pysio.online/posts/daily/Dstiny2Macro.html</guid>
+      <source url="https://www.pysio.online/rss.xml">命运2 鼠标宏</source>
+      <description>提示 这里存放了一些常用的鼠标宏，实在不想手搓了QWQ 冰猎平地超级跳</description>
+      <category>daily</category>
+      <pubDate>Mon, 27 Jan 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<div class="hint-container tip">
+<p class="hint-container-title">提示</p>
+<p>这里存放了一些常用的鼠标宏，实在不想手搓了QWQ</p>
+</div>
+<h2>冰猎平地超级跳</h2>
+]]></content:encoded>
+    </item>
     <item>
       <title>DN42</title>
       <link>https://www.pysio.online/dn42.html</link>
