@@ -6,8 +6,8 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 29 Jan 2025 13:32:05 GMT</pubDate>
-    <lastBuildDate>Wed, 29 Jan 2025 13:32:05 GMT</lastBuildDate>
+    <pubDate>Thu, 30 Jan 2025 06:00:09 GMT</pubDate>
+    <lastBuildDate>Thu, 30 Jan 2025 06:00:09 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
@@ -176,7 +176,7 @@
       <link>https://www.pysio.online/posts/develop/api.html</link>
       <guid>https://www.pysio.online/posts/develop/api.html</guid>
       <source url="https://www.pysio.online/rss.xml">博客所有的API</source>
-      <description>通用说明 注 所有API均已部署至生产环境，请使用以下基础URL进行访问。 基础URL API集合 您也可以直接下载JSON文件：下载API集合 并导入 Postman 使用 重要 在进行API调用时，请注意以下事项： 所有请求都需要使用HTTPS协议 API可能会有速率限制 请妥善保管您的认证令牌 通用响应格式 所有JSON响应都遵循以下格式： 提示...</description>
+      <description>通用说明 注 所有API均已部署至生产环境，请使用以下基础URL进行访问。 基础URL API集合 您也可以直接下载JSON文件：下载API集合 并导入 Postman 使用 重要 在进行API调用时，请注意以下事项： 所有请求都需要使用HTTPS协议 API可能会有速率限制 请妥善保管您的认证令牌 图片存储使用 Minio 对象存储，通过 CDN 加...</description>
       <category>develop</category>
       <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<h2>通用说明</h2>
@@ -196,6 +196,7 @@
 <li>所有请求都需要使用HTTPS协议</li>
 <li>API可能会有速率限制</li>
 <li>请妥善保管您的认证令牌</li>
+<li>图片存储使用 Minio 对象存储，通过 CDN 加速访问</li>
 </ul>
 </div>
 <h3>通用响应格式</h3>
@@ -263,9 +264,21 @@
 <li><strong>请求头</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line">Authorization: Bearer {TOKEN}</span>
 <span class="line"></span></code></pre>
 </div></li>
+<li><strong>请求参数</strong>:
+<ul>
+<li><code>application</code>: 应用名称</li>
+<li><code>introduce</code>: 应用描述</li>
+<li><code>rgba</code>: 颜色值</li>
+<li><code>applicationOnline</code>: 应用状态</li>
+</ul>
+</li>
 <li><strong>响应格式</strong>: application/json</li>
 <li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json" data-title="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Heartbeat received"</span></span>
+<span class="line">  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Heartbeat received"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"application"</span><span class="token operator">:</span> <span class="token string">"MyApp"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"introduce"</span><span class="token operator">:</span> <span class="token string">"My Application Description"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"rgba"</span><span class="token operator">:</span> <span class="token string">"233,30,99,0.17"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"applicationOnline"</span><span class="token operator">:</span> <span class="token boolean">true</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
@@ -280,7 +293,11 @@
 <li><strong>响应格式</strong>: application/json</li>
 <li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json" data-title="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"alive"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"last_heartbeat"</span><span class="token operator">:</span> <span class="token number">1234567890</span></span>
+<span class="line">  <span class="token property">"last_heartbeat"</span><span class="token operator">:</span> <span class="token number">1234567890</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"application"</span><span class="token operator">:</span> <span class="token string">"MyApp"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"introduce"</span><span class="token operator">:</span> <span class="token string">"My Application Description"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"rgba"</span><span class="token operator">:</span> <span class="token string">"233,30,99,0.17"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"applicationOnline"</span><span class="token operator">:</span> <span class="token boolean">true</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
@@ -289,27 +306,24 @@
 </div></li>
 </ul>
 <h2>图片管理接口</h2>
-<div class="hint-container caution">
-<p class="hint-container-title">警告</p>
-<p>图片上传接口仅供管理员使用。
-上传的图片会自动优化为WebP格式。</p>
+<div class="hint-container important">
+<p class="hint-container-title">重要</p>
+<p>所有图片都存储在 Minio 对象存储中，通过 CDN 加速访问。
+上传的图片会自动转换为 WebP 格式以优化存储和传输。</p>
 </div>
 <h3>1. 获取随机图片</h3>
 <ul>
 <li><strong>请求路径</strong>: <code>/random_image</code></li>
 <li><strong>请求方法</strong>: GET</li>
-<li><strong>响应格式</strong>: image/webp</li>
-<li><strong>响应示例</strong>: 直接返回图片数据</li>
-<li><strong>响应头</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line">Content-Type: image/webp</span>
-<span class="line">Content-Disposition: inline; filename="{hash}.webp"</span>
-<span class="line"></span></code></pre>
-</div></li>
+<li><strong>响应</strong>: 302 重定向到 Minio 存储的图片</li>
+<li><strong>重定向格式</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
 <li><strong>错误响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json" data-title="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"No images available"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/random_image <span class="token parameter variable">-o</span> random.webp</span>
+<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token comment"># 使用 -L 参数跟随重定向</span></span>
+<span class="line"><span class="token function">curl</span> <span class="token parameter variable">-L</span> https://blogapi.pysio.online/random_image <span class="token parameter variable">-o</span> random.webp</span>
 <span class="line"></span></code></pre>
 </div></li>
 </ul>
@@ -322,17 +336,11 @@
 <li><code>hash</code>: 图片的哈希值</li>
 </ul>
 </li>
-<li><strong>响应格式</strong>: image/webp</li>
-<li><strong>响应头</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line">Content-Type: image/webp</span>
-<span class="line">Content-Disposition: inline; filename="{hash}.webp"</span>
-<span class="line"></span></code></pre>
-</div></li>
+<li><strong>响应</strong>: 302 重定向到 Minio 存储的图片</li>
+<li><strong>重定向格式</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
 <li><strong>错误响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json" data-title="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image not found"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/images/your_image_hash <span class="token parameter variable">-o</span> image.webp</span>
 <span class="line"></span></code></pre>
 </div></li>
 </ul>
@@ -345,24 +353,11 @@
 <li><code>hash</code>: 图片的哈希值</li>
 </ul>
 </li>
-<li><strong>响应格式</strong>: image/webp</li>
-<li><strong>响应头</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text" data-title="text"><pre><code><span class="line">Content-Type: image/webp</span>
-<span class="line">Content-Disposition: inline; filename="{hash}.webp"</span>
-<span class="line">Cache-Control: public, max-age=31536000</span>
-<span class="line">ETag: "{hash}"</span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>特殊响应</strong>:
-<ul>
-<li>304 Not Modified (当浏览器缓存有效时)</li>
-</ul>
-</li>
+<li><strong>响应</strong>: 302 重定向到 Minio 存储的图片</li>
+<li><strong>重定向格式</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
 <li><strong>错误响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json" data-title="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image not found"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-H</span> <span class="token string">"If-None-Match: <span class="token entity" title="\&quot;">\"</span>your_image_hash<span class="token entity" title="\&quot;">\"</span>"</span> https://blogapi.pysio.online/i/your_image_hash <span class="token parameter variable">-o</span> image.webp</span>
 <span class="line"></span></code></pre>
 </div></li>
 </ul>
@@ -382,7 +377,6 @@
 <li><strong>响应格式</strong>: application/json</li>
 <li><strong>成功响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json" data-title="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"图片的hash值"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"contentType"</span><span class="token operator">:</span> <span class="token string">"image/webp"</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"size"</span><span class="token operator">:</span> 图片大小(字节)</span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
@@ -393,7 +387,7 @@
 <span class="line"></span></code></pre>
 </div>或<div class="language-json" data-highlighter="prismjs" data-ext="json" data-title="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image already exists"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"existingHash"</span><span class="token operator">:</span> <span class="token string">"已存在图片的hash"</span></span>
+<span class="line">  <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"已存在图片的hash"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
@@ -463,8 +457,7 @@
 </li>
 <li><strong>响应格式</strong>: application/json</li>
 <li><strong>成功响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json" data-title="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Image deleted successfully"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"被删除图片的hash"</span></span>
+<span class="line">  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Image deleted successfully"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
@@ -479,7 +472,31 @@
 <span class="line"></span></code></pre>
 </div></li>
 </ul>
-<h2>Steam 状态接口</h2>
+<h3>8. 批量上传工具</h3>
+<p>提供了两种批量上传工具：</p>
+<ol>
+<li>Go 命令行工具：</li>
+</ol>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line"><span class="token comment"># 编译工具</span></span>
+<span class="line">go build <span class="token parameter variable">-o</span> uploader cmd/upload/main.go</span>
+<span class="line"></span>
+<span class="line"><span class="token comment"># 使用工具</span></span>
+<span class="line">./uploader <span class="token parameter variable">-folder</span> /path/to/images <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-api</span> https://blogapi.pysio.online <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-token</span> your_admin_token <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-concurrent</span> <span class="token number">5</span></span>
+<span class="line"></span></code></pre>
+</div><ol start="2">
+<li>PowerShell 脚本：</li>
+</ol>
+<div class="language-powershell" data-highlighter="prismjs" data-ext="powershell" data-title="powershell"><pre><code><span class="line"><span class="token comment"># 运行脚本</span></span>
+<span class="line"><span class="token punctuation">.</span>\upload<span class="token punctuation">.</span>ps1 <span class="token operator">-</span>folder <span class="token string">"C:\Images"</span> `</span>
+<span class="line">  <span class="token operator">-</span>token <span class="token string">"your_token"</span> `</span>
+<span class="line">  <span class="token operator">-</span>retries 5 `</span>
+<span class="line">  <span class="token operator">-</span>timeout 60 `</span>
+<span class="line">  <span class="token operator">-</span>api <span class="token string">"https://blogapi.pysio.online"</span></span>
+<span class="line"></span></code></pre>
+</div><h2>Steam 状态接口</h2>
 <h3>1. Steam 游戏状态</h3>
 <ul>
 <li><strong>请求路径</strong>: <code>/steam_status</code></li>
