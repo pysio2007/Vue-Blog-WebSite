@@ -6,8 +6,8 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Tue, 04 Feb 2025 09:58:51 GMT</pubDate>
-    <lastBuildDate>Tue, 04 Feb 2025 09:58:51 GMT</lastBuildDate>
+    <pubDate>Tue, 04 Feb 2025 17:46:33 GMT</pubDate>
+    <lastBuildDate>Tue, 04 Feb 2025 17:46:33 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
@@ -167,9 +167,9 @@
       <pubDate>Sun, 05 Jan 2025 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>没错你没看错，我又闲得慌开始重构我的博客了（UWU）</p>
 <p>目前是打算拿Next.js 写 先放一张超级无敌早期的网页 QWQ (</p>
-<figure><img src="https://files.pysio.online/files/Pysio-Imges/73dc30f2d6ec844cda13e6aaa3ca03f2.png" alt="早期网页" tabindex="0" loading="lazy"><figcaption>早期网页</figcaption></figure>
+<figure><img src="https://minioapi.pysio.online/pysioimages/73dc30f2d6ec844cda13e6aaa3ca03f2.png" alt="早期网页" tabindex="0" loading="lazy"><figcaption>早期网页</figcaption></figure>
 ]]></content:encoded>
-      <enclosure url="https://files.pysio.online/files/Pysio-Imges/73dc30f2d6ec844cda13e6aaa3ca03f2.png" type="image/png"/>
+      <enclosure url="https://minioapi.pysio.online/pysioimages/73dc30f2d6ec844cda13e6aaa3ca03f2.png" type="image/png"/>
     </item>
     <item>
       <title>博客所有的API</title>
@@ -784,10 +784,10 @@
 <div class="language-markdown" data-highlighter="prismjs" data-ext="md" data-title="md"><pre><code><span class="line">heroFullScreen: false</span>
 <span class="line"></span></code></pre>
 </div><p>效果：</p>
-<figure><img src="https://files.pysio.online/files/Pysio-Imges/blogdemo.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://minioapi.pysio.online/pysioimages/blogdemo.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <h3>首页项目设置</h3>
 <p>初始化是会默认生成以下内容，如果要修改为自己的项目要怎么修改呢。</p>
-<figure><img src="https://files.pysio.online/files/Pysio-Imges/defpoj.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://minioapi.pysio.online/pysioimages/defpoj.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <p>打开<code>README.md</code>，找到<code>projects</code>，编辑成你要的内容即可。</p>
 <div class="language-markdown" data-highlighter="prismjs" data-ext="md" data-title="md"><pre><code><span class="line">projects:</span>
 <span class="line">  <span class="token list punctuation">-</span> icon: project</span>
@@ -821,9 +821,9 @@
 <span class="line">    link: https://你的自定义链接</span>
 <span class="line"></span></code></pre>
 </div><p>如果不想显示，直接把<code>projects</code>的内容全部删除即可，效果如图：</p>
-<figure><img src="https://files.pysio.online/files/Pysio-Imges/blognopoj.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://minioapi.pysio.online/pysioimages/blognopoj.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 ]]></content:encoded>
-      <enclosure url="https://files.pysio.online/files/Pysio-Imges/blogdemo.webp" type="image/webp"/>
+      <enclosure url="https://minioapi.pysio.online/pysioimages/blogdemo.webp" type="image/webp"/>
     </item>
     <item>
       <title>狠狠的石健你们</title>
@@ -835,9 +835,9 @@
       <pubDate>Sun, 20 Oct 2024 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>你҉҉҈ 要҉҉҈ 永҉҉҈ 远҉҉҈ 爱҉҉҈ 我҉҉҈ 啊҉҉҈҉҉҈</p>
 <!-- more -->
-<figure><img src="https://files.pysio.online/files/Pysio-Imges/899f87e032161b04c94b0feeb972bdf3_720.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://minioapi.pysio.online/pysioimages/899f87e032161b04c94b0feeb972bdf3_720.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 ]]></content:encoded>
-      <enclosure url="https://files.pysio.online/files/Pysio-Imges/899f87e032161b04c94b0feeb972bdf3_720.png" type="image/png"/>
+      <enclosure url="https://minioapi.pysio.online/pysioimages/899f87e032161b04c94b0feeb972bdf3_720.png" type="image/png"/>
     </item>
     <item>
       <title>火神80群里的梗图</title>
@@ -1062,13 +1062,13 @@
 <p>截至发文时，目前只有1队通关</p>
 <p>不多说了 放点截图</p>
 <!-- more -->
-<p><img src="https://files.pysio.online/files/Pysio-Imges/20241006003452.png" alt="" loading="lazy">
-<img src="https://files.pysio.online/files/Pysio-Imges/20241006003529.png" alt="" loading="lazy">
-<img src="https://files.pysio.online/files/Pysio-Imges/20241006003549.png" alt="" loading="lazy">
-<img src="https://files.pysio.online/files/Pysio-Imges/20241006003612.png" alt="" loading="lazy">
-<img src="https://files.pysio.online/files/Pysio-Imges/20241006003632.png" alt="" loading="lazy"></p>
+<p><img src="https://minioapi.pysio.online/pysioimages/20241006003452.png" alt="" loading="lazy">
+<img src="https://minioapi.pysio.online/pysioimages/20241006003529.png" alt="" loading="lazy">
+<img src="https://minioapi.pysio.online/pysioimages/20241006003549.png" alt="" loading="lazy">
+<img src="https://minioapi.pysio.online/pysioimages/20241006003612.png" alt="" loading="lazy">
+<img src="https://minioapi.pysio.online/pysioimages/20241006003632.png" alt="" loading="lazy"></p>
 ]]></content:encoded>
-      <enclosure url="https://files.pysio.online/files/Pysio-Imges/20241006003452.png" type="image/png"/>
+      <enclosure url="https://minioapi.pysio.online/pysioimages/20241006003452.png" type="image/png"/>
     </item>
     <item>
       <title>有关于自托管Gitlab被拦截这件事</title>
@@ -1079,16 +1079,16 @@
       <category>daily</category>
       <pubDate>Mon, 18 Dec 2023 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>我今天闲的一Ping<br>
-<img src="https://files.pysio.online/files/Pysio-Imges/20241006004058.png" alt="" loading="lazy"></p>
+<img src="https://minioapi.pysio.online/pysioimages/20241006004058.png" alt="" loading="lazy"></p>
 <p>我就在纳闷了，为啥会解析到这个 <a href="https://106.74.25.198/" target="_blank" rel="noopener noreferrer">IP</a> 上，直到我一访问。<br>
-<img src="https://files.pysio.online/files/Pysio-Imges/20241006004137.png" alt="" loading="lazy"></p>
+<img src="https://minioapi.pysio.online/pysioimages/20241006004137.png" alt="" loading="lazy"></p>
 <p>Uh 这多少是有点离谱了。我也不知我犯了啥天条能被扔进去。。。。</p>
 <p>先看看吧，如果被大范围屏蔽的话，还得考虑咋申诉。。。</p>
 <h3>Edit 2023-12-26 :</h3>
 <p>打屏蔽当地96110申诉 让我等待</p>
 <p>一日后 重庆96110告诉我域名加白，网站就不跳转反诈中心了</p>
 ]]></content:encoded>
-      <enclosure url="https://files.pysio.online/files/Pysio-Imges/20241006004058.png" type="image/png"/>
+      <enclosure url="https://minioapi.pysio.online/pysioimages/20241006004058.png" type="image/png"/>
     </item>
     <item>
       <title>公共DNS/DOH服务</title>
@@ -1120,12 +1120,12 @@
       <category>develop</category>
       <pubDate>Sat, 14 Sep 2024 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<h2>第一步 获取Redis的密码</h2>
-<p><img src="https://files.pysio.online/files/Pysio-Imges/20241005215409.png" alt="" loading="lazy">
+<p><img src="https://minioapi.pysio.online/pysioimages/20241005215409.png" alt="" loading="lazy">
 [应用商店] -&gt; [已安装] -&gt; [Redis 参数] 就可以看见密码了 把密码记下来</p>
 <h2>第二步 修改object-cache.php文件</h2>
 <p>在网站根目录 <code>wp-content/plugins/redis-cache/includes</code> 下 可以找到 <code>object-cache.php</code> 文件
 打开并编辑<br>
-<img src="https://files.pysio.online/files/Pysio-Imges/20241005215426.png" alt="" loading="lazy"><br>
+<img src="https://minioapi.pysio.online/pysioimages/20241005215426.png" alt="" loading="lazy"><br>
 添加或修改以下部分 其中PassWord是你刚刚获取的Redis密码</p>
 <div class="language-php" data-highlighter="prismjs" data-ext="php" data-title="php"><pre><code><span class="line"><span class="token variable">$parameters</span> <span class="token operator">=</span> <span class="token punctuation">[</span></span>
 <span class="line">   <span class="token string single-quoted-string">'scheme'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'tcp'</span><span class="token punctuation">,</span></span>
@@ -1152,7 +1152,7 @@
 </div><h3>最后 启用插件</h3>
 <p>现在启用你的Redis Object Cache插件 他现在应该正常工作了</p>
 ]]></content:encoded>
-      <enclosure url="https://files.pysio.online/files/Pysio-Imges/20241005215409.png" type="image/png"/>
+      <enclosure url="https://minioapi.pysio.online/pysioimages/20241005215409.png" type="image/png"/>
     </item>
     <item>
       <title>在PVE为OpenSuse启用xterm.js控制台</title>
@@ -1209,9 +1209,9 @@
       <content:encoded><![CDATA[<p>搭建这玩意也是一时兴起，想想也该给免费的镜像服务贡献点自己的力量。</p>
 <p>网盘节点地址：https://65d480a1f25ffe347bdf6820.openbmclapi.933.moe/</p>
 <!-- more -->
-<figure><img src="https://files.pysio.online/files/Pysio-Imges/20241005133723.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://minioapi.pysio.online/pysioimages/20241005133723.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 ]]></content:encoded>
-      <enclosure url="https://files.pysio.online/files/Pysio-Imges/20241005133723.png" type="image/png"/>
+      <enclosure url="https://minioapi.pysio.online/pysioimages/20241005133723.png" type="image/png"/>
     </item>
     <item>
       <title>本地手动合并Github上的Pull requests</title>
