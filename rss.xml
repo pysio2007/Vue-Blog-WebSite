@@ -6,8 +6,8 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Sat, 15 Feb 2025 04:29:05 GMT</pubDate>
-    <lastBuildDate>Sat, 15 Feb 2025 04:29:05 GMT</lastBuildDate>
+    <pubDate>Sun, 16 Feb 2025 09:05:31 GMT</pubDate>
+    <lastBuildDate>Sun, 16 Feb 2025 09:05:31 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
@@ -19,10 +19,10 @@
       <link>https://www.pysio.online/posts/daily/day250215.html</link>
       <guid>https://www.pysio.online/posts/daily/day250215.html</guid>
       <source url="https://www.pysio.online/rss.xml">2025 2月报告</source>
-      <description>好久没用水文章了 水一篇来记录记录自己干了什么 ;P AnyCast网络 在上个月初。我去申请了一个 ASN ， 在拿到一个 /44 的IPv6地址段后，就开始琢磨琢磨玩玩BGP啥的 最后搭建了一个Anycast 玩 (大陆访问速度及其感人) 截至2025年2月15日，Anycast共有6个节点 Anycast服务器探针Anycast服务器探针 目前博...</description>
+      <description>好久没有水文章了 水一篇来记录记录自己干了什么 ;P AnyCast网络 在上个月初。我去申请了一个 ASN ， 在拿到一个 /44 的IPv6地址段后，就开始琢磨琢磨玩玩BGP啥的 最后搭建了一个Anycast 玩 (大陆访问速度及其感人) 截至2025年2月15日，Anycast共有6个节点 Anycast服务器探针Anycast服务器探针 目前博...</description>
       <category>daily</category>
       <pubDate>Sat, 15 Feb 2025 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>好久没用水文章了 水一篇来记录记录自己干了什么 ;P</p>
+      <content:encoded><![CDATA[<p>好久没有水文章了 水一篇来记录记录自己干了什么 ;P</p>
 <h2>AnyCast网络</h2>
 <p>在上个月初。我去申请了一个 ASN ， 在拿到一个 /44 的IPv6地址段后，就开始琢磨琢磨玩玩BGP啥的 最后搭建了一个Anycast 玩 (大陆访问速度及其感人)</p>
 <p>截至2025年2月15日，Anycast共有6个节点</p>
