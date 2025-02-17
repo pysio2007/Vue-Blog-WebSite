@@ -6,14 +6,108 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 16 Feb 2025 09:05:31 GMT</pubDate>
-    <lastBuildDate>Sun, 16 Feb 2025 09:05:31 GMT</lastBuildDate>
+    <pubDate>Mon, 17 Feb 2025 01:19:02 GMT</pubDate>
+    <lastBuildDate>Mon, 17 Feb 2025 01:19:02 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
     <category>resource</category>
     <category>develop</category>
     <category>NekoXii</category>
+    <item>
+      <title>记一次AnyCast+博客搭建</title>
+      <link>https://www.pysio.online/posts/daily/AnyCast.html</link>
+      <guid>https://www.pysio.online/posts/daily/AnyCast.html</guid>
+      <source url="https://www.pysio.online/rss.xml">记一次AnyCast+博客搭建</source>
+      <description>因为闲着没事干, 就打算搭建一个Anycast 然后把博客和DNS都放上去, 本文暂且记录一下Anycast+博客的搭建过程。 Anycast 是什么? Anycast 是一种网络寻址和路由方法, 可以将传入请求路由到各种不同的位置或&amp;quot;节点&amp;quot;。在 CDN 的上下文中, Anycast 通常会将传入的流量路由到距离最近并且能够有效处理请求的数据中心。选择...</description>
+      <category>daily</category>
+      <pubDate>Sat, 15 Feb 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>因为闲着没事干, 就打算搭建一个Anycast 然后把博客和DNS都放上去, 本文暂且记录一下Anycast+博客的搭建过程。</p>
+<h2>Anycast 是什么?</h2>
+<blockquote>
+<p>Anycast 是一种网络寻址和路由方法, 可以将传入请求路由到各种不同的位置或"节点"。在 CDN 的上下文中, Anycast 通常会将传入的流量路由到距离最近并且能够有效处理请求的数据中心。选择性路由使 Anycast 网络能够应对高流量、网络拥塞和 DDoS 攻击。[^1]</p>
+</blockquote>
+<h2>前提条件</h2>
+<ul>
+<li>一个ASN</li>
+<li>一个IPv4/6地址段</li>
+<li>多台可BGP Session的服务器 (如果可以 使用多个上游)</li>
+<li>一个聪明的头脑</li>
+<li><s>当然 还有一杯咖啡</s></li>
+</ul>
+<h2>1. 寻找一个上游</h2>
+<p>各大运营商常在托管机房有接入点, 你可以购买机房的托管服务, 然后就应该可以直接联系运营商签约购买带宽及 IP transit 服务。 但是介于国内特色, 这一套下来你只会收到天价的账单~~（当然如果你不差钱就当我没说）~~</p>
+<p>但是好消息是, 有很多的VPS商家提供BGP Session服务, 例如Vultr BuyVM等等, 你可以选择其中一个作为你的上游。 这些提供商每月价格大约在5-10美元之间, 性价比还算的过去。</p>
+<p>你也可以在这里 <a href="https://bgp.services/" target="_blank" rel="noopener noreferrer">BGP Services</a> 寻找更多的提供商</p>
+<h2>2. 宣告地址</h2>
+<p>在开始这个步骤之前, 你应该按照商家的要求, 验证你的ASN和IP地址段。大部分商家都是开一个工单 本文已Vultr/BuyVM为例。</p>
+<h3>获取链接信息</h3>
+<h4>Vultr</h4>
+<p><s>应为配置的时候忘记截图了 Vultr的ASN/IP段注册部分简短带过QWQ</s></p>
+<p>直接打开如下地址 <a href="https://my.vultr.com/bgp/" target="_blank" rel="noopener noreferrer">Vultr BGP</a> 填写你的ASN和IP地址段, Vultr会给你的Whois邮箱发送一封验证码邮件, 验证之后等待Vultr的工作人员审核（注意回复工单）。</p>
+<p>在申请通过之后, 打开VPS的详情, 点击 <code>BGP</code> 选项卡 就可以得到如下信息:</p>
+<figure><img src="https://files.pysio.online/Images/20250216154622.png" alt="Vultr BGP" tabindex="0" loading="lazy"><figcaption>Vultr BGP</figcaption></figure>
+<p>至此 你就得到了和Vultr进行BGP Session的信息。</p>
+<h4>BuyVM</h4>
+<p>登录<a href="https://manage.buyvm.net/" target="_blank" rel="noopener noreferrer">BuyVM管理后台</a> 选择你的机器 点击 <code>Networking</code> -&gt; <code>BGP</code> 在提交工单之后, 等待审核通过。就可以得到如下信息:</p>
+<figure><img src="https://files.pysio.online/Images/20250217081432.png" alt="BuyVM BGP" tabindex="0" loading="lazy"><figcaption>BuyVM BGP</figcaption></figure>
+<p>至此 你就得到了和BuyVM进行BGP Session的信息。</p>
+<h3>配置Bird2</h3>
+<p>我使用 <code>Debian 12</code> 作为示例, 直接使用APT安装Bird2 <code>apt install bird2</code></p>
+<p>我的ASN为 <code>AS213605</code> 我想宣告 <code>2a14:67c1:a020::/48</code></p>
+<p>以Vultr为例, 他给出的对端ASN是 <code>64515</code> 对端IP是 <code>2001:19f0:ffff::1</code> 我们的 vps 本身的 IPv6 地址为 <code>2001:19f0:5001:225f:5400:05ff:fe69:6776</code>, MD5 密码为 114514, 所以我的配置文件如下:</p>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf" data-title="conf"><pre><code><span class="line">log syslog all;</span>
+<span class="line"></span>
+<span class="line">router id 114.514.111.222; # vps 的公网 IPv4 地址</span>
+<span class="line">define ASN=213605; # 你的 ASN</span>
+<span class="line">define OWNIPv6s=[2a14:67c1:a020::/48]; # 你的 IPv6 地址段</span>
+<span class="line"></span>
+<span class="line"># device 协议必须有, 否则 BIRD 不会自动从内核获取比如网络接口的信息, direct 协议和寻找下一跳的时候就挂了</span>
+<span class="line">protocol device {}</span>
+<span class="line"></span>
+<span class="line"># kernel 协议用于导出路由表到内核</span>
+<span class="line">protocol kernel {</span>
+<span class="line">    ipv6 {</span>
+<span class="line">        export all; # 将所有 IPv6 路由都导入系统路由表</span>
+<span class="line">    };</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line"># static 定义静态路由</span>
+<span class="line">protocol static static_v6 {</span>
+<span class="line">    ipv6;</span>
+<span class="line">    route 2a14:67c1:a020::/48 via 2001:19f0:5001:225f:5400:05ff:fe69:6776;  # 宣告 2a14:7c0:4d00::/40 这段 IP, 同时修改via后的ipv为你vps的ipv6</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">filter export_filter_v6 {</span>
+<span class="line">    if net ~ OWNIPv6s then accept; # 如果前缀包括在OWNIPv6s内则放出</span>
+<span class="line">    reject; # 否则全部拒绝</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">filter import_filter_v6 {</span>
+<span class="line">    if net ~ [::/0] then reject; # 如果为默认路由则拒绝</span>
+<span class="line">    accept; # 接收所有其他路由</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">protocol bgp vultr {</span>
+<span class="line">    local as ASN; # 指定本端ASN</span>
+<span class="line">    source address 2001:19f0:5001:225f:5400:05ff:fe49:6493; # 指定本端地址</span>
+<span class="line">    multihop 2; # 设置多跳 Vultr提供的值为2</span>
+<span class="line">    neighbor 2001:19f0:ffff::1 as 64515; # 指定对端地址与ASN</span>
+<span class="line">    ipv6 { # 指定要在该BGP邻居上跑的协议</span>
+<span class="line">        import filter import_filter_v6; # 指定导入过滤器</span>
+<span class="line">        export filter export_filter_v6; # 指定导出过滤器</span>
+<span class="line">        export limit 10; # 限制导出前缀数量, 根据需要调整, 防止过滤器配糊导致 session 爆炸</span>
+<span class="line">    };</span>
+<span class="line">    password "114514"; # 如果没有 password 删除这行即可</span>
+<span class="line">    graceful restart; # 平滑重启, 防止重启bird的时候造成路由撤回导致服务中断</span>
+<span class="line">}</span>
+<span class="line"></span></code></pre>
+</div><p>你可以直接按着我的配置文件修改(建议先去看看soha的教程 然后自己手写[^2]), 改好后写入 <code>/etc/bird/bird.conf</code>, 然后应用配置文件 <code>bridc c</code></p>
+<p>你可以运行 <code>birdc show protocols all</code> 查看当前所有协议的状态:</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh" data-title="sh"><pre><code><span class="line">vultr    BGP        </span></code></pre>
+</div>]]></content:encoded>
+      <enclosure url="https://files.pysio.online/Images/20250216154622.png" type="image/png"/>
+    </item>
     <item>
       <title>2025 2月报告</title>
       <link>https://www.pysio.online/posts/daily/day250215.html</link>
