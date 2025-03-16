@@ -6,8 +6,8 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Sat, 15 Mar 2025 11:37:53 GMT</pubDate>
-    <lastBuildDate>Sat, 15 Mar 2025 11:37:53 GMT</lastBuildDate>
+    <pubDate>Sun, 16 Mar 2025 09:27:23 GMT</pubDate>
+    <lastBuildDate>Sun, 16 Mar 2025 09:27:23 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
@@ -1156,7 +1156,13 @@
       <pubDate>Sun, 19 May 2024 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>注意 如果你滥用DNS 则可能导致你的IP地址被封禁</p>
 <div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code><span class="line"></span>
-<span class="line">DNS Server ：101.43.154.197 (53端口暂不可用)</span>
+<span class="line">DNS Server：101.43.154.197 (53端口暂不可用)</span>
+<span class="line"></span>
+<span class="line">DNS Server：93.177.67.6 (53可用)</span>
+<span class="line"></span>
+<span class="line">DNS Server：dns.pysio.online 支持任何DNS协议 </span>
+<span class="line"></span>
+<span class="line">DOH 全球可用: https://dns-doh.pysio.online/</span>
 <span class="line"></span>
 <span class="line">DoH（中国大陆）: https://doh.pysio.online/dns-query</span>
 <span class="line"></span>
