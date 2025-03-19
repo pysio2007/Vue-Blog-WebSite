@@ -6,14 +6,32 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 16 Mar 2025 09:27:23 GMT</pubDate>
-    <lastBuildDate>Sun, 16 Mar 2025 09:27:23 GMT</lastBuildDate>
+    <pubDate>Wed, 19 Mar 2025 10:42:15 GMT</pubDate>
+    <lastBuildDate>Wed, 19 Mar 2025 10:42:15 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+    <category>develop</category>
     <category>daily</category>
     <category>resource</category>
-    <category>develop</category>
     <category>NekoXii</category>
+    <item>
+      <title>免费CDN</title>
+      <link>https://www.pysio.online/posts/develop/freecdn.html</link>
+      <guid>https://www.pysio.online/posts/develop/freecdn.html</guid>
+      <source url="https://www.pysio.online/rss.xml">免费CDN</source>
+      <description>本博客提供一个国内免费的CDN，你可与通过评论区留言联系方式/联系我/新建一个Issue获得使用权限。 提示 你需要确保你的网站，不违法中华人民共和国法律法规，不包含色情、赌博、毒品（药物过量）、暴力等内容。 CDN每日只对单个网站提供1GB的流量，超过后将会被禁止访问。（如有合理理由可扩展） CDN不支持HTTP3/WebSocket。 我们会有定期...</description>
+      <category>develop</category>
+      <pubDate>Wed, 19 Mar 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>本博客提供一个国内免费的CDN，你可与通过评论区留言联系方式/联系我/新建一个<a href="https://github.com/pysio2007/Vue-blog" target="_blank" rel="noopener noreferrer">Issue</a>获得使用权限。</p>
+<div class="hint-container tip">
+<p class="hint-container-title">提示</p>
+<p>你需要确保你的网站，不违法中华人民共和国法律法规，不包含色情、赌博、毒品（药物过量）、暴力等内容。</p>
+</div>
+<p>CDN每日只对单个网站提供1GB的流量，超过后将会被禁止访问。（如有合理理由可扩展）</p>
+<p>CDN不支持HTTP3/WebSocket。</p>
+<p>我们会有定期巡查检查您网站的内容，如果发现违法中华人民共和国法律的现象，我们会单方面停止解析。</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>记一次AnyCast+博客搭建</title>
       <link>https://www.pysio.online/posts/daily/AnyCast.html</link>
@@ -1151,10 +1169,13 @@
       <link>https://www.pysio.online/posts/develop/Public%20DNS%20DOH.html</link>
       <guid>https://www.pysio.online/posts/develop/Public%20DNS%20DOH.html</guid>
       <source url="https://www.pysio.online/rss.xml">公共DNS/DOH服务</source>
-      <description>注意 如果你滥用DNS 则可能导致你的IP地址被封禁</description>
+      <description>注意 注意 如果你滥用DNS 则可能导致你的IP地址被封禁</description>
       <category>develop</category>
       <pubDate>Sun, 19 May 2024 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>注意 如果你滥用DNS 则可能导致你的IP地址被封禁</p>
+      <content:encoded><![CDATA[<div class="hint-container warning">
+<p class="hint-container-title">注意</p>
+<p>注意 如果你滥用DNS 则可能导致你的IP地址被封禁</p>
+</div>
 <div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code><span class="line"></span>
 <span class="line">DNS Server：101.43.154.197 (53端口暂不可用)</span>
 <span class="line"></span>
