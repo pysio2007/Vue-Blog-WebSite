@@ -6,8 +6,8 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Thu, 24 Apr 2025 13:15:54 GMT</pubDate>
-    <lastBuildDate>Thu, 24 Apr 2025 13:15:54 GMT</lastBuildDate>
+    <pubDate>Fri, 25 Apr 2025 23:36:21 GMT</pubDate>
+    <lastBuildDate>Fri, 25 Apr 2025 23:36:21 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
@@ -18,10 +18,14 @@
       <link>https://www.pysio.online/posts/daily/RegistryASN.html</link>
       <guid>https://www.pysio.online/posts/daily/RegistryASN.html</guid>
       <source url="https://www.pysio.online/rss.xml">从0开始注册一个ASN并广播IP</source>
-      <description>注意 本文介绍的是互联网实体 ASN 的注册流程。如需了解 DN42 实验网络中的 ASN 申请流程，请参考DN42 ASN 申请。 注意 如果您作为一个新手 我更建议你前往DN42 申请一个实验网络的ASN进行学习 这篇文章的内容是为了帮助你在真实的互联网中申请一个ASN并广播IP地址 1. 基础概念 RIR: Regional Internet R...</description>
+      <description>注意 本文不适用本站CC协议, 作者保留所有权 注意 本文介绍的是互联网实体 ASN 的注册流程。如需了解 DN42 实验网络中的 ASN 申请流程，请参考DN42 ASN 申请。 注意 如果您作为一个新手 我更建议你前往DN42 申请一个实验网络的ASN进行学习 这篇文章的内容是为了帮助你在真实的互联网中申请一个ASN并广播IP地址 1. 基础概念 ...</description>
       <category>daily</category>
       <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<div class="hint-container warning">
+<p class="hint-container-title">注意</p>
+<p>本文不适用本站CC协议, 作者保留所有权</p>
+</div>
+<div class="hint-container warning">
 <p class="hint-container-title">注意</p>
 <p>本文介绍的是互联网实体 ASN 的注册流程。如需了解 DN42 实验网络中的 ASN 申请流程，请参考<a href="https://lantian.pub/article/modify-website/dn42-experimental-network-2020.lantian/" target="_blank" rel="noopener noreferrer">DN42 ASN 申请</a>。</p>
 </div>
