@@ -6,8 +6,8 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Fri, 25 Apr 2025 23:36:21 GMT</pubDate>
-    <lastBuildDate>Fri, 25 Apr 2025 23:36:21 GMT</lastBuildDate>
+    <pubDate>Sat, 26 Apr 2025 02:55:06 GMT</pubDate>
+    <lastBuildDate>Sat, 26 Apr 2025 02:55:06 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
@@ -18,14 +18,10 @@
       <link>https://www.pysio.online/posts/daily/RegistryASN.html</link>
       <guid>https://www.pysio.online/posts/daily/RegistryASN.html</guid>
       <source url="https://www.pysio.online/rss.xml">从0开始注册一个ASN并广播IP</source>
-      <description>注意 本文不适用本站CC协议, 作者保留所有权 注意 本文介绍的是互联网实体 ASN 的注册流程。如需了解 DN42 实验网络中的 ASN 申请流程，请参考DN42 ASN 申请。 注意 如果您作为一个新手 我更建议你前往DN42 申请一个实验网络的ASN进行学习 这篇文章的内容是为了帮助你在真实的互联网中申请一个ASN并广播IP地址 1. 基础概念 ...</description>
+      <description>注意 本文介绍的是互联网实体 ASN 的注册流程。如需了解 DN42 实验网络中的 ASN 申请流程，请参考DN42 ASN 申请。 注意 如果您作为一个新手 我更建议你前往DN42 申请一个实验网络的ASN进行学习 这篇文章的内容是为了帮助你在真实的互联网中申请一个ASN并广播IP地址 1. 基础概念 RIR: Regional Internet R...</description>
       <category>daily</category>
       <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<div class="hint-container warning">
-<p class="hint-container-title">注意</p>
-<p>本文不适用本站CC协议, 作者保留所有权</p>
-</div>
-<div class="hint-container warning">
 <p class="hint-container-title">注意</p>
 <p>本文介绍的是互联网实体 ASN 的注册流程。如需了解 DN42 实验网络中的 ASN 申请流程，请参考<a href="https://lantian.pub/article/modify-website/dn42-experimental-network-2020.lantian/" target="_blank" rel="noopener noreferrer">DN42 ASN 申请</a>。</p>
 </div>
@@ -89,22 +85,22 @@
 <li><code>address</code>: 此 role 的办公地址</li>
 <li><code>e-mail</code>: 此 role 的电子邮件联系地址</li>
 </ul>
-<figure><img src="https://s3.pysio.online/pysioimages/Create role and maintainer pair.png" alt="用Akaere NetWork举例填写的信息" tabindex="0" loading="lazy"><figcaption>用Akaere NetWork举例填写的信息</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Create role and maintainer pair.png" alt="用Akaere NetWork举例填写的信息" tabindex="0" loading="lazy"><figcaption>用Akaere NetWork举例填写的信息</figcaption></figure>
 <p>填写完成后点击 SUBMIT 按钮，将同时创建一个 role 和一个 mntner 对象。</p>
 <p>图中红框部分则为 role 对象的主键。您需要将其作为您 AS 的 admin-c / tech-c / abuse-c 提交给您的 LIR</p>
-<figure><img src="https://s3.pysio.online/pysioimages/Create role and maintainer pair done.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Create role and maintainer pair done.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <h4>3. 设置滥用通知邮箱</h4>
 <div class="hint-container caution">
 <p class="hint-container-title">警告</p>
 <p>RIPE NCC 会检查此邮箱的有效性，务必真实可用</p>
 </div>
 <p>在<a href="https://apps.db.ripe.net/db-web-ui/query" target="_blank" rel="noopener noreferrer">RIPE DB Query</a>顶部的搜索框中填写上节中 role 对象的主键，点击右侧查找按钮。接下来点击搜索结果右上角的 Update object 按钮跳转至修改页面。</p>
-<figure><img src="https://s3.pysio.online/pysioimages/Edit Abuse.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Edit Abuse.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <p>点击 e-mail 栏右侧 + 号按钮为此 role 对象添加 abuse-mailbox 属性。</p>
-<figure><img src="https://s3.pysio.online/pysioimages/Edit Abuse 2.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
-<figure><img src="https://s3.pysio.online/pysioimages/Edit Abuse 3.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Edit Abuse 2.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Edit Abuse 3.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <p>在出现的 abuse-mailbox 栏中填写滥用通知邮箱后点击 SUBMIT 按钮保存。</p>
-<figure><img src="https://s3.pysio.online/pysioimages/Edit Abuse 4.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Edit Abuse 4.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <h4>4. 创建 organisation 对象</h4>
 <p>organisation 对象是对公司、非营利团体或个人的抽象，所有其他资源都与该对象相关。是管理 RIPE 数据库中数据的起点。</p>
 <p>通过<a href="https://apps.db.ripe.net/db-web-ui/webupdates/create/RIPE/organisation" target="_blank" rel="noopener noreferrer">RIPE DB Create Organisation</a>创建 organisation 对象时，您需要填写：</p>
@@ -117,16 +113,16 @@
 <li><code>abuse-c</code>: 此 organisation 的滥用通知联系方式，必须指向具有 abuse-mailbox 属性的 role 对象</li>
 <li><code>mnt-ref</code>: 谁可引用此 organisation，被指向的 mntner 可以添加指向此 organisation 的对象，即由谁为此组织分配资源，询问您的 LIR 以获得具体值</li>
 </ul>
-<figure><img src="https://s3.pysio.online/pysioimages/Creat organisation.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Creat organisation.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <p>填写完成后点击 SUBMIT 按钮，页面中上位置以 organisation "ORG-EXAMPLE-RIPE" 字样展示了 organisation 对象的标识符(图中红色方框部分)，您需要将其作为您 AS 的 org 提交给您的 LIR。</p>
-<figure><img src="https://s3.pysio.online/pysioimages/Creat organisation Done.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Creat organisation Done.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <h4>4.1 如果刚刚有地方出错了 如何修改？</h4>
 <p>当你发现上面有内容写错的时候 前往<a href="https://apps.db.ripe.net/db-web-ui/query" target="_blank" rel="noopener noreferrer">RIPE DB Query</a> 搜索你需要修正的对象的主键，点击右上角的 Update object 按钮跳转至修改页面。</p>
-<figure><img src="https://s3.pysio.online/pysioimages/RIPEUPDATE1.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/RIPEUPDATE1.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <p>进入修改页面后，修正你需要修改的内容，点击 SUBMIT 按钮提交。</p>
-<figure><img src="https://s3.pysio.online/pysioimages/RIPEUPDATE2.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/RIPEUPDATE2.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <p>完成之后 RIPE 数据库会显示你修改了内容至此修改结束</p>
-<figure><img src="https://s3.pysio.online/pysioimages/RIPEUPDATE3.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/RIPEUPDATE3.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <h4>5.提交资料</h4>
 <p>你需要把以下资料提供给LIR</p>
 <ul>
@@ -156,7 +152,7 @@
 <p><strong>注意:</strong> 在注册PeeringDB时 最好使用你在RIPE DB中创建的role对象的邮箱</p>
 <h3>3. 在 PeeringDB 中关联你的ASN</h3>
 <p>前往 <a href="https://www.peeringdb.com/profile" target="_blank" rel="noopener noreferrer">PeeringDB Profile</a> 中的 关联组织 板块 输入你的ASN和组织名称进行关联</p>
-<figure><img src="https://s3.pysio.online/pysioimages/preeingdb link.png" alt="已我自己的ASN举例" tabindex="0" loading="lazy"><figcaption>已我自己的ASN举例</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/preeingdb link.png" alt="已我自己的ASN举例" tabindex="0" loading="lazy"><figcaption>已我自己的ASN举例</figcaption></figure>
 <p>关联成功之后 你就可以在右上角下拉菜单中找到你的组织了</p>
 <figure><img src="http://s3.pysio.online/pysioimages/peeringdblinkdone.png" alt="接上图" tabindex="0" loading="lazy"><figcaption>接上图</figcaption></figure>
 <h3>4. 修正信息</h3>
@@ -170,7 +166,7 @@
 <p>Suite (可选): 组织的房间号</p>
 <p>位置 (可选): 的具体位置</p>
 <p>国家和地区代码: 组织所在的国家和地区代码</p>
-<figure><img src="https://s3.pysio.online/pysioimages/peeringdborg.png" alt="放一张13335的例子" tabindex="0" loading="lazy"><figcaption>放一张13335的例子</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/peeringdborg.png" alt="放一张13335的例子" tabindex="0" loading="lazy"><figcaption>放一张13335的例子</figcaption></figure>
 <h3>5. 添加网络</h3>
 <p>名称: 网络的名称</p>
 <p>网站: 网络的网站地址</p>
@@ -184,7 +180,7 @@
 <p>一般政策: 对等政策状态</p>
 <p>合同要求: 对等是否需要合同</p>
 <p>Health Check: 网络的状态检查</p>
-<figure><img src="https://s3.pysio.online/pysioimages/peeringdb add networks.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/peeringdb add networks.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <p>最后 点击提交网络就完成了</p>
 <blockquote>
 <p>因为PeeringDB的界面解释是在多... IX部分就先咕咕咕了</p>
@@ -199,7 +195,7 @@
 <h4>1. 获取链接信息</h4>
 <p>直接打开如下地址 <a href="https://my.vultr.com/bgp/" target="_blank" rel="noopener noreferrer">Vultr BGP</a> 填写你的ASN和IP地址段, Vultr会给你的Whois邮箱发送一封验证码邮件, 验证之后等待Vultr的工作人员审核（注意回复工单）。</p>
 <p>在申请通过之后, 打开VPS的详情, 点击 <code>BGP</code> 选项卡 就可以得到如下信息:</p>
-<figure><img src="https://s3.pysio.online/pysioimages/20250216154622.png" alt="Vultr BGP" tabindex="0" loading="lazy"><figcaption>Vultr BGP</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250216154622.png" alt="Vultr BGP" tabindex="0" loading="lazy"><figcaption>Vultr BGP</figcaption></figure>
 <p>至此 你就得到了和Vultr进行BGP Session的信息。</p>
 <h4>2. 配置Bird2</h4>
 <p>我使用 <code>Debian 12</code> 作为示例, 直接使用APT安装Bird2 <code>apt install bird2</code></p>
@@ -255,7 +251,7 @@
 <p>你可以运行 <code>birdc show protocols all</code> 查看当前所有协议的状态:</p>
 <div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line">vultr    BGP        </span></code></pre>
 </div>]]></content:encoded>
-      <enclosure url="https://s3.pysio.online/pysioimages/Create%20role%20and%20maintainer%20pair.png" type="image/png"/>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Create%20role%20and%20maintainer%20pair.png" type="image/png"/>
     </item>
     <item>
       <title>免费CDN</title>
@@ -307,11 +303,11 @@
 <p><s>应为配置的时候忘记截图了 Vultr的ASN/IP段注册部分简短带过QWQ</s></p>
 <p>直接打开如下地址 <a href="https://my.vultr.com/bgp/" target="_blank" rel="noopener noreferrer">Vultr BGP</a> 填写你的ASN和IP地址段, Vultr会给你的Whois邮箱发送一封验证码邮件, 验证之后等待Vultr的工作人员审核（注意回复工单）。</p>
 <p>在申请通过之后, 打开VPS的详情, 点击 <code>BGP</code> 选项卡 就可以得到如下信息:</p>
-<figure><img src="https://s3.pysio.online/pysioimages/20250216154622.png" alt="Vultr BGP" tabindex="0" loading="lazy"><figcaption>Vultr BGP</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250216154622.png" alt="Vultr BGP" tabindex="0" loading="lazy"><figcaption>Vultr BGP</figcaption></figure>
 <p>至此 你就得到了和Vultr进行BGP Session的信息。</p>
 <h4>BuyVM</h4>
 <p>登录<a href="https://manage.buyvm.net/" target="_blank" rel="noopener noreferrer">BuyVM管理后台</a> 选择你的机器 点击 <code>Networking</code> -&gt; <code>BGP</code> 在提交工单之后, 等待审核通过。就可以得到如下信息:</p>
-<figure><img src="https://s3.pysio.online/pysioimages/20250217081432.png" alt="BuyVM BGP" tabindex="0" loading="lazy"><figcaption>BuyVM BGP</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250217081432.png" alt="BuyVM BGP" tabindex="0" loading="lazy"><figcaption>BuyVM BGP</figcaption></figure>
 <p>至此 你就得到了和BuyVM进行BGP Session的信息。</p>
 <h3>配置Bird2</h3>
 <p>我使用 <code>Debian 12</code> 作为示例, 直接使用APT安装Bird2 <code>apt install bird2</code></p>
@@ -367,7 +363,7 @@
 <p>你可以运行 <code>birdc show protocols all</code> 查看当前所有协议的状态:</p>
 <div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line">vultr    BGP        </span></code></pre>
 </div>]]></content:encoded>
-      <enclosure url="https://s3.pysio.online/pysioimages/20250216154622.png" type="image/png"/>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250216154622.png" type="image/png"/>
     </item>
     <item>
       <title>2025 2月报告</title>
@@ -381,20 +377,20 @@
 <h2>AnyCast网络</h2>
 <p>在上个月初。我去申请了一个 ASN ， 在拿到一个 /44 的IPv6地址段后，就开始琢磨琢磨玩玩BGP啥的 最后搭建了一个Anycast 玩 (大陆访问速度及其感人)</p>
 <p>截至2025年2月15日，Anycast共有6个节点</p>
-<figure><img src="https://s3.pysio.online/pysioimages/20250215075819.png" alt="Anycast服务器探针" tabindex="0" loading="lazy"><figcaption>Anycast服务器探针</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250215075819.png" alt="Anycast服务器探针" tabindex="0" loading="lazy"><figcaption>Anycast服务器探针</figcaption></figure>
 <p>目前博客也是通过这个网络分发的 <s>(但是实际上中国大陆访问有一层腾讯云CDN)</s></p>
 <p>同时 为了区分访问的时候是哪个服务器返回的 添加了一个弹窗和一个页脚 这样就可以区分是从哪个节点获得的返回值 <s>也可以看看你被扔到什么奇怪地方去了</s></p>
-<figure><img src="https://s3.pysio.online/pysioimages/20250215080711.png" alt="Anycast弹窗" tabindex="0" loading="lazy"><figcaption>Anycast弹窗</figcaption></figure>
-<figure><img src="https://s3.pysio.online/pysioimages/20250215080736.png" alt="页脚的节点信息" tabindex="0" loading="lazy"><figcaption>页脚的节点信息</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250215080711.png" alt="Anycast弹窗" tabindex="0" loading="lazy"><figcaption>Anycast弹窗</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250215080736.png" alt="页脚的节点信息" tabindex="0" loading="lazy"><figcaption>页脚的节点信息</figcaption></figure>
 <h2>文件分发重构</h2>
 <p>之前一直是采用盐木的93@Home 作为文件分发的服务器，但是由于一些离谱的问题和302部分客户端不接受的问题，最后还是自己写了个文件分发服务存储吧文件放在Minio上。。。</p>
 <h2>博客 API 重构</h2>
 <p>uhhh 之前的API一直使用TypeScript + Nodejs， 但是因为小鸡性能原因和多线程扯淡，最后还是换成了GO =- = 也是没有办法的事情了QWQ</p>
 <h2>评论系统换新</h2>
 <p>之前的评论系统一直基于Github 同时也没有访问量统计，索性直接换成了Waline 但是删除了其中的反应部分（觉得实在有点难看了）</p>
-<figure><img src="https://s3.pysio.online/pysioimages/20250215080441.png" alt="Waline评论系统" tabindex="0" loading="lazy"><figcaption>Waline评论系统</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250215080441.png" alt="Waline评论系统" tabindex="0" loading="lazy"><figcaption>Waline评论系统</figcaption></figure>
 ]]></content:encoded>
-      <enclosure url="https://s3.pysio.online/pysioimages/20250215075819.png" type="image/png"/>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250215075819.png" type="image/png"/>
     </item>
     <item>
       <title>命运2 鼠标宏</title>
@@ -483,9 +479,9 @@
       <pubDate>Sun, 05 Jan 2025 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>没错你没看错，我又闲得慌开始重构我的博客了（UWU）</p>
 <p>目前是打算拿Next.js 写 先放一张超级无敌早期的网页 QWQ (</p>
-<figure><img src="https://s3.pysio.online/pysioimages/73dc30f2d6ec844cda13e6aaa3ca03f2.png" alt="早期网页" tabindex="0" loading="lazy"><figcaption>早期网页</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/73dc30f2d6ec844cda13e6aaa3ca03f2.png" alt="早期网页" tabindex="0" loading="lazy"><figcaption>早期网页</figcaption></figure>
 ]]></content:encoded>
-      <enclosure url="https://s3.pysio.online/pysioimages/73dc30f2d6ec844cda13e6aaa3ca03f2.png" type="image/png"/>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/73dc30f2d6ec844cda13e6aaa3ca03f2.png" type="image/png"/>
     </item>
     <item>
       <title>博客所有的API</title>
@@ -1101,10 +1097,10 @@
 <div class="language-markdown" data-highlighter="prismjs" data-ext="md"><pre><code><span class="line">heroFullScreen: false</span>
 <span class="line"></span></code></pre>
 </div><p>效果：</p>
-<figure><img src="https://s3.pysio.online/pysioimages/blogdemo.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/blogdemo.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <h3>首页项目设置</h3>
 <p>初始化是会默认生成以下内容，如果要修改为自己的项目要怎么修改呢。</p>
-<figure><img src="https://s3.pysio.online/pysioimages/defpoj.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/defpoj.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <p>打开<code>README.md</code>，找到<code>projects</code>，编辑成你要的内容即可。</p>
 <div class="language-markdown" data-highlighter="prismjs" data-ext="md"><pre><code><span class="line">projects:</span>
 <span class="line">  <span class="token list punctuation">-</span> icon: project</span>
@@ -1138,9 +1134,9 @@
 <span class="line">    link: https://你的自定义链接</span>
 <span class="line"></span></code></pre>
 </div><p>如果不想显示，直接把<code>projects</code>的内容全部删除即可，效果如图：</p>
-<figure><img src="https://s3.pysio.online/pysioimages/blognopoj.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/blognopoj.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 ]]></content:encoded>
-      <enclosure url="https://s3.pysio.online/pysioimages/blogdemo.webp" type="image/webp"/>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/blogdemo.webp" type="image/webp"/>
     </item>
     <item>
       <title>火神80群里的梗图</title>
@@ -1365,13 +1361,13 @@
 <p>截至发文时，目前只有1队通关</p>
 <p>不多说了 放点截图</p>
 <!-- more -->
-<p><img src="https://s3.pysio.online/pysioimages/20241006003452.png" alt="" loading="lazy">
-<img src="https://s3.pysio.online/pysioimages/20241006003529.png" alt="" loading="lazy">
-<img src="https://s3.pysio.online/pysioimages/20241006003549.png" alt="" loading="lazy">
-<img src="https://s3.pysio.online/pysioimages/20241006003612.png" alt="" loading="lazy">
-<img src="https://s3.pysio.online/pysioimages/20241006003632.png" alt="" loading="lazy"></p>
+<p><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006003452.png" alt="" loading="lazy">
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006003529.png" alt="" loading="lazy">
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006003549.png" alt="" loading="lazy">
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006003612.png" alt="" loading="lazy">
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006003632.png" alt="" loading="lazy"></p>
 ]]></content:encoded>
-      <enclosure url="https://s3.pysio.online/pysioimages/20241006003452.png" type="image/png"/>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006003452.png" type="image/png"/>
     </item>
     <item>
       <title>有关于自托管Gitlab被拦截这件事</title>
@@ -1382,16 +1378,16 @@
       <category>daily</category>
       <pubDate>Mon, 18 Dec 2023 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>我今天闲的一Ping<br>
-<img src="https://s3.pysio.online/pysioimages/20241006004058.png" alt="" loading="lazy"></p>
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006004058.png" alt="" loading="lazy"></p>
 <p>我就在纳闷了，为啥会解析到这个 <a href="https://106.74.25.198/" target="_blank" rel="noopener noreferrer">IP</a> 上，直到我一访问。<br>
-<img src="https://s3.pysio.online/pysioimages/20241006004137.png" alt="" loading="lazy"></p>
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006004137.png" alt="" loading="lazy"></p>
 <p>Uh 这多少是有点离谱了。我也不知我犯了啥天条能被扔进去。。。。</p>
 <p>先看看吧，如果被大范围屏蔽的话，还得考虑咋申诉。。。</p>
 <h3>Edit 2023-12-26 :</h3>
 <p>打屏蔽当地96110申诉 让我等待</p>
 <p>一日后 重庆96110告诉我域名加白，网站就不跳转反诈中心了</p>
 ]]></content:encoded>
-      <enclosure url="https://s3.pysio.online/pysioimages/20241006004058.png" type="image/png"/>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006004058.png" type="image/png"/>
     </item>
     <item>
       <title>公共DNS/DOH服务</title>
@@ -1432,12 +1428,12 @@
       <category>develop</category>
       <pubDate>Sat, 14 Sep 2024 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<h2>第一步 获取Redis的密码</h2>
-<p><img src="https://s3.pysio.online/pysioimages/20241005215409.png" alt="" loading="lazy">
+<p><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241005215409.png" alt="" loading="lazy">
 [应用商店] -&gt; [已安装] -&gt; [Redis 参数] 就可以看见密码了 把密码记下来</p>
 <h2>第二步 修改object-cache.php文件</h2>
 <p>在网站根目录 <code>wp-content/plugins/redis-cache/includes</code> 下 可以找到 <code>object-cache.php</code> 文件
 打开并编辑<br>
-<img src="https://s3.pysio.online/pysioimages/20241005215426.png" alt="" loading="lazy"><br>
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241005215426.png" alt="" loading="lazy"><br>
 添加或修改以下部分 其中PassWord是你刚刚获取的Redis密码</p>
 <div class="language-php" data-highlighter="prismjs" data-ext="php"><pre><code><span class="line"><span class="token variable">$parameters</span> <span class="token operator">=</span> <span class="token punctuation">[</span></span>
 <span class="line">   <span class="token string single-quoted-string">'scheme'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'tcp'</span><span class="token punctuation">,</span></span>
@@ -1464,7 +1460,7 @@
 </div><h3>最后 启用插件</h3>
 <p>现在启用你的Redis Object Cache插件 他现在应该正常工作了</p>
 ]]></content:encoded>
-      <enclosure url="https://s3.pysio.online/pysioimages/20241005215409.png" type="image/png"/>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241005215409.png" type="image/png"/>
     </item>
     <item>
       <title>在PVE为OpenSuse启用xterm.js控制台</title>
@@ -1521,9 +1517,9 @@
       <content:encoded><![CDATA[<p>搭建这玩意也是一时兴起，想想也该给免费的镜像服务贡献点自己的力量。</p>
 <p>网盘节点地址：https://65d480a1f25ffe347bdf6820.openbmclapi.933.moe/</p>
 <!-- more -->
-<figure><img src="https://s3.pysio.online/pysioimages/20241005133723.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241005133723.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 ]]></content:encoded>
-      <enclosure url="https://s3.pysio.online/pysioimages/20241005133723.png" type="image/png"/>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241005133723.png" type="image/png"/>
     </item>
     <item>
       <title>本地手动合并Github上的Pull requests</title>
