@@ -6,13 +6,172 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Mon, 28 Apr 2025 03:59:27 GMT</pubDate>
-    <lastBuildDate>Mon, 28 Apr 2025 03:59:27 GMT</lastBuildDate>
+    <pubDate>Mon, 05 May 2025 12:32:31 GMT</pubDate>
+    <lastBuildDate>Mon, 05 May 2025 12:32:31 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
     <category>develop</category>
     <category>resource</category>
+    <item>
+      <title>组建一个IXP的小计</title>
+      <link>https://www.pysio.online/posts/daily/AKIX.html</link>
+      <guid>https://www.pysio.online/posts/daily/AKIX.html</guid>
+      <source url="https://www.pysio.online/rss.xml">组建一个IXP的小计</source>
+      <description>ASN拿到手已经三个月了，前阵子也没怎么折腾。最近纯粹是心血来潮，突然想试试能不能自己搭个IXP。 为什么要折腾IXP？ 说实话，最初的动力很简单，就是想玩。BGP、RPKI这些词看着高大上，实际动手才发现，原来自己也能搞起来。顺便还能帮朋友们的网络互联省点事，何乐而不为？ 想深入理解BGP和RPKI，光看文档不过瘾，必须实操 让小网络也能低门槛互联，...</description>
+      <category>daily</category>
+      <pubDate>Mon, 05 May 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>ASN拿到手已经三个月了，前阵子也没怎么折腾。最近纯粹是心血来潮，突然想试试能不能自己搭个IXP。</p>
+<h2>为什么要折腾IXP？</h2>
+<p>说实话，最初的动力很简单，就是想玩。BGP、RPKI这些词看着高大上，实际动手才发现，原来自己也能搞起来。顺便还能帮朋友们的网络互联省点事，何乐而不为？</p>
+<ul>
+<li>想深入理解BGP和RPKI，光看文档不过瘾，必须实操</li>
+<li>让小网络也能低门槛互联，体验"互联网的互联网"</li>
+<li>顺便试试远程虚拟接入，看看能不能让地球另一端的朋友也能轻松接入</li>
+</ul>
+<h2>技术选型和踩坑</h2>
+<p>一开始就没打算搞得多复杂，能跑起来、能互联、能安全就行。</p>
+<ul>
+<li>路由软件选了Bird，轻量好用，配置也不难</li>
+<li>交换用VXLAN，省得折腾物理交换机，远程接入也方便</li>
+<li>RPKI自己搭了个RTR服务器，安全感up</li>
+<li>服务器放在法兰克福，欧洲网络资源丰富，延迟也不错</li>
+</ul>
+<p>最头疼的其实是远程虚拟接入，毕竟不是每个人都能去机房插根网线。VXLAN帮了大忙，大家只要有公网VPS就能拉隧道进来。</p>
+<h2>动手搭建的流水账</h2>
+<h3>1. 服务器和网络</h3>
+<p>先搞了一台支持BGP的VPS，申请了IPv6段<code>2a14:67c1:a080::/48</code>。IPv4太贵，IPv6用起来真香。</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token comment"># 创建IXP VXLAN接口</span></span>
+<span class="line"><span class="token function">ip</span> <span class="token function">link</span> <span class="token function">add</span> vxlan0 <span class="token builtin class-name">type</span> vxlan <span class="token function">id</span> <span class="token number">10</span> dstport <span class="token number">4789</span> <span class="token builtin class-name">local</span> 2a05:f480:1800:2e75:5400:05ff:fe65:88f3</span>
+<span class="line"><span class="token function">ip</span> addr <span class="token function">add</span> 2a14:67c1:a080::1/64 dev vxlan0</span>
+<span class="line"><span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> vxlan0 up</span>
+<span class="line"></span></code></pre>
+</div><h3>2. Bird配置</h3>
+<p>Bird是核心，负责BGP路由交换。配置其实没想象中复杂，主要就是ASN过滤、RPKI校验、模板化加对等体。</p>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code><span class="line">router id 136.244.83.121;</span>
+<span class="line"></span>
+<span class="line"># 定义BOGON ASN过滤</span>
+<span class="line">define BOGON_ASNS = [</span>
+<span class="line">    0, 23456, 64496..64511, # ... 其他BOGON ASN</span>
+<span class="line">];</span>
+<span class="line"></span>
+<span class="line">define IX_PEERS = [</span>
+<span class="line">    213605, 213891, 151194, 198025, 210352</span>
+<span class="line">];</span>
+<span class="line"></span>
+<span class="line">function ix_import() {</span>
+<span class="line">    if bgp_path.last ~ BOGON_ASNS then return false;</span>
+<span class="line">    if !check_roa_v6() then return false;</span>
+<span class="line">    return true;</span>
+<span class="line">}</span>
+<span class="line"></span></code></pre>
+</div><p>模板化配置，后续加成员很方便：</p>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code><span class="line">template bgp ix_rs {</span>
+<span class="line">    local as 210440;</span>
+<span class="line">    multihop 2;</span>
+<span class="line">    ipv6 {</span>
+<span class="line">        import where ix_import();</span>
+<span class="line">        export where ix_export();</span>
+<span class="line">        next hop self;</span>
+<span class="line">        graceful restart on;</span>
+<span class="line">    };</span>
+<span class="line">}</span>
+<span class="line"></span></code></pre>
+</div><h3>3. RPKI验证</h3>
+<p>安全这块不能省，自己搭了RPKI验证器，Cloudflare也拉了个备份。</p>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code><span class="line">protocol rpki rpki_akae {</span>
+<span class="line">    roa4 { table roa_table_v4; };</span>
+<span class="line">    roa6 { table roa_table_v6; };</span>
+<span class="line">    remote "rpki.akae.re" port 8282;</span>
+<span class="line">    retry keep 90;</span>
+<span class="line">    refresh keep 43200;</span>
+<span class="line">    expire keep 86400;</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">protocol rpki rpki_cloudflare {</span>
+<span class="line">    roa4 { table roa_table_v4; };</span>
+<span class="line">    roa6 { table roa_table_v6; };</span>
+<span class="line">    remote "rtr.rpki.cloudflare.com" port 8282;</span>
+<span class="line">    retry keep 90;</span>
+<span class="line">    refresh keep 43200;</span>
+<span class="line">    expire keep 86400;</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">function check_roa_v6() {</span>
+<span class="line">    case roa_check(roa_table_v6, net, bgp_path.last) {</span>
+<span class="line">        ROA_VALID: return true;</span>
+<span class="line">        ROA_UNKNOWN: return true;</span>
+<span class="line">        ROA_INVALID: return false;</span>
+<span class="line">    }</span>
+<span class="line">}</span>
+<span class="line"></span></code></pre>
+</div><h3>4. PeeringDB注册</h3>
+<p>搭好后顺手在PeeringDB挂了个号：</p>
+<ul>
+<li>组织：AKAERE NETWORKS TECHNOLOGY LTD</li>
+<li>别名：Akaere IX</li>
+<li>位置：CN</li>
+<li>地域：亚太地区</li>
+<li>服务级别：工作时间</li>
+<li>网站：<a href="https://ixpm.akae.re/" target="_blank" rel="noopener noreferrer">ixpm.akae.re</a></li>
+</ul>
+<h2>运营小记</h2>
+<p>目前已经有几个朋友的网络接入了Akaere IX，大家一起玩BGP、测路由、折腾RPKI。带宽和规模其实都不是重点，关键是能互联、能交流、能一起成长。</p>
+<h3>遇到的坑</h3>
+<ul>
+<li>VXLAN偶尔抽风，隧道不稳，得多监控</li>
+<li>每个成员的路由策略都不一样，配置得灵活点</li>
+</ul>
+<h3>技术收获</h3>
+<ul>
+<li>BGP路由控制和策略玩法，实际操作比看书有趣多了</li>
+<li>RPKI部署和异常处理，安全感拉满</li>
+<li>VXLAN跨地域二层网络，远程接入so easy</li>
+<li>自动化脚本管理，省心不少</li>
+</ul>
+<h2>后续想法</h2>
+<p>Akaere IX还在慢慢完善，未来想：</p>
+<ul>
+<li>多接点，覆盖更多地区</li>
+<li>自动化和可视化做得更好</li>
+<li>路由安全服务再丰富点</li>
+<li>也许还能和别的IXP互联玩玩</li>
+</ul>
+<h2>总结</h2>
+<p>这次折腾IXP，收获的不只是技术，更是和一群同样热爱网络的朋友一起成长的乐趣。互联网的本质就是开放和连接，IXP只是一个小小的缩影。</p>
+<p>如果你也想玩BGP、想体验网络互联，欢迎来找我（team@akae.re），一起折腾！</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>成为MANRS会员｜一个IPv6 4个人拨</title>
+      <link>https://www.pysio.online/posts/daily/MANRS.html</link>
+      <guid>https://www.pysio.online/posts/daily/MANRS.html</guid>
+      <source url="https://www.pysio.online/rss.xml">成为MANRS会员｜一个IPv6 4个人拨</source>
+      <description>今天有个小确幸要和大家分享：我们Pysio NetWorks Team（AS213605）正式成为MANRS会员啦！ MANRS是啥？ 简单说，MANRS就是全球互联网圈子里大家一起约定的路由安全规范。加入它，说明我们在网络安全、路由管理这些方面都做得还不错，也愿意和全球同行一起把互联网变得更安全。 加入的过程 其实申请过程还挺有仪式感的，我们提交了各...</description>
+      <category>daily</category>
+      <pubDate>Tue, 06 May 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>今天有个小确幸要和大家分享：我们Pysio NetWorks Team（AS213605）正式成为MANRS会员啦！</p>
+<h2>MANRS是啥？</h2>
+<p>简单说，MANRS就是全球互联网圈子里大家一起约定的路由安全规范。加入它，说明我们在网络安全、路由管理这些方面都做得还不错，也愿意和全球同行一起把互联网变得更安全。</p>
+<h2>加入的过程</h2>
+<p>其实申请过程还挺有仪式感的，我们提交了各种材料，完善了不少安全细节。最后官方审核通过，给我们打了"合格"章，主要通过了这些方面：</p>
+<ul>
+<li>不乱传错误的路由信息</li>
+<li>遇到问题能和全球同行沟通协调</li>
+<li>路由信息尽量公开透明</li>
+</ul>
+<h2>这意味着什么？</h2>
+<p>我们的AS号213605现在已经在MANRS官网上可以查到啦：<a href="https://manrs.org/participant/6567/" target="_blank" rel="noopener noreferrer">点这里看我们的主页</a>。以后每个月还会收到官方的合规报告，看看自己有没有退步或者进步。</p>
+<h2>一点小感想</h2>
+<p>能成为MANRS会员，说明我们的努力被认可了，也算是对团队技术和责任心的肯定。未来我们会继续把网络安全做好，也欢迎大家和我们多交流，一起进步！</p>
+<p>如果你对MANRS感兴趣，或者有啥想法，欢迎留言或者私信我们！</p>
+<h2>拼好IP行为艺术</h2>
+<p>说点有趣的！我们最近还搞了个"拼好IP"行为艺术项目，4个人一起拨号，拼出了一个完整的IP地址，象征着团队协作和网络世界的奇妙联结。</p>
+<p>下面这张图就是我们BGP的路由MAP，欢迎围观：</p>
+<figure><img src="https://s3.pysio.online/pysioimages/rt-2a0f_9400_6110___48.svg" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/pysioimages/rt-2a0f_9400_6110___48.svg" type="image/svg+xml"/>
+    </item>
     <item>
       <title>从0开始注册一个ASN并广播IP</title>
       <link>https://www.pysio.online/posts/daily/RegistryASN.html</link>
@@ -1032,6 +1191,9 @@
 <span class="line"></span></code></pre>
 </div><h3>Minecraft Creeper <i class="fa-kit fa-creeper"></i></h3>
 <div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-creeper"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>MANRS <i class="fa-kit fa-manrs"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-manrs"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div>]]></content:encoded>
     </item>
