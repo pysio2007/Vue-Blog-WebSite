@@ -6,13 +6,35 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 11 May 2025 05:33:21 GMT</pubDate>
-    <lastBuildDate>Sun, 11 May 2025 05:33:21 GMT</lastBuildDate>
+    <pubDate>Mon, 12 May 2025 16:41:10 GMT</pubDate>
+    <lastBuildDate>Mon, 12 May 2025 16:41:10 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
     <category>develop</category>
     <category>resource</category>
+    <item>
+      <title>记一次 DDOS 攻击记录</title>
+      <link>https://www.pysio.online/posts/daily/ddos-20250512.html</link>
+      <guid>https://www.pysio.online/posts/daily/ddos-20250512.html</guid>
+      <source url="https://www.pysio.online/rss.xml">记一次 DDOS 攻击记录</source>
+      <description>[!warning] 截至文章发布时，攻击仍在进行中 自 2025 年 5 月 12 日 12:00 开始，本站遭受了 DDoS / CC 攻击。 我也不想多说什么 就放几张图把 :&amp;lt;&amp;lt; 具体分析报告会在攻击结束后发布</description>
+      <category>daily</category>
+      <pubDate>Tue, 13 May 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<blockquote>
+<p>[!warning] 截至文章发布时，攻击仍在进行中</p>
+</blockquote>
+<p>自 2025 年 5 月 12 日 12:00 开始，本站遭受了 DDoS / CC 攻击。</p>
+<p>我也不想多说什么 就放几张图把 :&lt;&lt;  具体分析报告会在攻击结束后发布</p>
+<!-- more -->
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/DDOS/VPS MPPS.png" alt="网卡包转发" tabindex="0" loading="lazy"><figcaption>网卡包转发</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/DDOS/TY CLOUD FLARE CACHE.png" alt="CloudFlare Dashboard" tabindex="0" loading="lazy"><figcaption>CloudFlare Dashboard</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/DDOS/Paths.png" alt="CloudFlare Dashboard" tabindex="0" loading="lazy"><figcaption>CloudFlare Dashboard</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/DDOS/ClouFlare WAF.png" alt="CloudFlare Dashboard" tabindex="0" loading="lazy"><figcaption>CloudFlare Dashboard</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/DDOS/30M.png" alt="CloudFlare Dashboard" tabindex="0" loading="lazy"><figcaption>CloudFlare Dashboard</figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/DDOS/VPS%20MPPS.png" type="image/png"/>
+    </item>
     <item>
       <title>组建一个 IXP 的小记</title>
       <link>https://www.pysio.online/posts/daily/AKIX.html</link>
