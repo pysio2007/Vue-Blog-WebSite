@@ -6,32 +6,31 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 25 May 2025 20:50:10 GMT</pubDate>
-    <lastBuildDate>Sun, 25 May 2025 20:50:10 GMT</lastBuildDate>
+    <pubDate>Sun, 01 Jun 2025 00:05:46 GMT</pubDate>
+    <lastBuildDate>Sun, 01 Jun 2025 00:05:46 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
     <category>develop</category>
-    <category>resource</category>
     <item>
       <title>AKIX 事故合订本</title>
       <link>https://www.pysio.online/posts/daily/AKIXAccident.html</link>
       <guid>https://www.pysio.online/posts/daily/AKIXAccident.html</guid>
       <source url="https://www.pysio.online/rss.xml">AKIX 事故合订本</source>
-      <description>1. 哥们 你的下一条怎么是上游 2025/5/15 原始帖子 在群友帮AS208754琢磨了2后，发现他的下一条竟然是上游！ 结果他的Bird Config是这样的： 好的 让我们来解释以下发生了什么: 在这个 BGP 会话中 fd00:2::1 是上游的地址，但是很明显 他静态指定了下一跳的路由为上游地址，这样就造成了环路 Bird当然罢工拉！ 2...</description>
+      <description>1. 哥们 你的下一跳怎么是上游 2025/5/15 原始帖子 在群友帮AS208754琢磨了2后，发现他的下一条竟然是上游！ 结果他的Bird Config是这样的： 好的 让我们来解释以下发生了什么: 在这个 BGP 会话中 fd00:2::1 是上游的地址，但是很明显 他静态指定了下一跳的路由为上游地址，这样就造成了环路 Bird当然罢工拉！ 2...</description>
       <category>daily</category>
       <pubDate>Mon, 26 May 2025 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<h2>1. 哥们 你的下一条怎么是上游</h2>
+      <content:encoded><![CDATA[<h2>1. 哥们 你的下一跳怎么是上游</h2>
 <p><a href="https://pysio.blog/notes/a7u2jlwwrd490031" target="_blank" rel="noopener noreferrer">2025/5/15 原始帖子</a></p>
 <p>在群友帮AS208754琢磨了2后，发现他的下一条竟然是上游！</p>
-<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code><span class="line"> 我这个前缀为什么没有导出到上游啊, 上游  Import 0</span>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line"> 我这个前缀为什么没有导出到上游啊, 上游  Import 0</span>
 <span class="line"> 群友: 你实在不行  all  以下试一试 </span>
 <span class="line"> 好</span>
 <span class="line"> 上游:  Import 0</span>
 <span class="line"> 群友: 起了怪了 你试一试xxxx</span>
 <span class="line"></span></code></pre>
 </div><p>结果他的Bird Config是这样的：</p>
-<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code><span class="line">protocol static {</span>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code class="language-conf"><span class="line">protocol static {</span>
 <span class="line">    ipv6;</span>
 <span class="line">    route 打马::/44 via fd00:2::1</span>
 <span class="line">}</span>
@@ -41,7 +40,7 @@
 <h2>2. 巨量撤回更新</h2>
 <p><a href="https://pysio.blog/notes/a81vh2qounpi0033" target="_blank" rel="noopener noreferrer">2025/5/22 原始帖子</a></p>
 <p>因为BuyVM的抽象LU网络 导致了巨量的撤回更新，如下文:</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line">    Routes:         <span class="token number">1</span> imported, <span class="token number">213789</span> exported, <span class="token number">1</span> preferred</span>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">    Routes:         <span class="token number">1</span> imported, <span class="token number">213789</span> exported, <span class="token number">1</span> preferred</span>
 <span class="line">    Route change stats:     received   rejected   filtered    ignored   accepted</span>
 <span class="line">      Import updates:           <span class="token number">6295</span>          <span class="token number">0</span>          <span class="token number">0</span>          <span class="token number">5</span>       <span class="token number">6290</span></span>
 <span class="line">      Import withdraws:            <span class="token number">0</span>          <span class="token number">0</span>        </span></code></pre>
@@ -98,14 +97,14 @@
 <h2>动手搭建的流水账</h2>
 <h3>1. 服务器和网络</h3>
 <p>先搞了一台支持 BGP 的 VPS，申请了 IPv6 段<code>2a14:67c1:a080::/48</code>。IPv4 太贵，IPv6 用起来真香。</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token comment"># 创建IXP VXLAN接口</span></span>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># 创建IXP VXLAN接口</span></span>
 <span class="line"><span class="token function">ip</span> <span class="token function">link</span> <span class="token function">add</span> vxlan0 <span class="token builtin class-name">type</span> vxlan <span class="token function">id</span> <span class="token number">10</span> dstport <span class="token number">4789</span> <span class="token builtin class-name">local</span> 2a05:f480:1800:2e75:5400:05ff:fe65:88f3</span>
 <span class="line"><span class="token function">ip</span> addr <span class="token function">add</span> 2a14:67c1:a080::1/64 dev vxlan0</span>
 <span class="line"><span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> vxlan0 up</span>
 <span class="line"></span></code></pre>
 </div><h3>2. Bird 配置</h3>
 <p>Bird 是核心，负责 BGP 路由交换。配置其实没想象中复杂，主要就是 ASN 过滤、RPKI 校验、模板化加对等体。</p>
-<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code><span class="line">router id 1.1.1.1;</span>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code class="language-conf"><span class="line">router id 1.1.1.1;</span>
 <span class="line"></span>
 <span class="line"># 定义BOGON ASN过滤</span>
 <span class="line">define BOGON_ASNS = [</span>
@@ -123,7 +122,7 @@
 <span class="line">}</span>
 <span class="line"></span></code></pre>
 </div><p>模板化配置，后续加成员很方便：</p>
-<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code><span class="line">template bgp ix_rs {</span>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code class="language-conf"><span class="line">template bgp ix_rs {</span>
 <span class="line">    local as 210440;</span>
 <span class="line">    multihop 2;</span>
 <span class="line">    ipv6 {</span>
@@ -136,7 +135,7 @@
 <span class="line"></span></code></pre>
 </div><h3>3. RPKI验证</h3>
 <p>安全这块不能省，自己搭了 RPKI 验证器，Cloudflare 也拉了个备份。</p>
-<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code><span class="line">protocol rpki rpki_akae {</span>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code class="language-conf"><span class="line">protocol rpki rpki_akae {</span>
 <span class="line">    roa4 { table roa_table_v4; };</span>
 <span class="line">    roa6 { table roa_table_v6; };</span>
 <span class="line">    remote "rpki.akae.re" port 8282;</span>
@@ -419,7 +418,7 @@
 <p>我使用 <code>Debian 12</code> 作为示例, 直接使用APT安装Bird2 <code>apt install bird2</code></p>
 <p>我的ASN为 <code>AS213605</code> 我想宣告 <code>2a14:67c1:a020::/48</code></p>
 <p>以Vultr为例, 他给出的对端ASN是 <code>64515</code> 对端IP是 <code>2001:19f0:ffff::1</code> 我们的 vps 本身的 IPv6 地址为 <code>2001:19f0:5001:225f:5400:05ff:fe69:6776</code>, MD5 密码为 114514, 所以我的配置文件如下:</p>
-<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code><span class="line">log syslog all;</span>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code class="language-conf"><span class="line">log syslog all;</span>
 <span class="line"></span>
 <span class="line">router id 114.514.111.222; # vps 的公网 IPv4 地址</span>
 <span class="line">define ASN=213605; # 你的 ASN</span>
@@ -467,7 +466,7 @@
 <span class="line"></span></code></pre>
 </div><p>你可以直接按着我的配置文件修改(建议先去看看<a href="https://soha.moe/post/bird-bgp-kickstart.html" target="_blank" rel="noopener noreferrer">soha的教程</a> 然后自己手写), 改好后写入 <code>/etc/bird/bird.conf</code>, 然后应用配置文件 <code>bridc c</code></p>
 <p>你可以运行 <code>birdc show protocols all</code> 查看当前所有协议的状态:</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line">vultr    BGP        </span></code></pre>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">vultr    BGP        </span></code></pre>
 </div>]]></content:encoded>
       <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Create%20role%20and%20maintainer%20pair.png" type="image/png"/>
     </item>
@@ -531,7 +530,7 @@
 <p>我使用 <code>Debian 12</code> 作为示例, 直接使用APT安装Bird2 <code>apt install bird2</code></p>
 <p>我的ASN为 <code>AS213605</code> 我想宣告 <code>2a14:67c1:a020::/48</code></p>
 <p>以Vultr为例, 他给出的对端ASN是 <code>64515</code> 对端IP是 <code>2001:19f0:ffff::1</code> 我们的 vps 本身的 IPv6 地址为 <code>2001:19f0:5001:225f:5400:05ff:fe69:6776</code>, MD5 密码为 114514, 所以我的配置文件如下:</p>
-<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code><span class="line">log syslog all;</span>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code class="language-conf"><span class="line">log syslog all;</span>
 <span class="line"></span>
 <span class="line">router id 114.514.111.222; # vps 的公网 IPv4 地址</span>
 <span class="line">define ASN=213605; # 你的 ASN</span>
@@ -579,7 +578,7 @@
 <span class="line"></span></code></pre>
 </div><p>你可以直接按着我的配置文件修改(建议先去看看soha的教程 然后自己手写[^2]), 改好后写入 <code>/etc/bird/bird.conf</code>, 然后应用配置文件 <code>bridc c</code></p>
 <p>你可以运行 <code>birdc show protocols all</code> 查看当前所有协议的状态:</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line">vultr    BGP        </span></code></pre>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">vultr    BGP        </span></code></pre>
 </div>]]></content:encoded>
       <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250216154622.png" type="image/png"/>
     </item>
@@ -626,68 +625,6 @@
 ]]></content:encoded>
     </item>
     <item>
-      <title>资源分享: 关于我转生变成史莱姆这档事小说</title>
-      <link>https://www.pysio.online/posts/resource/ThatTimeIGotReincarnatedasaSlime.html</link>
-      <guid>https://www.pysio.online/posts/resource/ThatTimeIGotReincarnatedasaSlime.html</guid>
-      <source url="https://www.pysio.online/rss.xml">资源分享: 关于我转生变成史莱姆这档事小说</source>
-      <description>《关于我转生变成史莱姆这档事》，通常简称为《转生史莱姆》，是日本小说家伏濑创作的一部网络小说作品，描述一名上班族转生到异世界成为史莱姆的新人生故事。 资源包括 0 - 20 正片 2本外传</description>
-      <category>resource</category>
-      <pubDate>Sun, 05 Jan 2025 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>《关于我转生变成史莱姆这档事》，通常简称为《转生史莱姆》，是日本小说家伏濑创作的一部网络小说作品，描述一名上班族转生到异世界成为史莱姆的新人生故事。</p>
-<p>资源包括 0 - 20 正片 2本外传</p>
-<!-- more -->
-<p>包含以下文件内容:</p>
-<div class="language-list" data-highlighter="prismjs" data-ext="list"><pre><code><span class="line">📄 关于我转生成为史莱姆的那件事 01卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 01卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 02卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 02卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 03卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 03卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 04卷 - 伏濑.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 04卷 - 伏濑.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 05卷 - 伏濑.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 05卷 - 伏濑.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 06卷 - 伏濑.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 06卷 - 伏濑.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 07卷 - 伏濑.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 07卷 - 伏濑.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 08卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 08卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 09卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 09卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 10卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 10卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 11卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 11卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 12卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 12卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 13.5卷 短篇 - 伏濑.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 13.5卷 短篇 - 伏濑.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 13卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 13卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 14卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 14卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 15卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 15卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 16卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 16卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 17卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 17卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 18卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 18卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 19卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 19卷 - 伏瀨.mobi  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 20卷 - 伏瀨.jpg  </span>
-<span class="line">📄 关于我转生成为史莱姆的那件事 20卷 - 伏瀨.mobi  </span>
-<span class="line">📄 维鲁多拉的史莱姆观察日记 - 伏瀨.jpg  </span>
-<span class="line">📄 维鲁多拉的史莱姆观察日记 - 伏瀨.mobi  </span>
-<span class="line">📄 關於我轉生成為史萊姆短篇外傳合集 - 伏瀨.jpg  </span>
-<span class="line">📄 關於我轉生成為史萊姆短篇外傳合集 - 伏瀨.mobi  </span>
-<span class="line"></span></code></pre>
-</div><p>下载地址： <a href="https://pysio-blog-files-list.akaere.online/%E5%85%B3%E4%BA%8E%E6%88%91%E8%BD%AC%E7%94%9F%E6%88%90%E4%B8%BA%E5%8F%B2%E8%8E%B1%E5%A7%86%E7%9A%84%E9%82%A3%E4%BB%B6%E4%BA%8B/" target="_blank" rel="noopener noreferrer">点我下载(Cloudflare)</a></p>
-]]></content:encoded>
-    </item>
-    <item>
       <title>新博客开坑！</title>
       <link>https://www.pysio.online/posts/develop/NewBlog.html</link>
       <guid>https://www.pysio.online/posts/develop/NewBlog.html</guid>
@@ -715,7 +652,7 @@
 <p>所有API均已部署至生产环境，请使用以下基础URL进行访问。</p>
 </div>
 <h3>基础URL</h3>
-<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code><span class="line">https://blogapi.pysio.online</span>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">https://blogapi.pysio.online</span>
 <span class="line"></span></code></pre>
 </div><h3>API集合</h3>
 <p>您也可以直接下载JSON文件：<a href="https://www.pysio.online/json/blog-api-collection.json" target="_blank" rel="noopener noreferrer">下载API集合</a> 并导入 Postman 使用</p>
@@ -731,7 +668,7 @@
 </div>
 <h3>通用响应格式</h3>
 <p>所有JSON响应都遵循以下格式：</p>
-<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"success/error"</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"data/error"</span><span class="token operator">:</span> <span class="token string">"响应数据/错误信息"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
@@ -746,7 +683,7 @@
 </ul>
 </div>
 <h3>认证头格式</h3>
-<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code><span class="line">Authorization: Bearer {TOKEN}</span>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {TOKEN}</span>
 <span class="line"></span></code></pre>
 </div><div class="hint-container warning">
 <p class="hint-container-title">注意</p>
@@ -764,7 +701,7 @@
 <li><strong>请求方法</strong>: GET</li>
 <li><strong>响应格式</strong>: text/plain</li>
 <li><strong>响应示例</strong>: <code>你来这里干啥 喵?</code></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/</span>
+<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/</span>
 <span class="line"></span></code></pre>
 </div></li>
 </ul>
@@ -777,13 +714,13 @@
 <li><strong>请求路径</strong>: <code>/fastfetch</code></li>
 <li><strong>请求方法</strong>: GET</li>
 <li><strong>响应格式</strong>: application/json</li>
-<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"success"</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"output"</span><span class="token operator">:</span> <span class="token string">"系统信息HTML格式输出"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/fastfetch</span>
+<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/fastfetch</span>
 <span class="line"></span></code></pre>
 </div></li>
 </ul>
@@ -791,7 +728,7 @@
 <ul>
 <li><strong>请求路径</strong>: <code>/heartbeat</code></li>
 <li><strong>请求方法</strong>: POST</li>
-<li><strong>请求头</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code><span class="line">Authorization: Bearer {TOKEN}</span>
+<li><strong>请求头</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {TOKEN}</span>
 <span class="line"></span></code></pre>
 </div></li>
 <li><strong>请求参数</strong>:
@@ -803,7 +740,7 @@
 </ul>
 </li>
 <li><strong>响应格式</strong>: application/json</li>
-<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Heartbeat received"</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"application"</span><span class="token operator">:</span> <span class="token string">"MyApp"</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"introduce"</span><span class="token operator">:</span> <span class="token string">"My Application Description"</span><span class="token punctuation">,</span></span>
@@ -812,7 +749,7 @@
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer your_token"</span> https://blogapi.pysio.online/heartbeat</span>
+<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer your_token"</span> https://blogapi.pysio.online/heartbeat</span>
 <span class="line"></span></code></pre>
 </div></li>
 </ul>
@@ -821,7 +758,7 @@
 <li><strong>请求路径</strong>: <code>/check</code></li>
 <li><strong>请求方法</strong>: GET</li>
 <li><strong>响应格式</strong>: application/json</li>
-<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"alive"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"last_heartbeat"</span><span class="token operator">:</span> <span class="token number">1234567890</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"application"</span><span class="token operator">:</span> <span class="token string">"MyApp"</span><span class="token punctuation">,</span></span>
@@ -831,7 +768,7 @@
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/check</span>
+<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/check</span>
 <span class="line"></span></code></pre>
 </div></li>
 </ul>
@@ -847,12 +784,12 @@
 <li><strong>请求方法</strong>: GET</li>
 <li><strong>响应</strong>: 302 重定向到 Minio 存储的图片</li>
 <li><strong>重定向格式</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
-<li><strong>错误响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>错误响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"No images available"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token comment"># 使用 -L 参数跟随重定向</span></span>
+<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># 使用 -L 参数跟随重定向</span></span>
 <span class="line"><span class="token function">curl</span> <span class="token parameter variable">-L</span> https://blogapi.pysio.online/random_image <span class="token parameter variable">-o</span> random.webp</span>
 <span class="line"></span></code></pre>
 </div></li>
@@ -868,7 +805,7 @@
 </li>
 <li><strong>响应</strong>: 302 重定向到 Minio 存储的图片</li>
 <li><strong>重定向格式</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
-<li><strong>错误响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>错误响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image not found"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
@@ -885,7 +822,7 @@
 </li>
 <li><strong>响应</strong>: 302 重定向到 Minio 存储的图片</li>
 <li><strong>重定向格式</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
-<li><strong>错误响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>错误响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image not found"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
@@ -895,7 +832,7 @@
 <ul>
 <li><strong>请求路径</strong>: <code>/images/add</code></li>
 <li><strong>请求方法</strong>: POST</li>
-<li><strong>请求头</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code><span class="line">Authorization: Bearer {ADMIN_TOKEN}</span>
+<li><strong>请求头</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {ADMIN_TOKEN}</span>
 <span class="line">Content-Type: multipart/form-data</span>
 <span class="line"></span></code></pre>
 </div></li>
@@ -905,23 +842,23 @@
 </ul>
 </li>
 <li><strong>响应格式</strong>: application/json</li>
-<li><strong>成功响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>成功响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"图片的hash值"</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"size"</span><span class="token operator">:</span> 图片大小(字节)</span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>错误响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>错误响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image file is required"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-</div>或<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+</div>或<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image already exists"</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"已存在图片的hash"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token punctuation">\</span></span>
+<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token punctuation">\</span></span>
 <span class="line">  <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer your_admin_token"</span> <span class="token punctuation">\</span></span>
 <span class="line">  <span class="token parameter variable">-F</span> <span class="token string">"image=@/path/to/your/image.jpg"</span> <span class="token punctuation">\</span></span>
 <span class="line">  https://blogapi.pysio.online/images/add</span>
@@ -939,7 +876,7 @@
 </ul>
 </li>
 <li><strong>响应格式</strong>: application/json</li>
-<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"images"</span><span class="token operator">:</span> <span class="token punctuation">[</span></span>
 <span class="line">    <span class="token punctuation">{</span></span>
 <span class="line">      <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"图片hash"</span><span class="token punctuation">,</span></span>
@@ -955,7 +892,7 @@
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">curl</span> <span class="token string">"https://blogapi.pysio.online/images/list?page=1&amp;limit=10"</span></span>
+<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token string">"https://blogapi.pysio.online/images/list?page=1&amp;limit=10"</span></span>
 <span class="line"></span></code></pre>
 </div></li>
 </ul>
@@ -964,12 +901,12 @@
 <li><strong>请求路径</strong>: <code>/images/count</code></li>
 <li><strong>请求方法</strong>: GET</li>
 <li><strong>响应格式</strong>: application/json</li>
-<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">100</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/images/count</span>
+<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/images/count</span>
 <span class="line"></span></code></pre>
 </div></li>
 </ul>
@@ -977,7 +914,7 @@
 <ul>
 <li><strong>请求路径</strong>: <code>/images/:hash</code></li>
 <li><strong>请求方法</strong>: DELETE</li>
-<li><strong>请求头</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code><span class="line">Authorization: Bearer {ADMIN_TOKEN}</span>
+<li><strong>请求头</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {ADMIN_TOKEN}</span>
 <span class="line"></span></code></pre>
 </div></li>
 <li><strong>参数说明</strong>:
@@ -986,17 +923,17 @@
 </ul>
 </li>
 <li><strong>响应格式</strong>: application/json</li>
-<li><strong>成功响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>成功响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Image deleted successfully"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>错误响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>错误响应</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image not found"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> DELETE <span class="token punctuation">\</span></span>
+<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> DELETE <span class="token punctuation">\</span></span>
 <span class="line">  <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer your_admin_token"</span> <span class="token punctuation">\</span></span>
 <span class="line">  https://blogapi.pysio.online/images/your_image_hash</span>
 <span class="line"></span></code></pre>
@@ -1007,7 +944,7 @@
 <ol>
 <li>Go 命令行工具：</li>
 </ol>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token comment"># 编译工具</span></span>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># 编译工具</span></span>
 <span class="line">go build <span class="token parameter variable">-o</span> uploader cmd/upload/main.go</span>
 <span class="line"></span>
 <span class="line"><span class="token comment"># 使用工具</span></span>
@@ -1019,7 +956,7 @@
 </div><ol start="2">
 <li>PowerShell 脚本：</li>
 </ol>
-<div class="language-powershell" data-highlighter="prismjs" data-ext="powershell"><pre><code><span class="line"><span class="token comment"># 运行脚本</span></span>
+<div class="language-powershell" data-highlighter="prismjs" data-ext="powershell"><pre><code class="language-powershell"><span class="line"><span class="token comment"># 运行脚本</span></span>
 <span class="line"><span class="token punctuation">.</span>\upload<span class="token punctuation">.</span>ps1 <span class="token operator">-</span>folder <span class="token string">"C:\Images"</span> `</span>
 <span class="line">  <span class="token operator">-</span>token <span class="token string">"your_token"</span> `</span>
 <span class="line">  <span class="token operator">-</span>retries 5 `</span>
@@ -1032,7 +969,7 @@
 <li><strong>请求路径</strong>: <code>/steam_status</code></li>
 <li><strong>请求方法</strong>: GET</li>
 <li><strong>响应格式</strong>: application/json</li>
-<li><strong>响应示例（游戏中）</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>响应示例（游戏中）</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"在游戏中"</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"game"</span><span class="token operator">:</span> <span class="token string">"游戏名称"</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"game_id"</span><span class="token operator">:</span> <span class="token string">"游戏ID"</span><span class="token punctuation">,</span></span>
@@ -1043,12 +980,12 @@
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>响应示例（不在游戏中）</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>响应示例（不在游戏中）</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"在线"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/steam_status</span>
+<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/steam_status</span>
 <span class="line"></span></code></pre>
 </div></li>
 </ul>
@@ -1063,7 +1000,7 @@
 </ul>
 </li>
 <li><strong>响应格式</strong>: application/json</li>
-<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"ip"</span><span class="token operator">:</span> <span class="token string">"IP地址"</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"hostname"</span><span class="token operator">:</span> <span class="token string">"主机名"</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"city"</span><span class="token operator">:</span> <span class="token string">"城市"</span><span class="token punctuation">,</span></span>
@@ -1076,7 +1013,7 @@
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">curl</span> <span class="token string">"https://blogapi.pysio.online/ipcheck?ip=8.8.8.8"</span></span>
+<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token string">"https://blogapi.pysio.online/ipcheck?ip=8.8.8.8"</span></span>
 <span class="line"></span></code></pre>
 </div></li>
 </ul>
@@ -1086,7 +1023,7 @@
 <li><strong>请求路径</strong>: <code>/api_stats</code></li>
 <li><strong>请求方法</strong>: GET</li>
 <li><strong>响应格式</strong>: application/json</li>
-<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">[</span></span>
+<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">[</span></span>
 <span class="line">  <span class="token punctuation">{</span></span>
 <span class="line">    <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"API路径"</span><span class="token punctuation">,</span></span>
 <span class="line">    <span class="token property">"count"</span><span class="token operator">:</span> 调用次数<span class="token punctuation">,</span></span>
@@ -1095,7 +1032,7 @@
 <span class="line"><span class="token punctuation">]</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/api_stats</span>
+<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/api_stats</span>
 <span class="line"></span></code></pre>
 </div></li>
 </ul>
@@ -1109,20 +1046,20 @@
 </ul>
 </li>
 <li><strong>响应格式</strong>: application/json</li>
-<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+<li><strong>响应示例</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"API路径"</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"count"</span><span class="token operator">:</span> 调用次数<span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"lastUpdated"</span><span class="token operator">:</span> <span class="token string">"最后调用时间"</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-</div>或<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code><span class="line"><span class="token punctuation">{</span></span>
+</div>或<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"API路径"</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"lastUpdated"</span><span class="token operator">:</span> <span class="token null keyword">null</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 </div></li>
-<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/api_stats/random_image</span>
+<li><strong>调试示例</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/api_stats/random_image</span>
 <span class="line"></span></code></pre>
 </div></li>
 </ul>
@@ -1203,7 +1140,7 @@
       <category>develop</category>
       <pubDate>Thu, 07 Nov 2024 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>本站现在提供了一个随机图片的API 你可以直接使用下面的URL获取一张随机图片</p>
-<div class="language-url" data-highlighter="prismjs" data-ext="url"><pre><code><span class="line"><span class="token scheme">https<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">blogapi.pysio.online</span></span><span class="token path"><span class="token path-separator">/</span>random_image</span></span>
+<div class="language-url" data-highlighter="prismjs" data-ext="url"><pre><code class="language-url"><span class="line"><span class="token scheme">https<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">blogapi.pysio.online</span></span><span class="token path"><span class="token path-separator">/</span>random_image</span></span>
 <span class="line"></span></code></pre>
 </div>]]></content:encoded>
       <enclosure url="https://blogapi.pysio.online/random_image" type="image/"/>
@@ -1218,44 +1155,44 @@
       <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<h2>使用</h2>
 <p>你可以直接引用以下JS文件来使用本博客自定义的FontAwesome</p>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://files.pysio.online/Pysio-FontAwesome/js/custom-icons.js"</span> crossorigin<span class="token operator">=</span><span class="token string">"anonymous"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://files.pysio.online/Pysio-FontAwesome/js/custom-icons.js"</span> crossorigin<span class="token operator">=</span><span class="token string">"anonymous"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div><h2>包含的图标</h2>
 <h3>Destiny2 <i class="fa-kit fa-destiny2"></i></h3>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-destiny2"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-destiny2"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div><h3>JetBrains <i class="fa-kit fa-jetbrains"></i></h3>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-jetbrains"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-jetbrains"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div><h3>JetBrains IntelliJ IDEA <i class="fa-kit fa-idea"></i></h3>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-idea"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-idea"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div><h3>JetBrains PyCharm <i class="fa-kit fa-pycharm"></i></h3>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-pycharm"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-pycharm"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div><h3>Github Issues <i class="fa-kit fa-issues"></i></h3>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-issues"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-issues"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div><h3>Progressive Web Apps <i class="fa-kit fa-pwa"></i></h3>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-pwa"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-pwa"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div><h3>Proxmox Virtual Environment <i class="fa-kit fa-pve"></i></h3>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-pve"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-pve"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div><h3>Modrinth <i class="fa-kit fa-modrinth"></i></h3>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-modrinth"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-modrinth"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div><h3>Visual Studio Code <i class="fa-kit fa-vscode"></i></h3>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-vscode"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-vscode"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div><h3>Minecraft Creeper <i class="fa-kit fa-creeper"></i></h3>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-creeper"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-creeper"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div><h3>MANRS <i class="fa-kit fa-manrs"></i></h3>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-manrs"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-manrs"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div><h3>Wireshark <i class="fa-kit fa-wireshark"></i></h3>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-wireshark"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-wireshark"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
 <span class="line"></span></code></pre>
 </div>]]></content:encoded>
     </item>
@@ -1275,12 +1212,12 @@
 <h2>安装VuePress Theme Hope</h2>
 <p>首先 安装 Node.js 18.0.0+</p>
 <h3>然后创建项目模板</h3>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">npm</span> init vuepress-theme-hope@latest my-docs</span>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">npm</span> init vuepress-theme-hope@latest my-docs</span>
 <span class="line"></span></code></pre>
 </div><p>这里的 my-docs 是一个参数，代表 VuePress Theme Hope 项目的文件夹名称。</p>
 <p>执行完命令后根据提示，通过键盘 ↓ 选择 简体中文 并回车来按需选择。</p>
 <h3>项目命令</h3>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token comment"># 启动开发服务器</span></span>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># 启动开发服务器</span></span>
 <span class="line"><span class="token function">npm</span> docs:dev</span>
 <span class="line"><span class="token comment"># 构建项目并输出</span></span>
 <span class="line"><span class="token function">npm</span> docs:build</span>
@@ -1289,7 +1226,7 @@
 <span class="line"></span></code></pre>
 </div><p>启动项目，浏览器输入 <a href="http://localhost:8080/" target="_blank" rel="noopener noreferrer">http://localhost:8080/</a> 查看效果</p>
 <h3>目录结构</h3>
-<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code><span class="line">.</span>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">.</span>
 <span class="line">├── .github (可选的) → GitHub 配置文件存放路径</span>
 <span class="line">│    └── workflow → GitHub 工作流配置</span>
 <span class="line">│         └── docs-deploy.yml → 自动部署文档的工作流</span>
@@ -1318,7 +1255,7 @@
 </div><h3>接下来 做一些个性化的配置</h3>
 <h3>首页图片全屏设置</h3>
 <p>如果不想首页图片全屏,，打开README.md找到heroFullScreen修改为fasle</p>
-<div class="language-markdown" data-highlighter="prismjs" data-ext="md"><pre><code><span class="line">heroFullScreen: false</span>
+<div class="language-markdown" data-highlighter="prismjs" data-ext="md"><pre><code class="language-markdown"><span class="line">heroFullScreen: false</span>
 <span class="line"></span></code></pre>
 </div><p>效果：</p>
 <figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/blogdemo.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
@@ -1326,7 +1263,7 @@
 <p>初始化是会默认生成以下内容，如果要修改为自己的项目要怎么修改呢。</p>
 <figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/defpoj.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
 <p>打开<code>README.md</code>，找到<code>projects</code>，编辑成你要的内容即可。</p>
-<div class="language-markdown" data-highlighter="prismjs" data-ext="md"><pre><code><span class="line">projects:</span>
+<div class="language-markdown" data-highlighter="prismjs" data-ext="md"><pre><code class="language-markdown"><span class="line">projects:</span>
 <span class="line">  <span class="token list punctuation">-</span> icon: project</span>
 <span class="line">    name: 项目名称</span>
 <span class="line">    desc: 项目详细描述</span>
@@ -1399,180 +1336,6 @@
 ]]></content:encoded>
     </item>
     <item>
-      <title>部署OpenMcim节点</title>
-      <link>https://www.pysio.online/posts/develop/OpenMCIM.html</link>
-      <guid>https://www.pysio.online/posts/develop/OpenMCIM.html</guid>
-      <source url="https://www.pysio.online/rss.xml">部署OpenMcim节点</source>
-      <description>相关信息 MCIM 需要提供文件镜像，但由于成本问题，以及受到 OpenBMCLAPI 的启发，本项目分发 Mod 文件基于网盘 感谢各位的支持~！感谢您为改善国内 Mod 下载环境的贡献！</description>
-      <category>develop</category>
-      <pubDate>Mon, 07 Oct 2024 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<!-- markdownlint-disable MD028 -->
-<div class="hint-container info">
-<p class="hint-container-title">相关信息</p>
-<p>MCIM 需要提供文件镜像，但由于成本问题，以及受到 OpenBMCLAPI 的启发，本项目分发 Mod 文件基于网盘
-感谢各位的支持~！感谢您为改善国内 Mod 下载环境的贡献！</p>
-</div>
-<!-- markdownlint-enable MD028 -->
-<!-- more -->
-<h2>OpenBmclapi</h2>
-<div class="hint-container tip">
-<p class="hint-container-title">提示</p>
-<p>我更建议你使用已经修改过的OpenMcim执行上线</p>
-</div>
-<div class="hint-container warning">
-<p class="hint-container-title">注意</p>
-<p>因为 Modrinth 原因 会有很多Hash错误的文件 未修改的OpenBmclapi无法上线</p>
-</div>
-<h3>从源码运行</h3>
-<h4>环境</h4>
-<ul>
-<li>Node.js 18以上</li>
-<li>Windows/MacOS/Linux, x86/arm均可 (凡是nodejs支持的环境都可以)</li>
-</ul>
-<h4>设置环境</h4>
-<ol>
-<li>去 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener noreferrer">https://nodejs.org/zh-cn/</a> 下载LTS版本的nodejs并安装</li>
-<li>Clone 并安装依赖</li>
-</ol>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">git</span> clone https://github.com/bangbang93/openbmclapi</span>
-<span class="line"><span class="token builtin class-name">cd</span> openbmclapi</span>
-<span class="line"><span class="token comment">## 安装依赖</span></span>
-<span class="line"><span class="token function">npm</span> ci</span>
-<span class="line"><span class="token comment">## 编译</span></span>
-<span class="line"><span class="token function">npm</span> run build</span>
-<span class="line"><span class="token comment">## 运行</span></span>
-<span class="line"><span class="token function">node</span> dist/index.js</span>
-<span class="line"></span></code></pre>
-</div><ol start="3">
-<li>
-<p>如果你看到了 <code>CLUSTER_ID is not set</code> 的报错, 说明一切正常, 接下来 修改代码 使其运行在OpenMCIM</p>
-</li>
-<li>
-<p>修改 <code>dist/cluster.js</code> 文件, 找到</p>
-</li>
-</ol>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token keyword">const</span> whiteListDomain <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'localhost'</span><span class="token punctuation">,</span> <span class="token string">'bangbang93.com'</span><span class="token punctuation">]</span><span class="token punctuation">;</span></span>
-<span class="line"></span></code></pre>
-</div><p>修改为</p>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line"><span class="token keyword">const</span> whiteListDomain <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'localhost'</span><span class="token punctuation">,</span> <span class="token string">'bangbang93.com'</span><span class="token punctuation">,</span><span class="token string">'files.mcimirror.top'</span><span class="token punctuation">]</span><span class="token punctuation">;</span></span>
-<span class="line"></span></code></pre>
-</div><h4>设置参数</h4>
-<p>在项目根目录创建一个文件, 名为 <code>.env</code></p>
-<p>写入如下内容</p>
-<div class="language-env" data-highlighter="prismjs" data-ext="env"><pre><code><span class="line">CLUSTER_ID=你的CLUSTER_ID</span>
-<span class="line">CLUSTER_SECRET=你的CLUSTER_SECRET</span>
-<span class="line">CLUSTER_PORT=对外访问端口</span>
-<span class="line">CLUSTER_BMCLAPI=https://files.mcimirror.top</span>
-<span class="line"></span></code></pre>
-</div><p>CLUSTER_ID 和 CLUSTER_SECRET 请联系管理员获取</p>
-<p>如果配置无误的话, 运行程序, 就会开始拉取文件, 拉取完成后就会开始等待服务器分发请求了</p>
-<details class="hint-container details"><summary>这是一个简短的修改部署视频</summary>
-</details>
-<h2>Node-OpenMcim</h2>
-<h3>使用Docker</h3>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token punctuation">\</span></span>
-<span class="line"><span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_ID</span><span class="token operator">=</span><span class="token variable">${CLUSTER_ID}</span> <span class="token punctuation">\</span></span>
-<span class="line"><span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_SECRET</span><span class="token operator">=</span><span class="token variable">${CLUSTER_SECRET}</span> <span class="token punctuation">\</span></span>
-<span class="line"><span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_PUBLIC_PORT</span><span class="token operator">=</span><span class="token variable">${CLUSTER_PORT}</span> <span class="token punctuation">\</span></span>
-<span class="line"><span class="token parameter variable">-e</span> <span class="token assign-left variable">TZ</span><span class="token operator">=</span>Asia/Shanghai <span class="token punctuation">\</span></span>
-<span class="line"><span class="token parameter variable">-v</span> /data/mcim:/opt/mcim <span class="token punctuation">\</span></span>
-<span class="line"><span class="token parameter variable">-p</span> <span class="token variable">${CLUSTER_PORT}</span><span class="token builtin class-name">:</span><span class="token variable">${CLUSTER_PORT}</span> <span class="token punctuation">\</span></span>
-<span class="line"><span class="token parameter variable">--restart</span> unless-stop <span class="token punctuation">\</span></span>
-<span class="line"><span class="token parameter variable">--name</span> mcim <span class="token punctuation">\</span></span>
-<span class="line">zerowolf233/mcim</span>
-<span class="line"></span></code></pre>
-</div><h3>从源码安装</h3>
-<h4>环境</h4>
-<ul>
-<li>Node.js 18 以上</li>
-<li>Windows/MacOS/Linux</li>
-<li>x86/arm 均可 (需支持Nodejs)</li>
-</ul>
-<h4>设置环境</h4>
-<ol>
-<li>去 <a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener noreferrer">https://nodejs.org/zh-cn/</a> 下载LTS版本的nodejs并安装</li>
-<li>Clone 并安装依赖</li>
-</ol>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">git</span> clone https://github.com/ZeroWolf233/node-openmcim</span>
-<span class="line"><span class="token builtin class-name">cd</span> node-openmcim </span>
-<span class="line"><span class="token comment">## 安装依赖</span></span>
-<span class="line"><span class="token function">npm</span> ci</span>
-<span class="line"><span class="token comment">## 编译</span></span>
-<span class="line"><span class="token function">npm</span> run build</span>
-<span class="line"><span class="token comment">## 运行</span></span>
-<span class="line"><span class="token function">node</span> dist/index.js</span>
-<span class="line"></span></code></pre>
-</div><ol start="3">
-<li>如果你看到了 <code>CLUSTER_ID is not set</code> 的报错, 说明一切正常, 该设置参数了</li>
-</ol>
-<h4>设置参数</h4>
-<p>在项目根目录创建一个文件, 名为 <code>.env</code></p>
-<p>写入如下内容</p>
-<div class="language-env" data-highlighter="prismjs" data-ext="env"><pre><code><span class="line">CLUSTER_ID=你的节点ID</span>
-<span class="line">CLUSTER_SECRET=你的节点密钥</span>
-<span class="line">CLUSTER_PUBLIC_PORT=你的对外开放端口（用户请求时访问）</span>
-<span class="line">CLUSTER_PORT=你的本地开放端口</span>
-<span class="line">CLUSTER_STORAGE=存储类型</span>
-<span class="line">CLUSTER_STORAGE_OPTIONS=存储配置项（请参考上方Alist配置）</span>
-<span class="line"></span></code></pre>
-</div><p>如果配置无误的话, 运行程序, 就会开始拉取文件, 拉取完成后就会开始等待服务器分发请求了！</p>
-<h2>反向代理节点</h2>
-<h3>Windows 部署</h3>
-<ol>
-<li>
-<p>前往 <a href="https://www.pysio.tech/zh-CN/MCIM/" target="_blank" rel="noopener noreferrer">https://www.pysio.tech/zh-CN/MCIM/</a> 下载最新的MCIM反向代理节点</p>
-</li>
-<li>
-<p>解压文件</p>
-</li>
-<li>
-<p>修改.env文件 填写如下内容</p>
-</li>
-</ol>
-<div class="language-env" data-highlighter="prismjs" data-ext="env"><pre><code><span class="line">CLUSTER_ID=你的节点ID</span>
-<span class="line">CLUSTER_SECRET=你的节点密钥</span>
-<span class="line">CLUSTER_PUBLIC_PORT=你的对外开放端口（用户请求时访问）</span>
-<span class="line">CLUSTER_PORT=你的本地开放端口</span>
-<span class="line"></span></code></pre>
-</div><ol start="4">
-<li>运行<code>run.ps1</code> 上线</li>
-</ol>
-<h3>Linux 部署</h3>
-<h5>环境</h5>
-<ul>
-<li>Node.js 18 以上</li>
-<li>Windows/MacOS/Linux</li>
-<li>x86/arm 均可 (需支持Nodejs)</li>
-</ul>
-<h5>部署</h5>
-<ol>
-<li>
-<p>前往 <a href="https://www.pysio.tech/zh-CN/MCIM/" target="_blank" rel="noopener noreferrer">https://www.pysio.tech/zh-CN/MCIM/</a> 下载最新的MCIM反向代理节点</p>
-</li>
-<li>
-<p>解压文件</p>
-</li>
-<li>
-<p>执行如下命令获取依赖包</p>
-</li>
-</ol>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">npm</span> <span class="token function">install</span></span>
-<span class="line"></span></code></pre>
-</div><ol start="4">
-<li>修改.env文件 填写如下内容</li>
-</ol>
-<div class="language-env" data-highlighter="prismjs" data-ext="env"><pre><code><span class="line">CLUSTER_ID=你的节点ID</span>
-<span class="line">CLUSTER_SECRET=你的节点密钥</span>
-<span class="line">CLUSTER_PUBLIC_PORT=你的对外开放端口（用户请求时访问）</span>
-<span class="line">CLUSTER_PORT=你的本地开放端口</span>
-<span class="line"></span></code></pre>
-</div><ol start="5">
-<li>运行<code>node dist/index.js</code>上线</li>
-</ol>
-<h2>特别鸣谢</h2>
-]]></content:encoded>
-    </item>
-    <item>
       <title>命运2 年7</title>
       <link>https://www.pysio.online/posts/daily/Destiny%20Year7.html</link>
       <guid>https://www.pysio.online/posts/daily/Destiny%20Year7.html</guid>
@@ -1625,7 +1388,7 @@
 <p class="hint-container-title">注意</p>
 <p>注意 如果你滥用DNS 则可能导致你的IP地址被封禁</p>
 </div>
-<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code><span class="line"></span>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line"></span>
 <span class="line">DNS Server：101.43.154.197 (53端口暂不可用)</span>
 <span class="line"></span>
 <span class="line">DNS Server：93.177.67.6 (53可用)</span>
@@ -1659,7 +1422,7 @@
 打开并编辑<br>
 <img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241005215426.png" alt="" loading="lazy"><br>
 添加或修改以下部分 其中PassWord是你刚刚获取的Redis密码</p>
-<div class="language-php" data-highlighter="prismjs" data-ext="php"><pre><code><span class="line"><span class="token variable">$parameters</span> <span class="token operator">=</span> <span class="token punctuation">[</span></span>
+<div class="language-php" data-highlighter="prismjs" data-ext="php"><pre><code class="language-php"><span class="line"><span class="token variable">$parameters</span> <span class="token operator">=</span> <span class="token punctuation">[</span></span>
 <span class="line">   <span class="token string single-quoted-string">'scheme'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'tcp'</span><span class="token punctuation">,</span></span>
 <span class="line">   <span class="token string single-quoted-string">'host'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'redis'</span><span class="token punctuation">,</span></span>
 <span class="line">   <span class="token string single-quoted-string">'port'</span> <span class="token operator">=&gt;</span> <span class="token number">6379</span><span class="token punctuation">,</span></span>
@@ -1673,7 +1436,7 @@
 <span class="line"></span></code></pre>
 </div><h2>第三步 修改wp-config.php文件</h2>
 <p>在网站根目录找到wp-config.php文件 在末尾添加</p>
-<div class="language-php" data-highlighter="prismjs" data-ext="php"><pre><code><span class="line"><span class="token doc-comment comment">/** Redis Cache */</span></span>
+<div class="language-php" data-highlighter="prismjs" data-ext="php"><pre><code class="language-php"><span class="line"><span class="token doc-comment comment">/** Redis Cache */</span></span>
 <span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_CACHE_KEY_SALT'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'001'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
 <span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_REDIS_SCHEME'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'tcp'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
 <span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_REDIS_HOST'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'redis'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
@@ -1696,17 +1459,17 @@
       <pubDate>Fri, 13 Sep 2024 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<h2>关闭 VM，并给 VM 添加一个 serial port</h2>
 <p>在 PVE Host 中用 qm 命令建立 serial port，假设我的 VM ID 是 100</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line">qm <span class="token builtin class-name">set</span> <span class="token number">100</span> <span class="token parameter variable">-serial0</span> socket</span>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">qm <span class="token builtin class-name">set</span> <span class="token number">100</span> <span class="token parameter variable">-serial0</span> socket</span>
 <span class="line"></span></code></pre>
 </div><p>接着重开 VM，用 dmesg 确认是否有 ttyS 出現</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">dmesg</span> <span class="token operator">|</span> <span class="token function">grep</span> ttyS</span>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">dmesg</span> <span class="token operator">|</span> <span class="token function">grep</span> ttyS</span>
 <span class="line"></span></code></pre>
 </div><h2>OpenSuse修改 grub 配置</h2>
 <p><code>/etc/default/grub</code> 的 <code>GRUB_CMDLINE_LINUX</code> 参数，添加</p>
-<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code><span class="line">console=tty0 console=ttyS0,115200</span>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">console=tty0 console=ttyS0,115200</span>
 <span class="line"></span></code></pre>
 </div><p>更新Grub配置</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line">grub2-mkconfig <span class="token parameter variable">--output</span><span class="token operator">=</span>/boot/grub2/grub.cfg</span>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">grub2-mkconfig <span class="token parameter variable">--output</span><span class="token operator">=</span>/boot/grub2/grub.cfg</span>
 <span class="line"></span></code></pre>
 </div><p>重启OpenSuse虚拟机 检查 xterm.js 是否可用</p>
 ]]></content:encoded>
@@ -1720,13 +1483,13 @@
       <category>develop</category>
       <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>修改 <code>/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js</code> 将</p>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line">Ext<span class="token punctuation">.</span>Msg<span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">{</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line">Ext<span class="token punctuation">.</span>Msg<span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">{</span></span>
 <span class="line"></span></code></pre>
 </div><p>修改为</p>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code><span class="line">Ext<span class="token punctuation">.</span>Msg<span class="token punctuation">.</span><span class="token function">noshow</span><span class="token punctuation">(</span><span class="token punctuation">{</span></span>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line">Ext<span class="token punctuation">.</span>Msg<span class="token punctuation">.</span><span class="token function">noshow</span><span class="token punctuation">(</span><span class="token punctuation">{</span></span>
 <span class="line"></span></code></pre>
 </div><p>执行以下命令 重启PveProxy即可去除弹窗</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line">systemctl restart pveproxy</span>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">systemctl restart pveproxy</span>
 <span class="line"></span></code></pre>
 </div>]]></content:encoded>
     </item>
@@ -1754,10 +1517,10 @@
       <category>develop</category>
       <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>首先 通过命令添加远程的仓库信息</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">git</span> remote <span class="token function">add</span> <span class="token punctuation">[</span>远程仓库名称<span class="token punctuation">]</span> <span class="token punctuation">[</span>远程仓库地址<span class="token punctuation">]</span> </span>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">git</span> remote <span class="token function">add</span> <span class="token punctuation">[</span>远程仓库名称<span class="token punctuation">]</span> <span class="token punctuation">[</span>远程仓库地址<span class="token punctuation">]</span> </span>
 <span class="line"></span></code></pre>
 </div><p>仓库添加成功后 通过 <code>git fetch [远程仓库名称]</code> 把仓库拉到本地</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line">❯ <span class="token function">git</span> fetch pr2</span>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">❯ <span class="token function">git</span> fetch pr2</span>
 <span class="line">remote: Enumerating objects: <span class="token number">26</span>, done.</span>
 <span class="line">remote: Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">26</span>/26<span class="token punctuation">)</span>, done.</span>
 <span class="line">remote: Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">9</span>/9<span class="token punctuation">)</span>, done.</span>
@@ -1767,14 +1530,14 @@
 <span class="line"> * <span class="token punctuation">[</span>新分支<span class="token punctuation">]</span>          main       -<span class="token operator">&gt;</span> pr2/main</span>
 <span class="line"></span></code></pre>
 </div><p>最后通过 <code>merge</code> 或者 <code>cherry-pick</code> 合并整个分支或者某个具体的提交</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token comment"># 合并具体的 commitid</span></span>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># 合并具体的 commitid</span></span>
 <span class="line">❯ <span class="token function">git</span> cherry-pick <span class="token punctuation">[</span>Commitid<span class="token punctuation">]</span></span>
 <span class="line"></span>
 <span class="line"><span class="token comment"># 合并具体的分支</span></span>
 <span class="line">❯ <span class="token function">git</span> merge <span class="token punctuation">[</span>远程仓库名称<span class="token punctuation">]</span>/<span class="token punctuation">[</span>分支名称<span class="token punctuation">]</span></span>
 <span class="line"></span></code></pre>
 </div><p>当我们合并完成之后，清理远程仓库的信息</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code><span class="line"><span class="token function">git</span> remote <span class="token function">rm</span> <span class="token punctuation">[</span>远程仓库名称<span class="token punctuation">]</span></span>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">git</span> remote <span class="token function">rm</span> <span class="token punctuation">[</span>远程仓库名称<span class="token punctuation">]</span></span>
 <span class="line"></span></code></pre>
 </div>]]></content:encoded>
     </item>

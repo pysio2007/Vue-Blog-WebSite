@@ -1,0 +1,1544 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="https://www.pysio.online/en/rss.xsl"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <atom:link href="https://www.pysio.online/en/rss.xml" rel="self" type="application/rss+xml"/>
+    <title>Pysio&amp;apos;s Home</title>
+    <link>https://www.pysio.online/en/</link>
+    <description>A Warm Home</description>
+    <language>en-US</language>
+    <pubDate>Sun, 01 Jun 2025 00:05:46 GMT</pubDate>
+    <lastBuildDate>Sun, 01 Jun 2025 00:05:46 GMT</lastBuildDate>
+    <generator>@vuepress/plugin-feed</generator>
+    <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+    <category>daily</category>
+    <category>develop</category>
+    <item>
+      <title>Building an IXP - A Small Journal</title>
+      <link>https://www.pysio.online/en/posts/daily/AKIX.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/AKIX.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Building an IXP - A Small Journal</source>
+      <description>I&amp;apos;ve had my ASN for three months now, and I haven&amp;apos;t been tinkering much lately. Recently, on a whim, I suddenly wanted to try building my own IXP. Why Bother with IXP? Honestly,...</description>
+      <category>daily</category>
+      <pubDate>Mon, 05 May 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>I've had my ASN for three months now, and I haven't been tinkering much lately. Recently, on a whim, I suddenly wanted to try building my own IXP.</p>
+<h2>Why Bother with IXP?</h2>
+<p>Honestly, the initial motivation was simple - I just wanted to play. BGP, RPKI - these terms sound impressive, but only by actually doing it did I realize I could set it up myself. Plus, it can help friends' networks interconnect more easily, so why not?</p>
+<ul>
+<li>Wanted to deeply understand BGP and RPKI - just reading docs isn't enough, must practice</li>
+<li>Let small networks interconnect with low barriers, experience "the internet of the internet"</li>
+<li>Try remote virtual access, see if friends on the other side of the planet can easily connect</li>
+</ul>
+<h2>Technology Selection and Pitfalls</h2>
+<p>From the start, I didn't plan to make it too complex - as long as it runs, interconnects, and is secure.</p>
+<ul>
+<li>Chose Bird for routing software - lightweight, easy to use, configuration not difficult</li>
+<li>Used VXLAN for switching, saves the hassle of physical switches, remote access is convenient too</li>
+<li>Set up my own RPKI RTR server for security</li>
+<li>Server in Frankfurt, rich European network resources, decent latency</li>
+</ul>
+<p>The most troublesome part was actually remote virtual access, since not everyone can go to the data center to plug in a cable. VXLAN was a huge help - everyone just needs a public VPS to pull tunnels in.</p>
+<h2>Build Log</h2>
+<h3>1. Server and Network</h3>
+<p>First got a VPS that supports BGP, applied for IPv6 segment <code>2a14:67c1:a080::/48</code>. IPv4 is too expensive, IPv6 is really nice to use.</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># Create IXP VXLAN interface</span></span>
+<span class="line"><span class="token function">ip</span> <span class="token function">link</span> <span class="token function">add</span> vxlan0 <span class="token builtin class-name">type</span> vxlan <span class="token function">id</span> <span class="token number">10</span> dstport <span class="token number">4789</span> <span class="token builtin class-name">local</span> 2a05:f480:1800:2e75:5400:05ff:fe65:88f3</span>
+<span class="line"><span class="token function">ip</span> addr <span class="token function">add</span> 2a14:67c1:a080::1/64 dev vxlan0</span>
+<span class="line"><span class="token function">ip</span> <span class="token function">link</span> <span class="token builtin class-name">set</span> vxlan0 up</span>
+<span class="line"></span></code></pre>
+</div><h3>2. Bird Configuration</h3>
+<p>Bird is the core, responsible for BGP route exchange. Configuration is actually not as complex as imagined, mainly ASN filtering, RPKI validation, templating and peers.</p>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code class="language-conf"><span class="line">router id 1.1.1.1;</span>
+<span class="line"></span>
+<span class="line"># Define BOGON ASN filtering</span>
+<span class="line">define BOGON_ASNS = [</span>
+<span class="line">    0, 23456, 64496..64511, # ... other BOGON ASNs</span>
+<span class="line">];</span>
+<span class="line"></span>
+<span class="line">define IX_PEERS = [</span>
+<span class="line">    213605, 213891, 151194, 198025, 210352</span>
+<span class="line">];</span>
+<span class="line"></span>
+<span class="line">function ix_import() {</span>
+<span class="line">    if bgp_path.last ~ BOGON_ASNS then return false;</span>
+<span class="line">    if !check_roa_v6() then return false;</span>
+<span class="line">    return true;</span>
+<span class="line">}</span>
+<span class="line"></span></code></pre>
+</div><p>Templated configuration makes adding members later very convenient:</p>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code class="language-conf"><span class="line">template bgp ix_rs {</span>
+<span class="line">    local as 210440;</span>
+<span class="line">    multihop 2;</span>
+<span class="line">    ipv6 {</span>
+<span class="line">        import where ix_import();</span>
+<span class="line">        export where ix_export();</span>
+<span class="line">        next hop self;</span>
+<span class="line">        graceful restart on;</span>
+<span class="line">    };</span>
+<span class="line">}</span>
+<span class="line"></span></code></pre>
+</div><h3>3. RPKI Validation</h3>
+<p>Can't skip on security - set up my own RPKI validator, also pulled a backup from Cloudflare.</p>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code class="language-conf"><span class="line">protocol rpki rpki_akae {</span>
+<span class="line">    roa4 { table roa_table_v4; };</span>
+<span class="line">    roa6 { table roa_table_v6; };</span>
+<span class="line">    remote "rpki.akae.re" port 8282;</span>
+<span class="line">    retry keep 90;</span>
+<span class="line">    refresh keep 43200;</span>
+<span class="line">    expire keep 86400;</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">protocol rpki rpki_cloudflare {</span>
+<span class="line">    roa4 { table roa_table_v4; };</span>
+<span class="line">    roa6 { table roa_table_v6; };</span>
+<span class="line">    remote "rtr.rpki.cloudflare.com" port 8282;</span>
+<span class="line">    retry keep 90;</span>
+<span class="line">    refresh keep 43200;</span>
+<span class="line">    expire keep 86400;</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">function check_roa_v6() {</span>
+<span class="line">    case roa_check(roa_table_v6, net, bgp_path.last) {</span>
+<span class="line">        ROA_VALID: return true;</span>
+<span class="line">        ROA_UNKNOWN: return true;</span>
+<span class="line">        ROA_INVALID: return false;</span>
+<span class="line">    }</span>
+<span class="line">}</span>
+<span class="line"></span></code></pre>
+</div><h3>4. PeeringDB Registration</h3>
+<p>After setting up, casually registered on PeeringDB:</p>
+<ul>
+<li>Organization: AKAERE NETWORKS TECHNOLOGY LTD</li>
+<li>Alias: Akaere IX</li>
+<li>Location: CN</li>
+<li>Region: Asia Pacific</li>
+<li>Service Level: Business Hours</li>
+<li>Website: <a href="https://ixpm.akae.re/" target="_blank" rel="noopener noreferrer">ixpm.akae.re</a></li>
+</ul>
+<h2>Operations Notes</h2>
+<p>Currently several friends' networks have connected to Akaere IX, everyone playing BGP together, testing routes, tinkering with RPKI. Bandwidth and scale aren't really the point - the key is being able to interconnect, communicate, and grow together.</p>
+<h3>Pitfalls Encountered</h3>
+<ul>
+<li>VXLAN occasionally acts up, tunnels unstable, need more monitoring</li>
+<li>Each member's routing policy is different, configuration needs to be flexible</li>
+</ul>
+<h3>Technical Gains</h3>
+<ul>
+<li>BGP route control and policy tricks - hands-on practice is way more interesting than reading books</li>
+<li>RPKI deployment and exception handling - security level maxed out</li>
+<li>VXLAN cross-regional layer 2 networks - remote access so easy</li>
+<li>Automated script management - saves a lot of worry</li>
+</ul>
+<h2>Future Ideas</h2>
+<p>Akaere IX is still slowly improving, future plans:</p>
+<ul>
+<li>Multiple access points, covering more regions</li>
+<li>Better automation and visualization</li>
+<li>Enrich routing security services more</li>
+<li>Maybe even interconnect with other IXPs for fun</li>
+</ul>
+<h2>Summary</h2>
+<p>This IXP tinkering experience brought not just technical knowledge, but the joy of growing together with a group of friends who also love networking. The essence of the internet is openness and connection - IXP is just a small microcosm of that.</p>
+<p>If you also want to play with BGP and experience network interconnection, feel free to reach out (team@akae.re), let's tinker together!</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/akaere/Akaere IXP.png" alt="AKIX Logo" tabindex="0" loading="lazy"><figcaption>AKIX Logo</figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/akaere/Akaere%20IXP.png" type="image/png"/>
+    </item>
+    <item>
+      <title>AKIX Incident Compilation</title>
+      <link>https://www.pysio.online/en/posts/daily/AKIXAccident.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/AKIXAccident.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">AKIX Incident Compilation</source>
+      <description>1. Dude, How Is Your Next Hop the Upstream? 2025/5/15 Original Post After helping AS208754 debug for 2 hours, we discovered his next hop was actually the upstream! His Bird Conf...</description>
+      <category>daily</category>
+      <pubDate>Mon, 26 May 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>1. Dude, How Is Your Next Hop the Upstream?</h2>
+<p><a href="https://pysio.blog/notes/a7u2jlwwrd490031" target="_blank" rel="noopener noreferrer">2025/5/15 Original Post</a></p>
+<p>After helping AS208754 debug for 2 hours, we discovered his next hop was actually the upstream!</p>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line"> Why isn't my prefix exported to upstream? Upstream Import 0</span>
+<span class="line"> Friend: If nothing works, try "all"</span>
+<span class="line"> OK</span>
+<span class="line"> Upstream: Import 0</span>
+<span class="line"> Friend: That's weird, try xxxx</span>
+<span class="line"></span></code></pre>
+</div><p>His Bird Config turned out to be:</p>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code class="language-conf"><span class="line">protocol static {</span>
+<span class="line">    ipv6;</span>
+<span class="line">    route &lt;prefix&gt;::/44 via fd00:2::1</span>
+<span class="line">}</span>
+<span class="line"></span></code></pre>
+</div><p>Well, let's explain what happened:</p>
+<p>In this BGP session, <code>fd00:2::1</code> is the upstream's address, but obviously he statically specified the next hop route as the upstream address, which created a loop. Of course Bird went on strike!</p>
+<h2>2. Massive Withdrawal Updates</h2>
+<p><a href="https://pysio.blog/notes/a81vh2qounpi0033" target="_blank" rel="noopener noreferrer">2025/5/22 Original Post</a></p>
+<p>Due to BuyVM's problematic LU network, it caused massive withdrawal updates as shown below:</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">    Routes:         <span class="token number">1</span> imported, <span class="token number">213789</span> exported, <span class="token number">1</span> preferred</span>
+<span class="line">    Route change stats:     received   rejected   filtered    ignored   accepted</span>
+<span class="line">      Import updates:           <span class="token number">6295</span>          <span class="token number">0</span>          <span class="token number">0</span>          <span class="token number">5</span>       <span class="token number">6290</span></span>
+<span class="line">      Import withdraws:            <span class="token number">0</span>          <span class="token number">0</span>        </span></code></pre>
+</div>]]></content:encoded>
+    </item>
+    <item>
+      <title>Setting up AnyCast + Blog</title>
+      <link>https://www.pysio.online/en/posts/daily/AnyCast.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/AnyCast.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Setting up AnyCast + Blog</source>
+      <description>Since I had nothing to do, I decided to set up an Anycast and put my blog and DNS on it. This article documents the process of setting up Anycast + blog. What is Anycast? Anycas...</description>
+      <category>daily</category>
+      <pubDate>Sat, 15 Feb 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>Since I had nothing to do, I decided to set up an Anycast and put my blog and DNS on it. This article documents the process of setting up Anycast + blog.</p>
+<h2>What is Anycast?</h2>
+<blockquote>
+<p>Anycast is a network addressing and routing method that can route incoming requests to various different locations or "nodes". In the context of CDN, Anycast usually routes incoming traffic to the nearest data center that can effectively handle requests. Selective routing enables Anycast networks to handle high traffic, network congestion, and DDoS attacks.[^1]</p>
+</blockquote>
+<h2>Prerequisites</h2>
+<ul>
+<li>An ASN</li>
+<li>An IPv4/6 address segment</li>
+<li>Multiple servers capable of BGP Session (preferably using multiple upstreams)</li>
+<li>A smart brain</li>
+<li><s>Of course, also a cup of coffee</s></li>
+</ul>
+<h2>1. Finding an Upstream</h2>
+<p>Major carriers often have access points in hosting centers. You can purchase hosting services from the data center, then directly contact carriers to sign contracts for bandwidth and IP transit services. But given domestic characteristics, this whole process will only get you an astronomical bill <s>(unless you're not short on money, then pretend I didn't say anything)</s></p>
+<p>But the good news is, many VPS providers offer BGP Session services, such as Vultr, BuyVM, etc. You can choose one of them as your upstream. These providers charge about $5-10 per month, which is reasonably cost-effective.</p>
+<p>You can also find more providers here: <a href="https://bgp.services/" target="_blank" rel="noopener noreferrer">BGP Services</a></p>
+<h2>2. Announcing Addresses</h2>
+<p>Before starting this step, you should verify your ASN and IP address segment according to the provider's requirements. Most providers require opening a ticket. This article uses Vultr/BuyVM as examples.</p>
+<h3>Getting Connection Information</h3>
+<h4>Vultr</h4>
+<p><s>Since I forgot to take screenshots during configuration, I'll briefly cover the Vultr ASN/IP segment registration part QWQ</s></p>
+<p>Open this address: <a href="https://my.vultr.com/bgp/" target="_blank" rel="noopener noreferrer">Vultr BGP</a> Fill in your ASN and IP address segment. Vultr will send a verification code email to your Whois email. After verification, wait for Vultr staff to review (remember to reply to tickets).</p>
+<p>After approval, open VPS details, click the <code>BGP</code> tab to get the following information:</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250216154622.png" alt="Vultr BGP" tabindex="0" loading="lazy"><figcaption>Vultr BGP</figcaption></figure>
+<p>Now you have the information to establish BGP Session with Vultr.</p>
+<h4>BuyVM</h4>
+<p>Login to <a href="https://manage.buyvm.net/" target="_blank" rel="noopener noreferrer">BuyVM management panel</a> Select your machine, click <code>Networking</code> -&gt; <code>BGP</code>. After submitting a ticket, wait for approval to get the following information:</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250217081432.png" alt="BuyVM BGP" tabindex="0" loading="lazy"><figcaption>BuyVM BGP</figcaption></figure>
+<p>Now you have the information to establish BGP Session with BuyVM.</p>
+<h3>Configuring Bird2</h3>
+<p>I use <code>Debian 12</code> as an example, directly install Bird2 using APT: <code>apt install bird2</code></p>
+<p>My ASN is <code>AS213605</code> and I want to announce <code>2a14:67c1:a020::/48</code></p>
+<p>Using Vultr as an example, they give peer ASN <code>64515</code>, peer IP <code>2001:19f0:ffff::1</code>, our VPS's own IPv6 address is <code>2001:19f0:5001:225f:5400:05ff:fe69:6776</code>, MD5 password is 114514, so my configuration file is:</p>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code class="language-conf"><span class="line">log syslog all;</span>
+<span class="line"></span>
+<span class="line">router id 114.514.111.222; # VPS public IPv4 address</span>
+<span class="line">define ASN=213605; # Your ASN</span>
+<span class="line">define OWNIPv6s=[2a14:67c1:a020::/48]; # Your IPv6 address segment</span>
+<span class="line"></span>
+<span class="line"># device protocol is required, otherwise BIRD won't automatically get network interface info from kernel</span>
+<span class="line">protocol device {}</span>
+<span class="line"></span>
+<span class="line"># kernel protocol exports routing table to kernel</span>
+<span class="line">protocol kernel {</span>
+<span class="line">    ipv6 {</span>
+<span class="line">        export all; # Import all IPv6 routes to system routing table</span>
+<span class="line">    };</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line"># static defines static routes</span>
+<span class="line">protocol static static_v6 {</span>
+<span class="line">    ipv6;</span>
+<span class="line">    route 2a14:67c1:a020::/48 via 2001:19f0:5001:225f:5400:05ff:fe69:6776;  # Announce 2a14:7c0:4d00::/40 segment, modify the IP after via to your VPS's IPv6</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">filter export_filter_v6 {</span>
+<span class="line">    if net ~ OWNIPv6s then accept; # If prefix is included in OWNIPv6s then allow</span>
+<span class="line">    reject; # Otherwise reject all</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">filter import_filter_v6 {</span>
+<span class="line">    if net ~ [::/0] then reject; # If default route then reject</span>
+<span class="line">    accept; # Accept all other routes</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">protocol bgp vultr {</span>
+<span class="line">    local as ASN; # Specify local ASN</span>
+<span class="line">    source address 2001:19f0:5001:225f:5400:05ff:fe49:6493; # Specify local address</span>
+<span class="line">    multihop 2; # Set multihop, Vultr provides value 2</span>
+<span class="line">    neighbor 2001:19f0:ffff::1 as 64515; # Specify peer address and ASN</span>
+<span class="line">    ipv6 { # Specify protocol to run on this BGP neighbor</span>
+<span class="line">        import filter import_filter_v6; # Specify import filter</span>
+<span class="line">        export filter export_filter_v6; # Specify export filter</span>
+<span class="line">        export limit 10; # Limit export prefix count, adjust as needed, prevent session explosion from misconfigured filters</span>
+<span class="line">    };</span>
+<span class="line">    password "114514"; # If no password, delete this line</span>
+<span class="line">    graceful restart; # Graceful restart, prevent service interruption from route withdrawal when restarting bird</span>
+<span class="line">}</span>
+<span class="line"></span></code></pre>
+</div><p>You can modify based on my configuration file (recommend reading soha's tutorial first then writing by hand[^2]), write to <code>/etc/bird/bird.conf</code>, then apply configuration <code>birdc c</code></p>
+<p>You can run <code>birdc show protocols all</code> to view current status of all protocols:</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">vultr    BGP        </span></code></pre>
+</div>]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250216154622.png" type="image/png"/>
+    </item>
+    <item>
+      <title>GTNH Notebook</title>
+      <link>https://www.pysio.online/en/posts/daily/GTNH.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/GTNH.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">GTNH Notebook</source>
+      <description>Info This is where I store my notes while playing GTNH, recording some useful recipes and information. Alloys Alumite Smelt 5 Aluminum Ingots Smelt 2 Steel Ingots Smelt 1 Obsidi...</description>
+      <category>daily</category>
+      <pubDate>Sat, 14 Dec 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<div class="hint-container info">
+<p class="hint-container-title">Info</p>
+<p>This is where I store my notes while playing GTNH, recording some useful recipes and information.</p>
+</div>
+<h2>Alloys</h2>
+<h3>Alumite</h3>
+<ul>
+<li>Smelt 5 Aluminum Ingots</li>
+<li>Smelt 2 Steel Ingots</li>
+<li>Smelt 1 Obsidian</li>
+</ul>
+<p>Yields 2 Alumite</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>About Self-hosted GitLab Being Blocked</title>
+      <link>https://www.pysio.online/en/posts/daily/Gitlab%20Pollution.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/Gitlab%20Pollution.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">About Self-hosted GitLab Being Blocked</source>
+      <description>I was bored today and did a ping I was wondering why it would resolve to this IP, until I visited it. Uh, this is somewhat outrageous. I don&amp;apos;t know what law I violated to be thr...</description>
+      <category>daily</category>
+      <pubDate>Mon, 18 Dec 2023 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>I was bored today and did a ping<br>
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006004058.png" alt="" loading="lazy"></p>
+<p>I was wondering why it would resolve to this <a href="https://106.74.25.198/" target="_blank" rel="noopener noreferrer">IP</a>, until I visited it.<br>
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006004137.png" alt="" loading="lazy"></p>
+<p>Uh, this is somewhat outrageous. I don't know what law I violated to be thrown in there...</p>
+<p>Let's see first. If it gets blocked on a large scale, I'll need to consider how to appeal...</p>
+<h3>Edit 2023-12-26:</h3>
+<p>Called the local 96110 to appeal against the blocking, they told me to wait</p>
+<p>One day later, Chongqing 96110 told me the domain was whitelisted and the website won't redirect to the anti-fraud center anymore</p>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006004058.png" type="image/png"/>
+    </item>
+    <item>
+      <title>Becoming a MANRS Member | Four People Dialing One IPv6 Segment</title>
+      <link>https://www.pysio.online/en/posts/daily/MANRS.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/MANRS.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Becoming a MANRS Member | Four People Dialing One IPv6 Segment</source>
+      <description>Today I have some good news to share with everyone: our Pysio NetWorks Team (AS213605) has officially become a MANRS member! What is MANRS? Simply put, MANRS is a globally agree...</description>
+      <category>daily</category>
+      <pubDate>Tue, 06 May 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>Today I have some good news to share with everyone: our Pysio NetWorks Team (AS213605) has officially become a MANRS member!</p>
+<h2>What is MANRS?</h2>
+<p>Simply put, MANRS is a globally agreed-upon routing security standard in the internet community. Joining it means we're doing well in network security and routing management, and we're willing to work with global peers to make the internet safer.</p>
+<h2>The Joining Process</h2>
+<p>The application process was quite ceremonial. We submitted various materials and improved many security details. Finally, the official review passed and gave us a "qualified" stamp, mainly passing these aspects:</p>
+<ul>
+<li>Not spreading incorrect routing information</li>
+<li>Being able to communicate and coordinate with global peers when problems arise</li>
+<li>Making routing information as open and transparent as possible</li>
+</ul>
+<h2>What Does This Mean?</h2>
+<p>Our AS number 213605 can now be found on the MANRS official website: <a href="https://manrs.org/participant/6567/" target="_blank" rel="noopener noreferrer">Click here to see our homepage</a>. We'll also receive monthly compliance reports from the official team to see if we've regressed or improved.</p>
+<h2>Some Thoughts</h2>
+<p>Being able to become a MANRS member means our efforts have been recognized, and it's also an affirmation of our team's technical skills and sense of responsibility. In the future, we'll continue to do well in network security, and we welcome everyone to communicate with us more and improve together!</p>
+<p>If you're interested in MANRS or have any ideas, feel free to leave a comment or message us!</p>
+<h2>"Perfect IP" Performance Art</h2>
+<p>Let's talk about something interesting! We recently did a "Perfect IP" performance art project where four people dialed together to piece together a complete IP address, symbolizing teamwork and the wonderful connection of the network world.</p>
+<p>The image below is our BGP routing topology diagram, welcome to take a look:</p>
+<figure><img src="https://s3.pysio.online/pysioimages/rt-2a0f_9400_6110___48.svg" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/pysioimages/rt-2a0f_9400_6110___48.svg" type="image/svg+xml"/>
+    </item>
+    <item>
+      <title>About this blog&amp;apos;s PWA</title>
+      <link>https://www.pysio.online/en/posts/daily/PWA.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/PWA.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">About this blog&amp;apos;s PWA</source>
+      <description>Info Progressive Web Apps (PWAs) are web applications built using common web technologies including HTML, CSS and JavaScript. They are intended to work on any platform that uses...</description>
+      <category>daily</category>
+      <pubDate>Wed, 09 Oct 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<!-- markdownlint-disable MD028 -->
+<!-- > [!warning] 
+> Due to the current rapid iteration, PWA is temporarily disabled, waiting for subsequent development to be completed before being enabled. -->
+<div class="hint-container info">
+<p class="hint-container-title">Info</p>
+<p>Progressive Web Apps (PWAs) are web applications built using common web technologies including HTML, CSS and JavaScript. They are intended to work on any platform that uses a standards-compliant browser. This application approach aims to combine the best of both traditional web applications and native mobile applications.</p>
+</div>
+<!-- markdownlint-enable MD028 -->
+]]></content:encoded>
+    </item>
+    <item>
+      <title>ASN Registration and IP Broadcasting from Zero</title>
+      <link>https://www.pysio.online/en/posts/daily/RegistryASN.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/RegistryASN.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">ASN Registration and IP Broadcasting from Zero</source>
+      <description>Warning This article introduces the registration process for real internet ASNs. For DN42 experimental network ASN application processes, please refer to DN42 ASN Application. W...</description>
+      <category>daily</category>
+      <pubDate>Mon, 14 Apr 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<div class="hint-container warning">
+<p class="hint-container-title">Warning</p>
+<p>This article introduces the registration process for real internet ASNs. For DN42 experimental network ASN application processes, please refer to <a href="https://lantian.pub/article/modify-website/dn42-experimental-network-2020.lantian/" target="_blank" rel="noopener noreferrer">DN42 ASN Application</a>.</p>
+</div>
+<div class="hint-container warning">
+<p class="hint-container-title">Warning</p>
+<p>If you are a beginner, I recommend going to DN42 to apply for an experimental network ASN for learning. This article is to help you apply for an ASN in the real internet and broadcast IP addresses.</p>
+</div>
+<h2>1. Basic Concepts</h2>
+<blockquote>
+<p>RIR: Regional Internet Registry</p>
+</blockquote>
+<p>ASN numbers and IP address resource allocation follows strict international management mechanisms. Global internet resources are managed by five Regional Internet Registries (RIRs):</p>
+<ul>
+<li><a href="https://afrinic.net/" target="_blank" rel="noopener noreferrer">AFRINIC</a>: Responsible for Africa</li>
+<li><a href="https://www.arin.net/" target="_blank" rel="noopener noreferrer">ARIN</a>: Responsible for North America</li>
+<li><a href="https://www.lacnic.net/" target="_blank" rel="noopener noreferrer">LACNIC</a>: Responsible for Latin America and Caribbean</li>
+<li><a href="https://www.ripe.net/" target="_blank" rel="noopener noreferrer">RIPE NCC</a>: Responsible for Europe, Middle East and Central Asia</li>
+<li><a href="http://apnic.net/" target="_blank" rel="noopener noreferrer">APNIC</a>: Responsible for Asia Pacific</li>
+</ul>
+<blockquote>
+<p>LIR: Local Internet Registry</p>
+</blockquote>
+<p>Note that RIRs do not provide services directly to end users, but allocate resources through Local Internet Registries (LIRs). LIRs, as RIR member organizations, need to pay corresponding annual membership fees to maintain their membership status, which is usually not economical for individual users.</p>
+<p>When choosing an RIR, RIPE NCC is widely recommended based on three considerations:</p>
+<ol>
+<li>Cost effectiveness: RIPE NCC's registration fees are relatively reasonable. In comparison, APNIC's basic fees are about 30% higher with additional administrative costs.</li>
+<li>System convenience: RIPE NCC provides comprehensive online management systems where users can independently complete progress queries, configuration modifications, etc. APNIC's processes still rely on email communication, making it relatively inefficient.</li>
+<li>Policy stability: RIPE NCC's policy adjustments are moderate and predictable, which has obvious advantages compared to other regional organizations.</li>
+</ol>
+<p>In summary, based on available data analysis, RIPE NCC is an ideal choice for individual ASN applications, followed by APNIC or ARIN.</p>
+<h2>2. Preparing Materials</h2>
+<p>When applying for an ASN, you need to provide the following necessary documents to the LIR (using RIPE NCC registration as an example):</p>
+<h3>Identity Documents</h3>
+<ul>
+<li>Corporate applicants: Valid business license or company registration certificate</li>
+<li>Individual applicants: Government-issued valid identity documents</li>
+</ul>
+<p>Note: If the applicant is a minor, written consent from legal guardians is usually required along with fulfilling guardianship responsibilities. All submitted documents should be authentic and valid, and must be originals or notarized copies.</p>
+<h3>Contact Information</h3>
+<ul>
+<li>Physical mailing address (for WHOIS database registration)</li>
+<li>Technical operations contact email (NOC Email)</li>
+<li>Abuse report contact email (Abuse Email)</li>
+</ul>
+<h3>Technical Requirements Proof</h3>
+<ul>
+<li>Valid bills or contracts from BGP service providers within the European region from the last two months</li>
+<li>At least two confirmed BGP upstream providers</li>
+</ul>
+<h3>RIPE DB Account and Object Creation</h3>
+<h4>1. Register RIPE NCC Access Account</h4>
+<p>Open the <a href="https://access.ripe.net/registration" target="_blank" rel="noopener noreferrer">RIPE DataBase</a> registration page and complete registration. No need to elaborate.</p>
+<h4>2. Create Initial role and maintainer (mntner) Objects</h4>
+<p>Open <a href="https://apps.db.ripe.net/db-web-ui/webupdates/create/RIPE/role/self" target="_blank" rel="noopener noreferrer">RIPE DB Create Role And MNT</a></p>
+<p>A role object is an abstraction of a role performed by one or more people, for example, representing the department you use to handle network incidents.</p>
+<p>A maintainer object is an abstraction of a maintainer, recording maintainer authentication information. Other objects authorize who maintains them through the mnt-by attribute.</p>
+<p>When creating role and maintainer objects through the above link, you need to fill in:</p>
+<ul>
+<li><code>mntner</code>: maintainer object identifier, can include uppercase/lowercase letters, numbers and _-, e.g.: YOURNOC-MNT</li>
+<li><code>role</code>: role object name, can include uppercase/lowercase letters, numbers and <code>][)(._"*@,&amp;:!'+/-</code> e.g.: YOURCOMPANY NOC</li>
+<li><code>address</code>: office address for this role</li>
+<li><code>e-mail</code>: email contact address for this role</li>
+</ul>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Create role and maintainer pair.png" alt="Example filled information using Akaere NetWork" tabindex="0" loading="lazy"><figcaption>Example filled information using Akaere NetWork</figcaption></figure>
+<p>After filling in, click the SUBMIT button to simultaneously create a role and mntner object.</p>
+<p>The red box part in the image is the primary key of the role object. You need to submit this as your AS's admin-c / tech-c / abuse-c to your LIR.</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Create role and maintainer pair done.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<h4>3. Set Abuse Notification Email</h4>
+<div class="hint-container caution">
+<p class="hint-container-title">Caution</p>
+<p>RIPE NCC will check the validity of this email, make sure it's real and usable</p>
+</div>
+<p>In the search box at the top of <a href="https://apps.db.ripe.net/db-web-ui/query" target="_blank" rel="noopener noreferrer">RIPE DB Query</a>, enter the primary key of the role object from the previous section and click the search button. Then click the Update object button in the upper right corner of the search results to jump to the modification page.</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Edit Abuse.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<p>Click the + button to the right of the e-mail field to add an abuse-mailbox attribute to this role object.</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Edit Abuse 2.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Edit Abuse 3.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<p>Fill in the abuse notification email in the appearing abuse-mailbox field and click SUBMIT to save.</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Edit Abuse 4.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<h4>4. Create organisation Object</h4>
+<p>An organisation object is an abstraction of a company, non-profit group, or individual. All other resources are related to this object. It's the starting point for managing data in the RIPE database.</p>
+<p>When creating an organisation object through <a href="https://apps.db.ripe.net/db-web-ui/webupdates/create/RIPE/organisation" target="_blank" rel="noopener noreferrer">RIPE DB Create Organisation</a>, you need to fill in:</p>
+<ul>
+<li><code> mnt-by</code>: who manages this, automatically filled with the previously created mntner identifier</li>
+<li><code> organisation</code>: organisation object identifier, default AUTO-1 will be automatically generated by the system</li>
+<li><code>org-name</code>: organisation name, must be the legal full name of the organization or individual name</li>
+<li><code> address</code>: organisation contact address, must be the legal address of the organization or individual residence</li>
+<li><code>e-mail</code>: organisation email contact address</li>
+<li><code>abuse-c</code>: organisation abuse notification contact, must point to a role object with abuse-mailbox attribute</li>
+<li><code>mnt-ref</code>: who can reference this organisation, the pointed mntner can add objects pointing to this organisation, i.e., who allocates resources for this organization, ask your LIR for the specific value</li>
+</ul>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Creat organisation.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<p>After filling in, click SUBMIT. The page will show the organisation object identifier with "ORG-EXAMPLE-RIPE" (red box part in the image). You need to submit this as your AS's org to your LIR.</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Creat organisation Done.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<h4>4.1 How to Modify if Something Went Wrong?</h4>
+<p>When you discover errors in the above content, go to <a href="https://apps.db.ripe.net/db-web-ui/query" target="_blank" rel="noopener noreferrer">RIPE DB Query</a>, search for the primary key of the object you need to correct, and click the Update object button in the upper right corner to jump to the modification page.</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/RIPEUPDATE1.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<p>After entering the modification page, correct the content you need to modify and click SUBMIT to submit.</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/RIPEUPDATE2.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<p>After completion, the RIPE database will show that you've modified the content. This ends the modification process.</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/RIPEUPDATE3.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<h4>5. Submit Materials</h4>
+<p>You need to provide the following materials to the LIR:</p>
+<ul>
+<li>Company registration certificate / Passport (front and back of Chinese resident ID card)</li>
+<li>Proof of network activity within RIPE NCC service area (e.g., European VPS bills)</li>
+<li>AS active region (country)</li>
+<li>as-name (AS name, e.g., CHINATELECOM-CORE-WAN-CN2)</li>
+<li>org (Section 4, organisation object identifier)</li>
+<li>admin-c (Section 2, role object primary key)</li>
+<li>tech-c (Section 2, role object primary key)</li>
+<li>abuse-c (Section 2, role object primary key)</li>
+<li>mnt-by (Section 2, mntner object identifier)</li>
+</ul>
+<h2>3. PeeringDB Creation/Maintenance</h2>
+<h3>1. What is PeeringDB?</h3>
+<p>PeeringDB is like the "social business card holder" of the internet world! Imagine if every network operator was a guest at a party, PeeringDB would be the roster helping everyone get to know each other. Here, you can:</p>
+<ul>
+<li>Tell others "who I am" (your network information)</li>
+<li>Say "where I live" (your network facility locations)</li>
+<li>Leave "contact information" (technical contact information)</li>
+<li>Show "willingness to make friends" (peering policies)</li>
+</ul>
+<p>Simply put, PeeringDB is a global database platform helping network operators, data centers, and Internet Exchange Points (IXPs) discover each other and establish connections. It's like the LinkedIn of the networking world, making it easier for everyone to find suitable network partners!</p>
+<p><strong>Summary:</strong> PeeringDB is an important platform for network operators to share network information and establish peering relationships, an almost essential registration database for ASN holders.</p>
+<h3>2. Create PeeringDB Account</h3>
+<p>Go to <a href="https://www.peeringdb.com/register" target="_blank" rel="noopener noreferrer">PeeringDB Register</a> to register an account. No need to elaborate.</p>
+<p><strong>Note:</strong> When registering for PeeringDB, it's best to use the email from the role object you created in RIPE DB.</p>
+<h3>3. Link Your ASN in PeeringDB</h3>
+<p>Go to the Associated Organizations section in <a href="https://www.peeringdb.com/profile" target="_blank" rel="noopener noreferrer">PeeringDB Profile</a>, enter your ASN and organization name to associate.</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/preeingdb link.png" alt="Using my own ASN as example" tabindex="0" loading="lazy"><figcaption>Using my own ASN as example</figcaption></figure>
+<p>After successful association, you can find your organization in the dropdown menu in the upper right corner.</p>
+<figure><img src="http://s3.pysio.online/pysioimages/peeringdblinkdone.png" alt="Following the above image" tabindex="0" loading="lazy"><figcaption>Following the above image</figcaption></figure>
+<h3>4. Correct Information</h3>
+<p>In the above image, after clicking into your organization, click the Edit button in the upper right corner to enter the editing interface and supplement some information:</p>
+<p>The largest input box in the upper left corner is for organization name, refer to org-name in the RIPE database</p>
+<p>Alias (optional): Other names/abbreviations of the organization</p>
+<p>Long name (optional): Full name of the organization</p>
+<p>Address line 1 (optional): Organization address</p>
+<p>Address line 2 (optional): Organization address</p>
+<p>Company Website Override: Organization website address</p>
+<p>Suite (optional): Organization room number</p>
+<p>Location (optional): Specific location</p>
+<p>Country and region code: Country and region code where the organization is located</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/peeringdborg.png" alt="Example of 13335" tabindex="0" loading="lazy"><figcaption>Example of 13335</figcaption></figure>
+<h3>5. Add Network</h3>
+<p>Name: Network name</p>
+<p>Website: Network website address</p>
+<p>IRR as-set/route-set object: Network's IRR as-set/route-set object (though this is stating the obvious)</p>
+<p>Network Types (optional): Network type</p>
+<p>Traffic level: Incoming/outgoing rates</p>
+<p>Traffic ratio: Incoming/outgoing traffic ratio</p>
+<p>Geographic scope: Network's geographic scope</p>
+<p>Unicast IPv4 / Multicast / IPv6: Check according to actual situation</p>
+<p>Policy URL: Peering policy URL</p>
+<p>General policy: Peering policy status</p>
+<p>Contract requirement: Whether peering requires contracts</p>
+<p>Health Check: Network status check</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/peeringdb add networks.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<p>Finally, click submit network to complete.</p>
+<blockquote>
+<p>Since PeeringDB's interface has too many explanations... I'll skip the IX part for now</p>
+</blockquote>
+<h2>4. Now You Can Finally Start Broadcasting Your IP!</h2>
+<h3>1. Find an Upstream</h3>
+<p>Major carriers often have access points in hosting facilities. You can purchase hosting services, then directly contact carriers to sign contracts for bandwidth and IP transit services. But given domestic characteristics, this whole process will only get you an astronomical bill <s>(unless you're not short on money, then pretend I didn't say anything)</s></p>
+<p>But the good news is, many VPS providers offer BGP Session services, such as Vultr, BuyVM, etc. You can choose one as your upstream. These providers charge about $5-10 per month, which is reasonably cost-effective.</p>
+<p>You can also find more providers here: <a href="https://bgp.services/" target="_blank" rel="noopener noreferrer">BGP Services</a></p>
+<h3>2. Start Announcing Your IP Address to the World</h3>
+<p>Before starting this step, you should verify your ASN and IP address segment according to the provider's requirements. Most providers require opening a ticket. This article uses Vultr as an example.</p>
+<h4>1. Get Connection Information</h4>
+<p>Open this address: <a href="https://my.vultr.com/bgp/" target="_blank" rel="noopener noreferrer">Vultr BGP</a> Fill in your ASN and IP address segment. Vultr will send a verification code email to your Whois email. After verification, wait for Vultr staff review (remember to reply to tickets).</p>
+<p>After approval, open VPS details, click the <code>BGP</code> tab to get the following information:</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250216154622.png" alt="Vultr BGP" tabindex="0" loading="lazy"><figcaption>Vultr BGP</figcaption></figure>
+<p>Now you have the information to establish BGP Session with Vultr.</p>
+<h4>2. Configure Bird2</h4>
+<p>I use <code>Debian 12</code> as an example, directly install Bird2 using APT: <code>apt install bird2</code></p>
+<p>My ASN is <code>AS213605</code> and I want to announce <code>2a14:67c1:a020::/48</code></p>
+<p>Using Vultr as example, they give peer ASN <code>64515</code>, peer IP <code>2001:19f0:ffff::1</code>, our VPS's IPv6 address is <code>2001:19f0:5001:225f:5400:05ff:fe69:6776</code>, MD5 password is 114514, so my configuration file is:</p>
+<div class="language-conf" data-highlighter="prismjs" data-ext="conf"><pre><code class="language-conf"><span class="line">log syslog all;</span>
+<span class="line"></span>
+<span class="line">router id 114.514.111.222; # VPS public IPv4 address</span>
+<span class="line">define ASN=213605; # Your ASN</span>
+<span class="line">define OWNIPv6s=[2a14:67c1:a020::/48]; # Your IPv6 address segment</span>
+<span class="line"></span>
+<span class="line"># device protocol is required, otherwise BIRD won't automatically get network interface info from kernel</span>
+<span class="line">protocol device {}</span>
+<span class="line"></span>
+<span class="line"># kernel protocol exports routing table to kernel</span>
+<span class="line">protocol kernel {</span>
+<span class="line">    ipv6 {</span>
+<span class="line">        export all; # Import all IPv6 routes to system routing table</span>
+<span class="line">    };</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line"># static defines static routes</span>
+<span class="line">protocol static static_v6 {</span>
+<span class="line">    ipv6;</span>
+<span class="line">    route 2a14:67c1:a020::/48 via 2001:19f0:5001:225f:5400:05ff:fe69:6776;  # Announce 2a14:7c0:4d00::/40 segment, modify the IP after via to your VPS's IPv6</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">filter export_filter_v6 {</span>
+<span class="line">    if net ~ OWNIPv6s then accept; # If prefix is included in OWNIPv6s then allow</span>
+<span class="line">    reject; # Otherwise reject all</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">filter import_filter_v6 {</span>
+<span class="line">    if net ~ [::/0] then reject; # If default route then reject</span>
+<span class="line">    accept; # Accept all other routes</span>
+<span class="line">}</span>
+<span class="line"></span>
+<span class="line">protocol bgp vultr {</span>
+<span class="line">    local as ASN; # Specify local ASN</span>
+<span class="line">    source address 2001:19f0:5001:225f:5400:05ff:fe49:6493; # Specify local address</span>
+<span class="line">    multihop 2; # Set multihop, Vultr provides value 2</span>
+<span class="line">    neighbor 2001:19f0:ffff::1 as 64515; # Specify peer address and ASN</span>
+<span class="line">    ipv6 { # Specify protocol to run on this BGP neighbor</span>
+<span class="line">        import filter import_filter_v6; # Specify import filter</span>
+<span class="line">        export filter export_filter_v6; # Specify export filter</span>
+<span class="line">        export limit 10; # Limit export prefix count, adjust as needed, prevent session explosion from misconfigured filters</span>
+<span class="line">    };</span>
+<span class="line">    password "114514"; # If no password, delete this line</span>
+<span class="line">    graceful restart; # Graceful restart, prevent service interruption from route withdrawal when restarting bird</span>
+<span class="line">}</span>
+<span class="line"></span></code></pre>
+</div><p>You can modify based on my configuration file (recommend reading <a href="https://soha.moe/post/bird-bgp-kickstart.html" target="_blank" rel="noopener noreferrer">soha's tutorial</a> first then writing by hand), write to <code>/etc/bird/bird.conf</code>, then apply configuration <code>birdc c</code></p>
+<p>You can run <code>birdc show protocols all</code> to view current status of all protocols:</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">vultr    BGP        </span></code></pre>
+</div>]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/Create%20role%20and%20maintainer%20pair.png" type="image/png"/>
+    </item>
+    <item>
+      <title>Migrating from WordPress to VuePress</title>
+      <link>https://www.pysio.online/en/posts/daily/WordPress%20to%20VuePress.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/WordPress%20to%20VuePress.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Migrating from WordPress to VuePress</source>
+      <description>Introduction: Why Migrate? For the past year or so, I&amp;apos;ve been using WordPress as my blog system, but my small server is really too weak to handle WordPress, this big guy. So I d...</description>
+      <category>daily</category>
+      <pubDate>Mon, 21 Oct 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>Introduction: Why Migrate?</h2>
+<p>For the past year or so, I've been using WordPress as my blog system, but my small server is really too weak to handle WordPress, this big guy. So I decided to migrate to VuePress.</p>
+<h2>Starting the Migration</h2>
+<p>Initially, I looked at many static site generators like Hexo, Hugo, Jekyll, and finally chose <a href="https://theme-hope.vuejs.press/" target="_blank" rel="noopener noreferrer">VuePress Theme Hope</a>.</p>
+<p>So let's start migrating!</p>
+<h2>Installing VuePress Theme Hope</h2>
+<p>First, install Node.js 18.0.0+</p>
+<h3>Then create the project template</h3>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">npm</span> init vuepress-theme-hope@latest my-docs</span>
+<span class="line"></span></code></pre>
+</div><p>Here, my-docs is a parameter representing the folder name of the VuePress Theme Hope project.</p>
+<p>After executing the command, follow the prompts and use the keyboard ↓ to select Simplified Chinese and press Enter to make selections as needed.</p>
+<h3>Project Commands</h3>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># Start development server</span></span>
+<span class="line"><span class="token function">npm</span> docs:dev</span>
+<span class="line"><span class="token comment"># Build project and output</span></span>
+<span class="line"><span class="token function">npm</span> docs:build</span>
+<span class="line"><span class="token comment"># Clear cache and start development server</span></span>
+<span class="line"><span class="token function">npm</span> docs:clean-dev</span>
+<span class="line"></span></code></pre>
+</div><p>Start the project and visit <a href="http://localhost:8080/" target="_blank" rel="noopener noreferrer">http://localhost:8080/</a> in your browser to see the effect</p>
+<h3>Directory Structure</h3>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">.</span>
+<span class="line">├── .github (optional) → GitHub configuration file storage path</span>
+<span class="line">│    └── workflow → GitHub workflow configuration</span>
+<span class="line">│         └── docs-deploy.yml → Workflow for automatic documentation deployment</span>
+<span class="line">│</span>
+<span class="line">├── src → Documentation folder</span>
+<span class="line">│    │</span>
+<span class="line">│    ├── .vuepress (optional) → VuePress configuration folder</span>
+<span class="line">│    │    │</span>
+<span class="line">│    │    ├── dist (default) → Build output directory</span>
+<span class="line">│    │    │</span>
+<span class="line">│    │    ├── public (optional) → Static resource directory</span>
+<span class="line">│    │    │</span>
+<span class="line">│    │    ├── styles (optional) → For storing style-related files</span>
+<span class="line">│    │    │</span>
+<span class="line">│    │    ├── config.{js,ts} (optional) → Configuration file entry point</span>
+<span class="line">│    │    │</span>
+<span class="line">│    │    └── client.{js,ts} (optional) → Client file</span>
+<span class="line">│    │</span>
+<span class="line">│    ├── ... → Other project documentation</span>
+<span class="line">│    │</span>
+<span class="line">│    └── README.md → Project homepage</span>
+<span class="line">│</span>
+<span class="line">└── package.json → Node.js configuration file</span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+</div><h3>Next, Make Some Personalized Configurations</h3>
+<h3>Homepage Image Full Screen Setting</h3>
+<p>If you don't want the homepage image to be full screen, open README.md, find heroFullScreen and change it to false</p>
+<div class="language-markdown" data-highlighter="prismjs" data-ext="md"><pre><code class="language-markdown"><span class="line">heroFullScreen: false</span>
+<span class="line"></span></code></pre>
+</div><p>Effect:</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/blogdemo.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<h3>Homepage Project Settings</h3>
+<p>The initialization will generate the following content by default. How do you modify it to your own projects?</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/defpoj.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<p>Open <code>README.md</code>, find <code>projects</code>, and edit it to your desired content.</p>
+<div class="language-markdown" data-highlighter="prismjs" data-ext="md"><pre><code class="language-markdown"><span class="line">projects:</span>
+<span class="line">  <span class="token list punctuation">-</span> icon: project</span>
+<span class="line">    name: Project Name</span>
+<span class="line">    desc: Detailed project description</span>
+<span class="line">    link: https://your-project-link</span>
+<span class="line"></span>
+<span class="line">  <span class="token list punctuation">-</span> icon: link</span>
+<span class="line">    name: Link Name</span>
+<span class="line">    desc: Detailed link description</span>
+<span class="line">    link: https://link-address</span>
+<span class="line"></span>
+<span class="line">  <span class="token list punctuation">-</span> icon: book</span>
+<span class="line">    name: Book Name</span>
+<span class="line">    desc: Detailed book description</span>
+<span class="line">    link: https://your-book-link</span>
+<span class="line"></span>
+<span class="line">  <span class="token list punctuation">-</span> icon: article</span>
+<span class="line">    name: Article Name</span>
+<span class="line">    desc: Detailed article description</span>
+<span class="line">    link: https://your-article-link</span>
+<span class="line"></span>
+<span class="line">  <span class="token list punctuation">-</span> icon: friend</span>
+<span class="line">    name: Partner Name</span>
+<span class="line">    desc: Detailed partner introduction</span>
+<span class="line">    link: https://your-partner-link</span>
+<span class="line"></span>
+<span class="line">  <span class="token list punctuation">-</span> icon: /logo.svg</span>
+<span class="line">    name: Custom Project</span>
+<span class="line">    desc: Custom detailed introduction</span>
+<span class="line">    link: https://your-custom-link</span>
+<span class="line"></span></code></pre>
+</div><p>If you don't want to display it, just delete all the <code>projects</code> content. Effect as shown:</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/blognopoj.webp" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/blogdemo.webp" type="image/webp"/>
+    </item>
+    <item>
+      <title>Goodbye 2024!</title>
+      <link>https://www.pysio.online/en/posts/daily/bye2024.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/bye2024.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Goodbye 2024!</source>
+      <description>It&amp;apos;s time for the annual New Year&amp;apos;s celebration again (what nonsense), time to do the year-end summary. As for what I did this year, uh... I&amp;apos;ll come back to write more details b...</description>
+      <category>daily</category>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>It's time for the annual New Year's celebration again (what nonsense), time to do the year-end summary.</p>
+<p>As for what I did this year, uh... I'll come back to write more details between March 3-10, haha. For now, I'm going to sleep first!</p>
+<p>EDIT: Definitely not being lazy meow uwu (x Let me put a GitHub stats chart below first uwu)</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>February 2025 Report</title>
+      <link>https://www.pysio.online/en/posts/daily/day250215.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/day250215.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">February 2025 Report</source>
+      <description>Haven&amp;apos;t written articles for a while, so let me write one to record what I&amp;apos;ve been doing ;P AnyCast Network At the beginning of last month, I applied for an ASN. After getting a...</description>
+      <category>daily</category>
+      <pubDate>Sat, 15 Feb 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>Haven't written articles for a while, so let me write one to record what I've been doing ;P</p>
+<h2>AnyCast Network</h2>
+<p>At the beginning of last month, I applied for an ASN. After getting a /44 IPv6 address segment, I started tinkering with BGP and eventually built an Anycast network to play with (mainland China access speed is quite touching)</p>
+<p>As of February 15, 2025, Anycast has 6 nodes</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250215075819.png" alt="Anycast Server Probes" tabindex="0" loading="lazy"><figcaption>Anycast Server Probes</figcaption></figure>
+<p>Currently, the blog is also distributed through this network <s>(but actually mainland China access has a layer of Tencent Cloud CDN)</s></p>
+<p>At the same time, to distinguish which server returned the response when accessing, I added a popup and a footer so you can tell which node you got the response from <s>and also see what strange place you got thrown to</s></p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250215080711.png" alt="Anycast Popup" tabindex="0" loading="lazy"><figcaption>Anycast Popup</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250215080736.png" alt="Footer Node Information" tabindex="0" loading="lazy"><figcaption>Footer Node Information</figcaption></figure>
+<h2>File Distribution Refactoring</h2>
+<p>Previously, I was using Yanmu's 93@Home as the file distribution server, but due to some ridiculous issues and the problem that some clients don't accept 302 redirects, I ended up writing my own file distribution service and storing files on Minio...</p>
+<h2>Blog API Refactoring</h2>
+<p>uhhh The previous API was always using TypeScript + Node.js, but due to small server performance issues and multithreading nonsense, I finally switched to GO =- = It was unavoidable QWQ</p>
+<h2>New Comment System</h2>
+<p>The previous comment system was always based on GitHub and also had no view count statistics, so I simply switched to Waline but removed the reaction part (felt it was really ugly)</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250215080441.png" alt="Waline Comment System" tabindex="0" loading="lazy"><figcaption>Waline Comment System</figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250215075819.png" type="image/png"/>
+    </item>
+    <item>
+      <title>Current Blog Architecture</title>
+      <link>https://www.pysio.online/en/posts/develop/Blog%20Architecture.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/Blog%20Architecture.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Current Blog Architecture</source>
+      <description>Main Site Framework Using framework Vuepress-Theme-Hope Image/Avatar/Font Distribution All files are distributed using Pysio-Files-API Fonts use Font Awesome with custom icons a...</description>
+      <category>develop</category>
+      <pubDate>Sun, 24 Nov 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>Main Site Framework</h2>
+<p>Using framework <a href="https://github.com/vuepress-theme-hope/vuepress-theme-hope/" target="_blank" rel="noopener noreferrer">Vuepress-Theme-Hope</a></p>
+<h2>Image/Avatar/Font Distribution</h2>
+<p>All files are distributed using <a href="https://github.com/pysio2007/Files-API/" target="_blank" rel="noopener noreferrer">Pysio-Files-API</a></p>
+<p>Fonts use <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">Font Awesome</a> with <a href="https://www.pysio.online/posts/develop/icon.html" target="_blank" rel="noopener noreferrer">custom icons</a> added</p>
+<p>Images are stored in repository <a href="https://github.com/pysio2007/Imges" target="_blank" rel="noopener noreferrer">pysio2007/Imges</a></p>
+<p>Avatars are automatically fetched and updated using Github Actions in repository <a href="https://github.com/pysio2007/avatar-to-img" target="_blank" rel="noopener noreferrer">pysio2007/Avatar-To-Img</a></p>
+<h2>Analytics Scripts</h2>
+<p><a href="https://www.cloudflare.com/" target="_blank" rel="noopener noreferrer">Cloudflare Browser Insights</a></p>
+<p><a href="https://umami.is/" target="_blank" rel="noopener noreferrer">Umami</a></p>
+<h2>Web Hosting and Distribution</h2>
+<p>Currently, the website is deployed in 2 places: self-built cluster and <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener noreferrer">Cloudflare Pages</a> <s>All traffic is distributed by Cloudflare</s></p>
+<p>EDIT: Due to self-built Anycast network, the website is now distributed by Anycast cluster</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Enabling xterm.js Console for OpenSuse in PVE</title>
+      <link>https://www.pysio.online/en/posts/develop/Enabling%20the%20xterm.js%20console%20for%20OpenSuse%20in%20PVE%20.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/Enabling%20the%20xterm.js%20console%20for%20OpenSuse%20in%20PVE%20.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Enabling xterm.js Console for OpenSuse in PVE</source>
+      <description>Shut down VM and add a serial port to the VM Use the qm command in PVE Host to create a serial port, assuming my VM ID is 100 Then restart the VM and use dmesg to confirm if tty...</description>
+      <category>develop</category>
+      <pubDate>Fri, 13 Sep 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>Shut down VM and add a serial port to the VM</h2>
+<p>Use the qm command in PVE Host to create a serial port, assuming my VM ID is 100</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">qm <span class="token builtin class-name">set</span> <span class="token number">100</span> <span class="token parameter variable">-serial0</span> socket</span>
+<span class="line"></span></code></pre>
+</div><p>Then restart the VM and use dmesg to confirm if ttyS appears</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">dmesg</span> <span class="token operator">|</span> <span class="token function">grep</span> ttyS</span>
+<span class="line"></span></code></pre>
+</div><h2>Modify grub configuration in OpenSuse</h2>
+<p>In <code>/etc/default/grub</code> add to the <code>GRUB_CMDLINE_LINUX</code> parameter:</p>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">console=tty0 console=ttyS0,115200</span>
+<span class="line"></span></code></pre>
+</div><p>Update Grub configuration</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">grub2-mkconfig <span class="token parameter variable">--output</span><span class="token operator">=</span>/boot/grub2/grub.cfg</span>
+<span class="line"></span></code></pre>
+</div><p>Restart the OpenSuse virtual machine and check if xterm.js is available</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Manually Merge Pull Requests from GitHub Locally</title>
+      <link>https://www.pysio.online/en/posts/develop/Manual%20merge%20Pull%20requests.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/Manual%20merge%20Pull%20requests.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Manually Merge Pull Requests from GitHub Locally</source>
+      <description>First, add remote repository information using the command After successfully adding the repository, use git fetch [remote repository name] to pull the repository locally Finall...</description>
+      <category>develop</category>
+      <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>First, add remote repository information using the command</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">git</span> remote <span class="token function">add</span> <span class="token punctuation">[</span>remote repository name<span class="token punctuation">]</span> <span class="token punctuation">[</span>remote repository address<span class="token punctuation">]</span> </span>
+<span class="line"></span></code></pre>
+</div><p>After successfully adding the repository, use <code>git fetch [remote repository name]</code> to pull the repository locally</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">❯ <span class="token function">git</span> fetch pr2</span>
+<span class="line">remote: Enumerating objects: <span class="token number">26</span>, done.</span>
+<span class="line">remote: Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">26</span>/26<span class="token punctuation">)</span>, done.</span>
+<span class="line">remote: Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">9</span>/9<span class="token punctuation">)</span>, done.</span>
+<span class="line">remote: Total <span class="token number">18</span> <span class="token punctuation">(</span>delta <span class="token number">8</span><span class="token punctuation">)</span>, reused <span class="token number">17</span> <span class="token punctuation">(</span>delta <span class="token number">7</span><span class="token punctuation">)</span>, pack-reused <span class="token number">0</span> <span class="token punctuation">(</span>from <span class="token number">0</span><span class="token punctuation">)</span></span>
+<span class="line">Unpacking objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">18</span>/18<span class="token punctuation">)</span>, <span class="token number">3.26</span> KiB <span class="token operator">|</span> <span class="token number">371.00</span> KiB/s, done.</span>
+<span class="line">From github.com:pysio2007/SkyBlock-CN-WIKI</span>
+<span class="line"> * <span class="token punctuation">[</span>new branch<span class="token punctuation">]</span>      main       -<span class="token operator">&gt;</span> pr2/main</span>
+<span class="line"></span></code></pre>
+</div><p>Finally, use <code>merge</code> or <code>cherry-pick</code> to merge the entire branch or a specific commit</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># Merge specific commit ID</span></span>
+<span class="line">❯ <span class="token function">git</span> cherry-pick <span class="token punctuation">[</span>Commitid<span class="token punctuation">]</span></span>
+<span class="line"></span>
+<span class="line"><span class="token comment"># Merge specific branch</span></span>
+<span class="line">❯ <span class="token function">git</span> merge <span class="token punctuation">[</span>remote repository name<span class="token punctuation">]</span>/<span class="token punctuation">[</span>branch name<span class="token punctuation">]</span></span>
+<span class="line"></span></code></pre>
+</div><p>After we finish merging, clean up the remote repository information</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">git</span> remote <span class="token function">rm</span> <span class="token punctuation">[</span>remote repository name<span class="token punctuation">]</span></span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+    </item>
+    <item>
+      <title>New Blog Project Started!</title>
+      <link>https://www.pysio.online/en/posts/develop/NewBlog.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/NewBlog.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">New Blog Project Started!</source>
+      <description>Yes, you read that right, I&amp;apos;m bored again and started refactoring my blog (UWU) Currently planning to write it with Next.js. Here&amp;apos;s a super early-stage webpage QWQ ( Early webpa...</description>
+      <category>develop</category>
+      <pubDate>Sun, 05 Jan 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>Yes, you read that right, I'm bored again and started refactoring my blog (UWU)</p>
+<p>Currently planning to write it with Next.js. Here's a super early-stage webpage QWQ (</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/73dc30f2d6ec844cda13e6aaa3ca03f2.png" alt="Early webpage" tabindex="0" loading="lazy"><figcaption>Early webpage</figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/73dc30f2d6ec844cda13e6aaa3ca03f2.png" type="image/png"/>
+    </item>
+    <item>
+      <title>Public DNS/DOH Services</title>
+      <link>https://www.pysio.online/en/posts/develop/Public%20DNS%20DOH.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/Public%20DNS%20DOH.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Public DNS/DOH Services</source>
+      <description>Warning Note: If you abuse DNS, your IP address may be banned</description>
+      <category>develop</category>
+      <pubDate>Sun, 19 May 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<div class="hint-container warning">
+<p class="hint-container-title">Warning</p>
+<p>Note: If you abuse DNS, your IP address may be banned</p>
+</div>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line"></span>
+<span class="line">DNS Server: 101.43.154.197 (Port 53 temporarily unavailable)</span>
+<span class="line"></span>
+<span class="line">DNS Server: 93.177.67.6 (Port 53 available)</span>
+<span class="line"></span>
+<span class="line">DNS Server: dns.pysio.online supports any DNS protocol </span>
+<span class="line"></span>
+<span class="line">DOH globally available: https://dns-doh.pysio.online/</span>
+<span class="line"></span>
+<span class="line">DoH (Mainland China): https://doh.pysio.online/dns-query</span>
+<span class="line"></span>
+<span class="line">DoT (Mainland China): tls://doh.pysio.online:853</span>
+<span class="line"></span>
+<span class="line">DoH (Non-Mainland China Cloudflare): https://dohk.pysio.online/dns-query</span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+    </item>
+    <item>
+      <title>Remove PVE &amp;quot;No valid subscription&amp;quot; Popup</title>
+      <link>https://www.pysio.online/en/posts/develop/Remove%20Pve%20No%20valid%20subscription.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/Remove%20Pve%20No%20valid%20subscription.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Remove PVE &amp;quot;No valid subscription&amp;quot; Popup</source>
+      <description>Modify /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js change to Execute the following command to restart PveProxy and remove the popup</description>
+      <category>develop</category>
+      <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>Modify <code>/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js</code> change</p>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line">Ext<span class="token punctuation">.</span>Msg<span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">{</span></span>
+<span class="line"></span></code></pre>
+</div><p>to</p>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line">Ext<span class="token punctuation">.</span>Msg<span class="token punctuation">.</span><span class="token function">noshow</span><span class="token punctuation">(</span><span class="token punctuation">{</span></span>
+<span class="line"></span></code></pre>
+</div><p>Execute the following command to restart PveProxy and remove the popup</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">systemctl restart pveproxy</span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+    </item>
+    <item>
+      <title>Complete Blog API Documentation</title>
+      <link>https://www.pysio.online/en/posts/develop/api.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/api.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Complete Blog API Documentation</source>
+      <description>General Information Note All APIs have been deployed to production environment, please use the following base URL for access. Base URL API Collection You can also download the J...</description>
+      <category>develop</category>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>General Information</h2>
+<div class="hint-container note">
+<p class="hint-container-title">Note</p>
+<p>All APIs have been deployed to production environment, please use the following base URL for access.</p>
+</div>
+<h3>Base URL</h3>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">https://blogapi.pysio.online</span>
+<span class="line"></span></code></pre>
+</div><h3>API Collection</h3>
+<p>You can also download the JSON file directly: <a href="https://www.pysio.online/json/blog-api-collection.json" target="_blank" rel="noopener noreferrer">Download API Collection</a> and import it into Postman for use</p>
+<div class="hint-container important">
+<p class="hint-container-title">Important</p>
+<p>When making API calls, please note the following:</p>
+<ul>
+<li>All requests must use HTTPS protocol</li>
+<li>APIs may have rate limiting</li>
+<li>Please keep your authentication tokens secure</li>
+<li>Image storage uses Minio object storage with CDN acceleration</li>
+</ul>
+</div>
+<h3>Common Response Format</h3>
+<p>All JSON responses follow this format:</p>
+<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"success/error"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"data/error"</span><span class="token operator">:</span> <span class="token string">"response data/error message"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div><div class="hint-container tip">
+<p class="hint-container-title">Tips</p>
+<p>For API debugging, we recommend using the following tools:</p>
+<ul>
+<li><a href="https://www.postman.com/" target="_blank" rel="noopener noreferrer">Postman</a></li>
+<li><a href="https://insomnia.rest/" target="_blank" rel="noopener noreferrer">Insomnia</a></li>
+<li><a href="https://curl.se/" target="_blank" rel="noopener noreferrer">curl</a></li>
+</ul>
+</div>
+<h3>Authentication Header Format</h3>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {TOKEN}</span>
+<span class="line"></span></code></pre>
+</div><div class="hint-container warning">
+<p class="hint-container-title">Warning</p>
+<p>Do not store admin tokens directly in client-side code.
+Ensure secure token storage methods in production environments.</p>
+</div>
+<h2>System Status Endpoints</h2>
+<div class="hint-container note">
+<p class="hint-container-title">Note</p>
+<p>System status endpoints can be used to monitor service health.</p>
+</div>
+<h3>1. System Status Check</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Response Format</strong>: text/plain</li>
+<li><strong>Response Example</strong>: <code>What are you doing here? Meow?</code></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<div class="hint-container tip">
+<p class="hint-container-title">Tips</p>
+<p>Recommended to use this endpoint for basic connectivity testing.</p>
+</div>
+<h3>2. FastFetch System Information</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/fastfetch</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"success"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"output"</span><span class="token operator">:</span> <span class="token string">"System information in HTML format"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/fastfetch</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>3. Heartbeat Detection</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/heartbeat</code></li>
+<li><strong>Request Method</strong>: POST</li>
+<li><strong>Request Headers</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {TOKEN}</span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Request Parameters</strong>:
+<ul>
+<li><code>application</code>: Application name</li>
+<li><code>introduce</code>: Application description</li>
+<li><code>rgba</code>: Color value</li>
+<li><code>applicationOnline</code>: Application status</li>
+</ul>
+</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Heartbeat received"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"application"</span><span class="token operator">:</span> <span class="token string">"MyApp"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"introduce"</span><span class="token operator">:</span> <span class="token string">"My Application Description"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"rgba"</span><span class="token operator">:</span> <span class="token string">"233,30,99,0.17"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"applicationOnline"</span><span class="token operator">:</span> <span class="token boolean">true</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer your_token"</span> https://blogapi.pysio.online/heartbeat</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>4. Status Check</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/check</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"alive"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"last_heartbeat"</span><span class="token operator">:</span> <span class="token number">1234567890</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"application"</span><span class="token operator">:</span> <span class="token string">"MyApp"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"introduce"</span><span class="token operator">:</span> <span class="token string">"My Application Description"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"rgba"</span><span class="token operator">:</span> <span class="token string">"233,30,99,0.17"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"applicationOnline"</span><span class="token operator">:</span> <span class="token boolean">true</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/check</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h2>Image Management Endpoints</h2>
+<div class="hint-container important">
+<p class="hint-container-title">Important</p>
+<p>All images are stored in Minio object storage with CDN acceleration.
+Uploaded images are automatically converted to WebP format for optimized storage and transmission.</p>
+</div>
+<h3>1. Get Random Image</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/random_image</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Response</strong>: 302 redirect to Minio stored image</li>
+<li><strong>Redirect Format</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
+<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"No images available"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># Use -L parameter to follow redirects</span></span>
+<span class="line"><span class="token function">curl</span> <span class="token parameter variable">-L</span> https://blogapi.pysio.online/random_image <span class="token parameter variable">-o</span> random.webp</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>2. Get Specific Image</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/images/:hash</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Parameters</strong>:
+<ul>
+<li><code>hash</code>: Image hash value</li>
+</ul>
+</li>
+<li><strong>Response</strong>: 302 redirect to Minio stored image</li>
+<li><strong>Redirect Format</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
+<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image not found"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>3. Get Image (Optimized)</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/i/:hash</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Parameters</strong>:
+<ul>
+<li><code>hash</code>: Image hash value</li>
+</ul>
+</li>
+<li><strong>Response</strong>: 302 redirect to Minio stored image</li>
+<li><strong>Redirect Format</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
+<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image not found"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>4. Upload Image</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/images/add</code></li>
+<li><strong>Request Method</strong>: POST</li>
+<li><strong>Request Headers</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {ADMIN_TOKEN}</span>
+<span class="line">Content-Type: multipart/form-data</span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Request Parameters</strong>:
+<ul>
+<li><code>image</code>: Image file (form-data)</li>
+</ul>
+</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Success Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"image hash value"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"size"</span><span class="token operator">:</span> image_size_in_bytes</span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image file is required"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div>or<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image already exists"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"existing image hash"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer your_admin_token"</span> <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-F</span> <span class="token string">"image=@/path/to/your/image.jpg"</span> <span class="token punctuation">\</span></span>
+<span class="line">  https://blogapi.pysio.online/images/add</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>5. Get Image List</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/images/list</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Query Parameters</strong>:
+<ul>
+<li><code>page</code>: Page number (default: 1)</li>
+<li><code>limit</code>: Items per page (default: 10)</li>
+</ul>
+</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"images"</span><span class="token operator">:</span> <span class="token punctuation">[</span></span>
+<span class="line">    <span class="token punctuation">{</span></span>
+<span class="line">      <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"image hash"</span><span class="token punctuation">,</span></span>
+<span class="line">      <span class="token property">"contentType"</span><span class="token operator">:</span> <span class="token string">"image/webp"</span><span class="token punctuation">,</span></span>
+<span class="line">      <span class="token property">"createdAt"</span><span class="token operator">:</span> <span class="token string">"creation time"</span></span>
+<span class="line">    <span class="token punctuation">}</span></span>
+<span class="line">  <span class="token punctuation">]</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"pagination"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">    <span class="token property">"current"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
+<span class="line">    <span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">10</span><span class="token punctuation">,</span></span>
+<span class="line">    <span class="token property">"total"</span><span class="token operator">:</span> <span class="token number">100</span></span>
+<span class="line">  <span class="token punctuation">}</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token string">"https://blogapi.pysio.online/images/list?page=1&amp;limit=10"</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>6. Get Image Count</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/images/count</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">100</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/images/count</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>7. Delete Image</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/images/:hash</code></li>
+<li><strong>Request Method</strong>: DELETE</li>
+<li><strong>Request Headers</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {ADMIN_TOKEN}</span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Parameters</strong>:
+<ul>
+<li><code>hash</code>: Hash of image to delete</li>
+</ul>
+</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Success Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Image deleted successfully"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image not found"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> DELETE <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer your_admin_token"</span> <span class="token punctuation">\</span></span>
+<span class="line">  https://blogapi.pysio.online/images/your_image_hash</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>8. Batch Upload Tools</h3>
+<p>Two batch upload tools are provided:</p>
+<ol>
+<li>Go command line tool:</li>
+</ol>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># Compile tool</span></span>
+<span class="line">go build <span class="token parameter variable">-o</span> uploader cmd/upload/main.go</span>
+<span class="line"></span>
+<span class="line"><span class="token comment"># Use tool</span></span>
+<span class="line">./uploader <span class="token parameter variable">-folder</span> /path/to/images <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-api</span> https://blogapi.pysio.online <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-token</span> your_admin_token <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-concurrent</span> <span class="token number">5</span></span>
+<span class="line"></span></code></pre>
+</div><ol start="2">
+<li>PowerShell script:</li>
+</ol>
+<div class="language-powershell" data-highlighter="prismjs" data-ext="powershell"><pre><code class="language-powershell"><span class="line"><span class="token comment"># Run script</span></span>
+<span class="line"><span class="token punctuation">.</span>\upload<span class="token punctuation">.</span>ps1 <span class="token operator">-</span>folder <span class="token string">"C:\Images"</span> `</span>
+<span class="line">  <span class="token operator">-</span>token <span class="token string">"your_token"</span> `</span>
+<span class="line">  <span class="token operator">-</span>retries 5 `</span>
+<span class="line">  <span class="token operator">-</span>timeout 60 `</span>
+<span class="line">  <span class="token operator">-</span>api <span class="token string">"https://blogapi.pysio.online"</span></span>
+<span class="line"></span></code></pre>
+</div><h2>Steam Status Endpoints</h2>
+<h3>1. Steam Game Status</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/steam_status</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example (In Game)</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"In Game"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"game"</span><span class="token operator">:</span> <span class="token string">"Game Name"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"game_id"</span><span class="token operator">:</span> <span class="token string">"Game ID"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Game Description"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"price"</span><span class="token operator">:</span> <span class="token string">"Game Price"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"playtime"</span><span class="token operator">:</span> <span class="token string">"Playtime"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"achievement_percentage"</span><span class="token operator">:</span> <span class="token string">"Achievement Completion"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Response Example (Not In Game)</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"Online"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/steam_status</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h2>IP Query Endpoints</h2>
+<h3>1. IP Information Query</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/ipcheck</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Query Parameters</strong>:
+<ul>
+<li><code>ip</code>: IP address</li>
+</ul>
+</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"ip"</span><span class="token operator">:</span> <span class="token string">"IP Address"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"hostname"</span><span class="token operator">:</span> <span class="token string">"Hostname"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"city"</span><span class="token operator">:</span> <span class="token string">"City"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"region"</span><span class="token operator">:</span> <span class="token string">"Region"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"Country"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"loc"</span><span class="token operator">:</span> <span class="token string">"Location Coordinates"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"org"</span><span class="token operator">:</span> <span class="token string">"Organization"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"postal"</span><span class="token operator">:</span> <span class="token string">"Postal Code"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"timezone"</span><span class="token operator">:</span> <span class="token string">"Timezone"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token string">"https://blogapi.pysio.online/ipcheck?ip=8.8.8.8"</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h2>API Statistics Endpoints</h2>
+<h3>1. Get All API Call Statistics</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/api_stats</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">[</span></span>
+<span class="line">  <span class="token punctuation">{</span></span>
+<span class="line">    <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"API Path"</span><span class="token punctuation">,</span></span>
+<span class="line">    <span class="token property">"count"</span><span class="token operator">:</span> call_count<span class="token punctuation">,</span></span>
+<span class="line">    <span class="token property">"lastUpdated"</span><span class="token operator">:</span> <span class="token string">"last call time"</span></span>
+<span class="line">  <span class="token punctuation">}</span></span>
+<span class="line"><span class="token punctuation">]</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/api_stats</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>2. Get Specific API Call Statistics</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/api_stats/:key</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Parameters</strong>:
+<ul>
+<li><code>key</code>: API path</li>
+</ul>
+</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"API Path"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"count"</span><span class="token operator">:</span> call_count<span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"lastUpdated"</span><span class="token operator">:</span> <span class="token string">"last call time"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div>or<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"API Path"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"lastUpdated"</span><span class="token operator">:</span> <span class="token null keyword">null</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/api_stats/random_image</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h2>Error Handling</h2>
+<div class="hint-container warning">
+<p class="hint-container-title">Warning</p>
+<p>Please ensure your application properly handles the following error responses:</p>
+</div>
+<h3>Common Error Codes</h3>
+<p>| Error Code | Description | Handling Suggestion |
+|</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Free CDN</title>
+      <link>https://www.pysio.online/en/posts/develop/freecdn.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/freecdn.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Free CDN</source>
+      <description>This blog provides a free domestic CDN. You can get access by leaving a contact method in the comments/contacting me/creating a new Issue. Tips You need to ensure that your webs...</description>
+      <category>develop</category>
+      <pubDate>Wed, 19 Mar 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>This blog provides a free domestic CDN. You can get access by leaving a contact method in the comments/contacting me/creating a new <a href="https://github.com/pysio2007/Vue-blog" target="_blank" rel="noopener noreferrer">Issue</a>.</p>
+<div class="hint-container tip">
+<p class="hint-container-title">Tips</p>
+<p>You need to ensure that your website does not violate the laws and regulations of the People's Republic of China, and does not contain pornography, gambling, drugs (drug overdose), violence and other content.</p>
+</div>
+<p>The CDN only provides 1GB of traffic per day for a single website. Access will be prohibited after exceeding the limit. (Can be extended with reasonable justification)</p>
+<p>The CDN does not support HTTP3/WebSocket.</p>
+<p>We will conduct regular inspections to check the content of your website. If we find anything that violates the laws of the People's Republic of China, we will unilaterally stop the resolution.</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Random Image API</title>
+      <link>https://www.pysio.online/en/posts/develop/randomimage.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/randomimage.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Random Image API</source>
+      <description>This site now provides a random image API. You can directly use the URL below to get a random image</description>
+      <category>develop</category>
+      <pubDate>Thu, 07 Nov 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>This site now provides a random image API. You can directly use the URL below to get a random image</p>
+<div class="language-url" data-highlighter="prismjs" data-ext="url"><pre><code class="language-url"><span class="line"><span class="token scheme">https<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">blogapi.pysio.online</span></span><span class="token path"><span class="token path-separator">/</span>random_image</span></span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+      <enclosure url="https://blogapi.pysio.online/random_image" type="image/"/>
+    </item>
+    <item>
+      <title>Recording a DDOS Attack</title>
+      <link>https://www.pysio.online/en/posts/daily/ddos-20250512.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/ddos-20250512.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Recording a DDOS Attack</source>
+      <description>Warning As of this article&amp;apos;s publication, the attack is still ongoing Starting from 12:00 on May 12, 2025, this site has been under DDoS / CC attack. I don&amp;apos;t want to say much, j...</description>
+      <category>daily</category>
+      <pubDate>Tue, 13 May 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<div class="hint-container warning">
+<p class="hint-container-title">Warning</p>
+<p>As of this article's publication, the attack is still ongoing</p>
+</div>
+<p>Starting from 12:00 on May 12, 2025, this site has been under DDoS / CC attack.</p>
+<p>I don't want to say much, just posting a few images :&lt;&lt;  A detailed analysis report will be published after the attack ends</p>
+<!-- more -->
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/DDOS/VPS MPPS.png" alt="Network Card Packet Forwarding" tabindex="0" loading="lazy"><figcaption>Network Card Packet Forwarding</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/DDOS/TY CLOUD FLARE CACHE.png" alt="CloudFlare Dashboard" tabindex="0" loading="lazy"><figcaption>CloudFlare Dashboard</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/DDOS/Paths.png" alt="CloudFlare Dashboard" tabindex="0" loading="lazy"><figcaption>CloudFlare Dashboard</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/DDOS/ClouFlare WAF.png" alt="CloudFlare Dashboard" tabindex="0" loading="lazy"><figcaption>CloudFlare Dashboard</figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/DDOS/30M.png" alt="CloudFlare Dashboard" tabindex="0" loading="lazy"><figcaption>CloudFlare Dashboard</figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/DDOS/VPS%20MPPS.png" type="image/png"/>
+    </item>
+    <item>
+      <title>Destiny 2 Mouse Macros</title>
+      <link>https://www.pysio.online/en/posts/daily/Dstiny2Macro.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/Dstiny2Macro.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Destiny 2 Mouse Macros</source>
+      <description>Tips This stores some commonly used mouse macros, I really don&amp;apos;t want to do them manually anymore QWQ Stasis Hunter Ground Super Jump</description>
+      <category>daily</category>
+      <pubDate>Mon, 27 Jan 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<div class="hint-container tip">
+<p class="hint-container-title">Tips</p>
+<p>This stores some commonly used mouse macros, I really don't want to do them manually anymore QWQ</p>
+</div>
+<h2>Stasis Hunter Ground Super Jump</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Custom FontAwesome Icons for This Blog</title>
+      <link>https://www.pysio.online/en/posts/develop/icon.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/icon.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Custom FontAwesome Icons for This Blog</source>
+      <description>Usage You can directly reference the following JS file to use the custom FontAwesome icons from this blog Included Icons Destiny2 JetBrains JetBrains IntelliJ IDEA JetBrains PyC...</description>
+      <category>develop</category>
+      <pubDate>Fri, 01 Nov 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>Usage</h2>
+<p>You can directly reference the following JS file to use the custom FontAwesome icons from this blog</p>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://files.pysio.online/Pysio-FontAwesome/js/custom-icons.js"</span> crossorigin<span class="token operator">=</span><span class="token string">"anonymous"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h2>Included Icons</h2>
+<h3>Destiny2 <i class="fa-kit fa-destiny2"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-destiny2"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>JetBrains <i class="fa-kit fa-jetbrains"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-jetbrains"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>JetBrains IntelliJ IDEA <i class="fa-kit fa-idea"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-idea"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>JetBrains PyCharm <i class="fa-kit fa-pycharm"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-pycharm"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>Github Issues <i class="fa-kit fa-issues"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-issues"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>Progressive Web Apps <i class="fa-kit fa-pwa"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-pwa"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>Proxmox Virtual Environment <i class="fa-kit fa-pve"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-pve"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>Modrinth <i class="fa-kit fa-modrinth"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-modrinth"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>Visual Studio Code <i class="fa-kit fa-vscode"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-vscode"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>Minecraft Creeper <i class="fa-kit fa-creeper"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-creeper"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>MANRS <i class="fa-kit fa-manrs"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-manrs"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>Wireshark <i class="fa-kit fa-wireshark"></i></h3>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line"><span class="token operator">&lt;</span>i <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"fa-kit fa-wireshark"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>i<span class="token operator">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+    </item>
+    <item>
+      <title>HuoShen80 Group Chat Memes</title>
+      <link>https://www.pysio.online/en/posts/daily/HuoShen80Hub.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/HuoShen80Hub.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">HuoShen80 Group Chat Memes</source>
+      <description>Info This page displays meme images from the HuoShen80 group chat</description>
+      <category>daily</category>
+      <pubDate>Fri, 11 Oct 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<!-- markdownlint-disable MD028 -->
+<div class="hint-container info">
+<p class="hint-container-title">Info</p>
+<p>This page displays meme images from the HuoShen80 group chat</p>
+</div>
+<!-- markdownlint-enable MD028 -->
+<!-- more -->
+<h2>Image Gallery</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Destiny 2 Year 7</title>
+      <link>https://www.pysio.online/en/posts/daily/Destiny%20Year7.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/Destiny%20Year7.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Destiny 2 Year 7</source>
+      <description>Playing Year 7 these days has been giving me a headache. Cayde is alive, but not completely alive, and dies in the end. Day One started at 1 AM on the 8th. After 6 hours, we onl...</description>
+      <category>daily</category>
+      <pubDate>Sun, 09 Jun 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>Playing Year 7 these days has been giving me a headache. Cayde is alive, but not completely alive, and dies in the end.</p>
+<p>Day One started at 1 AM on the 8th. After 6 hours, we only cleared the first encounter and directly surrendered to The Witness. It was too difficult.</p>
+<p>As of this writing, only 1 team has completed it.</p>
+<p>Not much more to say, here are some screenshots:</p>
+<!-- more -->
+<p><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006003452.png" alt="" loading="lazy">
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006003529.png" alt="" loading="lazy">
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006003549.png" alt="" loading="lazy">
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006003612.png" alt="" loading="lazy">
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006003632.png" alt="" loading="lazy"></p>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006003452.png" type="image/png"/>
+    </item>
+    <item>
+      <title>Configure Redis Object Cache Plugin with 1Panel</title>
+      <link>https://www.pysio.online/en/posts/develop/1Panel%20Redis%20Object%20Cache.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/1Panel%20Redis%20Object%20Cache.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Configure Redis Object Cache Plugin with 1Panel</source>
+      <description>Step 1: Get Redis Password Go to [App Store] -&amp;gt; [Installed] -&amp;gt; [Redis Parameters] to see the password and write it down Step 2: Modify object-cache.php File In the website root ...</description>
+      <category>develop</category>
+      <pubDate>Sat, 14 Sep 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>Step 1: Get Redis Password</h2>
+<p><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241005215409.png" alt="" loading="lazy">
+Go to [App Store] -&gt; [Installed] -&gt; [Redis Parameters] to see the password and write it down</p>
+<h2>Step 2: Modify object-cache.php File</h2>
+<p>In the website root directory <code>wp-content/plugins/redis-cache/includes</code>, you can find the <code>object-cache.php</code> file<br>
+Open and edit it<br>
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241005215426.png" alt="" loading="lazy"><br>
+Add or modify the following section, where PassWord is the Redis password you just obtained</p>
+<div class="language-php" data-highlighter="prismjs" data-ext="php"><pre><code class="language-php"><span class="line"><span class="token variable">$parameters</span> <span class="token operator">=</span> <span class="token punctuation">[</span></span>
+<span class="line">   <span class="token string single-quoted-string">'scheme'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'tcp'</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'host'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'redis'</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'port'</span> <span class="token operator">=&gt;</span> <span class="token number">6379</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'database'</span> <span class="token operator">=&gt;</span> <span class="token number">0</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'password'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'Your Redis Password'</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'timeout'</span> <span class="token operator">=&gt;</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'read_timeout'</span> <span class="token operator">=&gt;</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'retry_interval'</span> <span class="token operator">=&gt;</span> <span class="token constant">null</span><span class="token punctuation">,</span></span>
+<span class="line">   <span class="token string single-quoted-string">'persistent'</span> <span class="token operator">=&gt;</span> <span class="token constant boolean">false</span><span class="token punctuation">,</span></span>
+<span class="line"><span class="token punctuation">]</span><span class="token punctuation">;</span></span>
+<span class="line"></span></code></pre>
+</div><h2>Step 3: Modify wp-config.php File</h2>
+<p>Find the wp-config.php file in the website root directory and add at the end</p>
+<div class="language-php" data-highlighter="prismjs" data-ext="php"><pre><code class="language-php"><span class="line"><span class="token doc-comment comment">/** Redis Cache */</span></span>
+<span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_CACHE_KEY_SALT'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'001'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_REDIS_SCHEME'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'tcp'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_REDIS_HOST'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'redis'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_REDIS_PORT'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'6379'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_REDIS_DATABASE'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line"><span class="token function">define</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'WP_REDIS_PASSWORD'</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'Your Redis Password'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="line"></span></code></pre>
+</div><h3>Finally: Enable the Plugin</h3>
+<p>Now enable your Redis Object Cache plugin, it should work properly now</p>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241005215409.png" type="image/png"/>
+    </item>
+    <item>
+      <title>OpenBmclapi</title>
+      <link>https://www.pysio.online/en/posts/daily/OpenBmclapi.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/OpenBmclapi.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">OpenBmclapi</source>
+      <description>Setting up this thing was a spontaneous idea. I thought it was time to contribute my own strength to the free mirror service. Mirror node address: https://65d480a1f25ffe347bdf68...</description>
+      <category>daily</category>
+      <pubDate>Wed, 27 Mar 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>Setting up this thing was a spontaneous idea. I thought it was time to contribute my own strength to the free mirror service.</p>
+<p>Mirror node address: https://65d480a1f25ffe347bdf6820.openbmclapi.933.moe/</p>
+<!-- more -->
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241005133723.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241005133723.png" type="image/png"/>
+    </item>
+  </channel>
+</rss>
