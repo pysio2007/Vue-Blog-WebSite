@@ -6,8 +6,8 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Fri, 06 Jun 2025 01:19:06 GMT</pubDate>
-    <lastBuildDate>Fri, 06 Jun 2025 01:19:06 GMT</lastBuildDate>
+    <pubDate>Sat, 07 Jun 2025 05:40:02 GMT</pubDate>
+    <lastBuildDate>Sat, 07 Jun 2025 05:40:02 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
@@ -17,7 +17,7 @@
       <link>https://www.pysio.online/posts/daily/AKIXAccident.html</link>
       <guid>https://www.pysio.online/posts/daily/AKIXAccident.html</guid>
       <source url="https://www.pysio.online/rss.xml">AKIX 事故合订本</source>
-      <description>1. 哥们 你的下一跳怎么是上游 2025/5/15 原始帖子 在群友帮AS208754琢磨了2后，发现他的下一条竟然是上游！ 结果他的Bird Config是这样的： 好的 让我们来解释以下发生了什么: 在这个 BGP 会话中 fd00:2::1 是上游的地址，但是很明显 他静态指定了下一跳的路由为上游地址，这样就造成了环路 Bird当然罢工拉！ 2...</description>
+      <description>1. 哥们 你的下一跳怎么是上游 2025/5/15 原始帖子 在群友帮AS208754琢磨了2后，发现他的下一条竟然是上游！ 结果他的Bird Config是这样的： 好的 让我们来解释以下发生了什么: 在这个 BGP 会话中 fd00:2::1 是上游的地址，很明显他静态指定了下一跳的路由为上游地址，这样就造成了环路 Bird 当然罢工啦！ 2. ...</description>
       <category>daily</category>
       <pubDate>Mon, 26 May 2025 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<h2>1. 哥们 你的下一跳怎么是上游</h2>
@@ -36,7 +36,7 @@
 <span class="line">}</span>
 <span class="line"></span></code></pre>
 </div><p>好的 让我们来解释以下发生了什么:</p>
-<p>在这个 BGP 会话中 <code>fd00:2::1</code> 是上游的地址，但是很明显 他静态指定了下一跳的路由为上游地址，这样就造成了环路 Bird当然罢工拉！</p>
+<p>在这个 BGP 会话中 <code>fd00:2::1</code> 是上游的地址，很明显他静态指定了下一跳的路由为上游地址，这样就造成了环路 Bird 当然罢工啦！</p>
 <h2>2. 巨量撤回更新</h2>
 <p><a href="https://pysio.blog/notes/a81vh2qounpi0033" target="_blank" rel="noopener noreferrer">2025/5/22 原始帖子</a></p>
 <p>因为BuyVM的抽象LU网络 导致了巨量的撤回更新，如下文:</p>
