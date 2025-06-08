@@ -6,12 +6,67 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Sat, 07 Jun 2025 05:40:02 GMT</pubDate>
-    <lastBuildDate>Sat, 07 Jun 2025 05:40:02 GMT</lastBuildDate>
+    <pubDate>Sun, 08 Jun 2025 20:35:48 GMT</pubDate>
+    <lastBuildDate>Sun, 08 Jun 2025 20:35:48 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
     <category>develop</category>
+    <item>
+      <title>Windows下可用的Whois工具</title>
+      <link>https://www.pysio.online/posts/daily/whois-Client.html</link>
+      <guid>https://www.pysio.online/posts/daily/whois-Client.html</guid>
+      <source url="https://www.pysio.online/rss.xml">Windows下可用的Whois工具</source>
+      <description>在Windows下一直找不到一个好用的whois工具，于是我写了一个小别致工具 现在一个在Winget获取 那么 来介绍一下这个whois工具吧 主要功能特色 🎨 智能彩色输出 工具会自动检测输出格式并应用对应的配色方案： RIPE格式: AS号码显示为亮红色，网络信息显示为亮青色，组织联系人显示为亮绿色 BGP.tools格式: 表格标题加粗显示，...</description>
+      <category>daily</category>
+      <pubDate>Mon, 09 Jun 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>在Windows下一直找不到一个好用的whois工具，于是我写了一个小别致工具 现在一个在Winget获取</p>
+<div class="language-powershell" data-highlighter="prismjs" data-ext="powershell"><pre><code class="language-powershell"><span class="line">winget install Akaere<span class="token punctuation">.</span>whois</span>
+<span class="line"></span></code></pre>
+</div><p>那么 来介绍一下这个whois工具吧</p>
+<h2>主要功能特色</h2>
+<h3>🎨 智能彩色输出</h3>
+<p>工具会自动检测输出格式并应用对应的配色方案：</p>
+<ul>
+<li><strong>RIPE格式</strong>: AS号码显示为亮红色，网络信息显示为亮青色，组织联系人显示为亮绿色</li>
+<li><strong>BGP.tools格式</strong>: 表格标题加粗显示，AS号码、IP地址等使用不同颜色区分</li>
+</ul>
+<h3>🔗 终端超链接支持</h3>
+<p>默认为所有RIR（区域互联网注册机构）数据库结果启用可点击链接：</p>
+<ul>
+<li>支持所有主要RIR：RIPE、ARIN、APNIC、LACNIC、AFRINIC</li>
+<li>AS号码、IP网段、组织信息等都可点击</li>
+<li>兼容现代终端：Windows Terminal、PowerShell、iTerm2等</li>
+</ul>
+<h3>🌐 DN42网络支持</h3>
+<p>专门支持DN42网络查询：</p>
+<ul>
+<li>自动检测DN42 AS号（AS42424xxxxx开头）</li>
+<li>支持手动启用DN42模式</li>
+</ul>
+<h2>示例指令</h2>
+<h3>查询IP地址</h3>
+<div class="language-powershell" data-highlighter="prismjs" data-ext="powershell"><pre><code class="language-powershell"><span class="line">whois 8<span class="token punctuation">.</span>8<span class="token punctuation">.</span>8<span class="token punctuation">.</span>8</span>
+<span class="line"></span></code></pre>
+</div><figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/whoisgoogle.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<h3>查询AS号</h3>
+<div class="language-powershell" data-highlighter="prismjs" data-ext="powershell"><pre><code class="language-powershell"><span class="line">whois AS213605</span>
+<span class="line"></span></code></pre>
+</div><figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/whoispysio.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<h3>查询DN42 AS号</h3>
+<div class="language-powershell" data-highlighter="prismjs" data-ext="powershell"><pre><code class="language-powershell"><span class="line">whois 213605  <span class="token comment"># 默认行为下 如果一个ASN DN42和公网都存在 则DN42为纯数字 带AS的为公网</span></span>
+<span class="line"></span></code></pre>
+</div><p>注: DN42的 Hyperlink还有点问题 会在下个版本修复</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/whoisdn42.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<h3>终端超链接展示</h3>
+<p>因为局限性 还是得大伙试了才知道（x</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/hyperlinkgoogle.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/hyperlinkasn.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<p>最后 放一个Github地址 欢迎Star~</p>
+<p><a href="https://github.com/Akaere-NetWorks/whois" target="_blank" rel="noopener noreferrer">Akaere-NetWorks/whois</a></p>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/whoisgoogle.png" type="image/png"/>
+    </item>
     <item>
       <title>AKIX 事故合订本</title>
       <link>https://www.pysio.online/posts/daily/AKIXAccident.html</link>

@@ -6,12 +6,67 @@
     <link>https://www.pysio.online/en/</link>
     <description>A Warm Home</description>
     <language>en-US</language>
-    <pubDate>Sat, 07 Jun 2025 05:40:02 GMT</pubDate>
-    <lastBuildDate>Sat, 07 Jun 2025 05:40:02 GMT</lastBuildDate>
+    <pubDate>Sun, 08 Jun 2025 20:35:48 GMT</pubDate>
+    <lastBuildDate>Sun, 08 Jun 2025 20:35:48 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
     <category>develop</category>
+    <item>
+      <title>Available Whois Tools for Windows</title>
+      <link>https://www.pysio.online/en/posts/daily/whois-Client.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/whois-Client.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Available Whois Tools for Windows</source>
+      <description>I couldn&amp;apos;t find a good whois tool for Windows, so I wrote a small and elegant tool that is now available through Winget. Let me introduce this whois tool to you. Main Features �...</description>
+      <category>daily</category>
+      <pubDate>Mon, 09 Jun 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>I couldn't find a good whois tool for Windows, so I wrote a small and elegant tool that is now available through Winget.</p>
+<div class="language-powershell" data-highlighter="prismjs" data-ext="powershell"><pre><code class="language-powershell"><span class="line">winget install Akaere<span class="token punctuation">.</span>whois</span>
+<span class="line"></span></code></pre>
+</div><p>Let me introduce this whois tool to you.</p>
+<h2>Main Features</h2>
+<h3>🎨 Smart Colored Output</h3>
+<p>The tool automatically detects output formats and applies corresponding color schemes:</p>
+<ul>
+<li><strong>RIPE Format</strong>: AS numbers display in bright red, network information in bright cyan, organization contacts in bright green</li>
+<li><strong>BGP.tools Format</strong>: Table headers in bold, AS numbers and IP addresses distinguished with different colors</li>
+</ul>
+<h3>🔗 Terminal Hyperlink Support</h3>
+<p>Clickable links are enabled by default for all RIR (Regional Internet Registry) database results:</p>
+<ul>
+<li>Supports all major RIRs: RIPE, ARIN, APNIC, LACNIC, AFRINIC</li>
+<li>AS numbers, IP ranges, organization information are all clickable</li>
+<li>Compatible with modern terminals: Windows Terminal, PowerShell, iTerm2, etc.</li>
+</ul>
+<h3>🌐 DN42 Network Support</h3>
+<p>Dedicated support for DN42 network queries:</p>
+<ul>
+<li>Automatically detects DN42 AS numbers (starting with AS42424xxxxx)</li>
+<li>Supports manual DN42 mode activation</li>
+</ul>
+<h2>Example Commands</h2>
+<h3>Query IP Address</h3>
+<div class="language-powershell" data-highlighter="prismjs" data-ext="powershell"><pre><code class="language-powershell"><span class="line">whois 8<span class="token punctuation">.</span>8<span class="token punctuation">.</span>8<span class="token punctuation">.</span>8</span>
+<span class="line"></span></code></pre>
+</div><figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/whoisgoogle.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<h3>Query AS Number</h3>
+<div class="language-powershell" data-highlighter="prismjs" data-ext="powershell"><pre><code class="language-powershell"><span class="line">whois AS213605</span>
+<span class="line"></span></code></pre>
+</div><figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/whoispysio.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<h3>Query DN42 AS Number</h3>
+<div class="language-powershell" data-highlighter="prismjs" data-ext="powershell"><pre><code class="language-powershell"><span class="line">whois 213605  <span class="token comment"># Default behavior: if an ASN exists in both DN42 and public networks, DN42 uses pure numbers while public networks use AS prefix</span></span>
+<span class="line"></span></code></pre>
+</div><p>Note: DN42 hyperlinks have some issues and will be fixed in the next version</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/whoisdn42.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<h3>Terminal Hyperlink Demonstration</h3>
+<p>Due to limitations, you'll need to try it yourself to see the full effect (x</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/hyperlinkgoogle.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/hyperlinkasn.png" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<p>Finally, here's the GitHub link. Welcome to star~</p>
+<p><a href="https://github.com/Akaere-NetWorks/whois" target="_blank" rel="noopener noreferrer">Akaere-NetWorks/whois</a></p>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/whoisgoogle.png" type="image/png"/>
+    </item>
     <item>
       <title>Building an IXP - A Small Journal</title>
       <link>https://www.pysio.online/en/posts/daily/AKIX.html</link>
