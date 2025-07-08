@@ -6,12 +6,28 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Thu, 19 Jun 2025 03:03:44 GMT</pubDate>
-    <lastBuildDate>Thu, 19 Jun 2025 03:03:44 GMT</lastBuildDate>
+    <pubDate>Tue, 08 Jul 2025 19:09:53 GMT</pubDate>
+    <lastBuildDate>Tue, 08 Jul 2025 19:09:53 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
     <category>develop</category>
+    <item>
+      <title>DE-CIX 错把MANRS公告当工单，群发回复闹乌龙</title>
+      <link>https://www.pysio.online/posts/daily/DECIX.html</link>
+      <guid>https://www.pysio.online/posts/daily/DECIX.html</guid>
+      <source url="https://www.pysio.online/rss.xml">DE-CIX 错把MANRS公告当工单，群发回复闹乌龙</source>
+      <description>事情是这样的： MANRS 发了封正经通知邮件《章程审查：MANRS最后征集》，结果 DE-CIX 的邮箱系统一看——“咦？工单来了！” 于是，DE-CIX 的机器人小助手二话不说，咔咔一顿自动回复，还顺手把工单回复群发到了MANRS的邮件列表……这下好了，所有订阅列表的MANRS会员集体围观了DE-CIX的客服现场，场面一度十分尴尬。</description>
+      <category>daily</category>
+      <pubDate>Wed, 09 Jul 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>事情是这样的： MANRS 发了封正经通知邮件《章程审查：MANRS最后征集》，结果 DE-CIX 的邮箱系统一看——“咦？工单来了！”</p>
+<p>于是，DE-CIX 的机器人小助手二话不说，咔咔一顿自动回复，还顺手把工单回复群发到了MANRS的邮件列表……这下好了，所有订阅列表的MANRS会员集体围观了DE-CIX的客服现场，场面一度十分尴尬。</p>
+<p><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/decix1.png" alt="" loading="lazy">
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/decix2.png" alt="" loading="lazy">
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/decix3.png" alt="" loading="lazy"></p>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/decix1.png" type="image/png"/>
+    </item>
     <item>
       <title>Windows下可用的Whois工具</title>
       <link>https://www.pysio.online/posts/daily/whois-Client.html</link>

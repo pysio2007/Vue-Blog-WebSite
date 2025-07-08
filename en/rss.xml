@@ -6,12 +6,28 @@
     <link>https://www.pysio.online/en/</link>
     <description>A Warm Home</description>
     <language>en-US</language>
-    <pubDate>Thu, 19 Jun 2025 03:03:44 GMT</pubDate>
-    <lastBuildDate>Thu, 19 Jun 2025 03:03:44 GMT</lastBuildDate>
+    <pubDate>Tue, 08 Jul 2025 19:09:53 GMT</pubDate>
+    <lastBuildDate>Tue, 08 Jul 2025 19:09:53 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
     <category>develop</category>
+    <item>
+      <title>DE-CIX Mistook MANRS Announcement as Ticket, Spammed the Entire Mailing List</title>
+      <link>https://www.pysio.online/en/posts/daily/DECIX.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/DECIX.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">DE-CIX Mistook MANRS Announcement as Ticket, Spammed the Entire Mailing List</source>
+      <description>MANRS sent out a notification email titled &amp;quot;Charter review: MANRS Last Call.&amp;quot; However, DE-CIX&amp;apos;s contact email successfully mistook this email as a support ticket... As a result,...</description>
+      <category>daily</category>
+      <pubDate>Wed, 09 Jul 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>MANRS sent out a notification email titled "Charter review: MANRS Last Call." However, DE-CIX's contact email successfully mistook this email as a support ticket...</p>
+<p>As a result, DE-CIX's automated system not only replied to the email but also sent the reply directly to the MANRS mailing list. Consequently, all MANRS members subscribed to the mailing list received DE-CIX's support ticket response...</p>
+<p><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/decix1.png" alt="" loading="lazy">
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/decix2.png" alt="" loading="lazy">
+<img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/decix3.png" alt="" loading="lazy"></p>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/decix1.png" type="image/png"/>
+    </item>
     <item>
       <title>Available Whois Tools for Windows</title>
       <link>https://www.pysio.online/en/posts/daily/whois-Client.html</link>
