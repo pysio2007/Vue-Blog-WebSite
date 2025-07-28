@@ -6,12 +6,101 @@
     <link>https://www.pysio.online/en/</link>
     <description>A Warm Home</description>
     <language>en-US</language>
-    <pubDate>Sun, 13 Jul 2025 14:33:00 GMT</pubDate>
-    <lastBuildDate>Sun, 13 Jul 2025 14:33:00 GMT</lastBuildDate>
+    <pubDate>Mon, 28 Jul 2025 19:17:12 GMT</pubDate>
+    <lastBuildDate>Mon, 28 Jul 2025 19:17:12 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
     <category>develop</category>
+    <item>
+      <title>AOSCC 2025 Conference Notes</title>
+      <link>https://www.pysio.online/en/posts/daily/AOSCC.html</link>
+      <guid>https://www.pysio.online/en/posts/daily/AOSCC.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">AOSCC 2025 Conference Notes</source>
+      <description>What is AOSC / AOSCC? Let me first introduce Anthon GNU/Linux, also known as AOSC OS, which is an open-source Linux operating system built directly from source code. It adopts t...</description>
+      <category>daily</category>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>What is AOSC / AOSCC?</h2>
+<p>Let me first introduce <a href="https://aosc.io/" target="_blank" rel="noopener noreferrer">Anthon GNU/Linux</a>, also known as AOSC OS, which is an open-source Linux operating system built directly from source code. It adopts the Dpkg package management system, follows the LGPL licensing protocol, uses the KDE desktop environment, and is jointly developed by members of the AOSC community.</p>
+<p><a href="https://aosc.io/aoscc" target="_blank" rel="noopener noreferrer">AOSCC</a> is AOSC's annual offline gathering, openly inviting community friends to participate. During the event, the community invites community contributors, university club members, and industry representatives to share and exchange their work, and organizes fun activities such as raffles and codename voting. In recent years, AOSCC has been co-hosted by Chinese university clubs, attracting over 100 participants each year.</p>
+<h2>Conference Records</h2>
+<p><s>Because this panda is really a bit lazy, I'll put up the photos first. As for the remaining documentation and thoughts, maybe there will be some in the future quq (?)</s></p>
+<!-- more -->
+<p><img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_091305_100.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_091341_790.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_092848.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_113745.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_143030.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_145123.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_145227.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_145935.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_145937.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_150022.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_150437.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_150148.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_150601.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_150531.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_150720.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_151516.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_151607.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_151720_1.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_151755.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_151758.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_151825.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_152753.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_153017.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_154100.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_154526.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_155447.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_163938.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_164059_1.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_164119.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_164834.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_165106.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_170605.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_170907.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_170909.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_170915.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_171538.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_170955.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_091706.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_171809.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_100250.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_100325.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_100430.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_100545_536.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_101225.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_102522.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_102752.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_103828.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_103408.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_111319.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_114105.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_114153.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_114236.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_121542.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_150417.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_160139.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_154523.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_162239.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_163059.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_165737.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_165946.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_173802.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_171455.jpg" alt="" loading="lazy">
+<img src="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250727_173821.jpg" alt="" loading="lazy"></p>
+<h2>Signature Wall</h2>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/aoscc/2025/signature.jpg" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<h2>Meet-ups</h2>
+<p>These days in Shanghai, I also caught many group friends who participated in AOSCC and met up with them )x</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/aoscc/2025/tg/tg1.jpg" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/aoscc/2025/tg/tg2.jpg" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/aoscc/2025/tg/tg3.jpg" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/aoscc/2025/tg/tg4.jpg" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/aoscc/2025/tg/tg5.jpg" alt="" tabindex="0" loading="lazy"><figcaption></figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/pysioimages/aoscc/2025/IMG_20250726_091305_100.jpg" type="image/jpeg"/>
+    </item>
     <item>
       <title>DE-CIX Mistook MANRS Announcement as Ticket, Spammed the Entire Mailing List</title>
       <link>https://www.pysio.online/en/posts/daily/DECIX.html</link>
