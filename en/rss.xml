@@ -6,8 +6,8 @@
     <link>https://www.pysio.online/en/</link>
     <description>A Warm Home</description>
     <language>en-US</language>
-    <pubDate>Mon, 26 Jan 2026 09:23:55 GMT</pubDate>
-    <lastBuildDate>Mon, 26 Jan 2026 09:23:55 GMT</lastBuildDate>
+    <pubDate>Wed, 25 Mar 2026 21:59:00 GMT</pubDate>
+    <lastBuildDate>Wed, 25 Mar 2026 21:59:00 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
@@ -2270,6 +2270,616 @@
       <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/whoisgoogle.png" type="image/png"/>
     </item>
     <item>
+      <title>Current Blog Architecture</title>
+      <link>https://www.pysio.online/en/posts/develop/Blog%20Architecture.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/Blog%20Architecture.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Current Blog Architecture</source>
+      <description>Main Site Framework Using framework Vuepress-Theme-Hope Image/Avatar/Font Distribution All files are distributed using Pysio-Files-API Fonts use Font Awesome with custom icons a...</description>
+      <category>develop</category>
+      <pubDate>Sun, 24 Nov 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>Main Site Framework</h2>
+<p>Using framework <a href="https://github.com/vuepress-theme-hope/vuepress-theme-hope/" target="_blank" rel="noopener noreferrer">Vuepress-Theme-Hope</a></p>
+<h2>Image/Avatar/Font Distribution</h2>
+<p>All files are distributed using <a href="https://github.com/pysio2007/Files-API/" target="_blank" rel="noopener noreferrer">Pysio-Files-API</a></p>
+<p>Fonts use <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">Font Awesome</a> with <a href="https://www.pysio.online/posts/develop/icon.html" target="_blank" rel="noopener noreferrer">custom icons</a> added</p>
+<p>Images are stored in repository <a href="https://github.com/pysio2007/Imges" target="_blank" rel="noopener noreferrer">pysio2007/Imges</a></p>
+<p>Avatars are automatically fetched and updated using Github Actions in repository <a href="https://github.com/pysio2007/avatar-to-img" target="_blank" rel="noopener noreferrer">pysio2007/Avatar-To-Img</a></p>
+<h2>Analytics Scripts</h2>
+<p><a href="https://www.cloudflare.com/" target="_blank" rel="noopener noreferrer">Cloudflare Browser Insights</a></p>
+<p><a href="https://umami.is/" target="_blank" rel="noopener noreferrer">Umami</a></p>
+<h2>Web Hosting and Distribution</h2>
+<p>Currently, the website is deployed in 2 places: self-built cluster and <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener noreferrer">Cloudflare Pages</a> <s>All traffic is distributed by Cloudflare</s></p>
+<p>EDIT: Due to self-built Anycast network, the website is now distributed by Anycast cluster</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Enabling xterm.js Console for OpenSuse in PVE</title>
+      <link>https://www.pysio.online/en/posts/develop/Enabling%20the%20xterm.js%20console%20for%20OpenSuse%20in%20PVE%20.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/Enabling%20the%20xterm.js%20console%20for%20OpenSuse%20in%20PVE%20.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Enabling xterm.js Console for OpenSuse in PVE</source>
+      <description>Shut down VM and add a serial port to the VM Use the qm command in PVE Host to create a serial port, assuming my VM ID is 100 Then restart the VM and use dmesg to confirm if tty...</description>
+      <category>develop</category>
+      <pubDate>Fri, 13 Sep 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>Shut down VM and add a serial port to the VM</h2>
+<p>Use the qm command in PVE Host to create a serial port, assuming my VM ID is 100</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">qm <span class="token builtin class-name">set</span> <span class="token number">100</span> <span class="token parameter variable">-serial0</span> socket</span>
+<span class="line"></span></code></pre>
+</div><p>Then restart the VM and use dmesg to confirm if ttyS appears</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">dmesg</span> <span class="token operator">|</span> <span class="token function">grep</span> ttyS</span>
+<span class="line"></span></code></pre>
+</div><h2>Modify grub configuration in OpenSuse</h2>
+<p>In <code>/etc/default/grub</code> add to the <code>GRUB_CMDLINE_LINUX</code> parameter:</p>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">console=tty0 console=ttyS0,115200</span>
+<span class="line"></span></code></pre>
+</div><p>Update Grub configuration</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">grub2-mkconfig <span class="token parameter variable">--output</span><span class="token operator">=</span>/boot/grub2/grub.cfg</span>
+<span class="line"></span></code></pre>
+</div><p>Restart the OpenSuse virtual machine and check if xterm.js is available</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Manually Merge Pull Requests from GitHub Locally</title>
+      <link>https://www.pysio.online/en/posts/develop/Manual%20merge%20Pull%20requests.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/Manual%20merge%20Pull%20requests.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Manually Merge Pull Requests from GitHub Locally</source>
+      <description>First, add remote repository information using the command After successfully adding the repository, use git fetch [remote repository name] to pull the repository locally Finall...</description>
+      <category>develop</category>
+      <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>First, add remote repository information using the command</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">git</span> remote <span class="token function">add</span> <span class="token punctuation">[</span>remote repository name<span class="token punctuation">]</span> <span class="token punctuation">[</span>remote repository address<span class="token punctuation">]</span> </span>
+<span class="line"></span></code></pre>
+</div><p>After successfully adding the repository, use <code>git fetch [remote repository name]</code> to pull the repository locally</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">❯ <span class="token function">git</span> fetch pr2</span>
+<span class="line">remote: Enumerating objects: <span class="token number">26</span>, done.</span>
+<span class="line">remote: Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">26</span>/26<span class="token punctuation">)</span>, done.</span>
+<span class="line">remote: Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">9</span>/9<span class="token punctuation">)</span>, done.</span>
+<span class="line">remote: Total <span class="token number">18</span> <span class="token punctuation">(</span>delta <span class="token number">8</span><span class="token punctuation">)</span>, reused <span class="token number">17</span> <span class="token punctuation">(</span>delta <span class="token number">7</span><span class="token punctuation">)</span>, pack-reused <span class="token number">0</span> <span class="token punctuation">(</span>from <span class="token number">0</span><span class="token punctuation">)</span></span>
+<span class="line">Unpacking objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">18</span>/18<span class="token punctuation">)</span>, <span class="token number">3.26</span> KiB <span class="token operator">|</span> <span class="token number">371.00</span> KiB/s, done.</span>
+<span class="line">From github.com:pysio2007/SkyBlock-CN-WIKI</span>
+<span class="line"> * <span class="token punctuation">[</span>new branch<span class="token punctuation">]</span>      main       -<span class="token operator">&gt;</span> pr2/main</span>
+<span class="line"></span></code></pre>
+</div><p>Finally, use <code>merge</code> or <code>cherry-pick</code> to merge the entire branch or a specific commit</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># Merge specific commit ID</span></span>
+<span class="line">❯ <span class="token function">git</span> cherry-pick <span class="token punctuation">[</span>Commitid<span class="token punctuation">]</span></span>
+<span class="line"></span>
+<span class="line"><span class="token comment"># Merge specific branch</span></span>
+<span class="line">❯ <span class="token function">git</span> merge <span class="token punctuation">[</span>remote repository name<span class="token punctuation">]</span>/<span class="token punctuation">[</span>branch name<span class="token punctuation">]</span></span>
+<span class="line"></span></code></pre>
+</div><p>After we finish merging, clean up the remote repository information</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">git</span> remote <span class="token function">rm</span> <span class="token punctuation">[</span>remote repository name<span class="token punctuation">]</span></span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+    </item>
+    <item>
+      <title>New Blog Project Started!</title>
+      <link>https://www.pysio.online/en/posts/develop/NewBlog.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/NewBlog.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">New Blog Project Started!</source>
+      <description>Yes, you read that right, I&amp;apos;m bored again and started refactoring my blog (UWU) Currently planning to write it with Next.js. Here&amp;apos;s a super early-stage webpage QWQ ( Early webpa...</description>
+      <category>develop</category>
+      <pubDate>Sun, 05 Jan 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>Yes, you read that right, I'm bored again and started refactoring my blog (UWU)</p>
+<p>Currently planning to write it with Next.js. Here's a super early-stage webpage QWQ (</p>
+<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/73dc30f2d6ec844cda13e6aaa3ca03f2.png" alt="Early webpage" tabindex="0" loading="lazy"><figcaption>Early webpage</figcaption></figure>
+]]></content:encoded>
+      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/73dc30f2d6ec844cda13e6aaa3ca03f2.png" type="image/png"/>
+    </item>
+    <item>
+      <title>Public DNS/DOH Services</title>
+      <link>https://www.pysio.online/en/posts/develop/Public%20DNS%20DOH.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/Public%20DNS%20DOH.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Public DNS/DOH Services</source>
+      <description>Warning Note: If you abuse DNS, your IP address may be banned</description>
+      <category>develop</category>
+      <pubDate>Sun, 19 May 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<div class="hint-container warning">
+<p class="hint-container-title">Warning</p>
+<p>Note: If you abuse DNS, your IP address may be banned</p>
+</div>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line"></span>
+<span class="line">DNS Server: 101.43.154.197 (Port 53 temporarily unavailable)</span>
+<span class="line"></span>
+<span class="line">DNS Server: 93.177.67.6 (Port 53 available)</span>
+<span class="line"></span>
+<span class="line">DNS Server: dns.pysio.online supports any DNS protocol </span>
+<span class="line"></span>
+<span class="line">DOH globally available: https://dns-doh.pysio.online/</span>
+<span class="line"></span>
+<span class="line">DoH (Mainland China): https://doh.pysio.online/dns-query</span>
+<span class="line"></span>
+<span class="line">DoT (Mainland China): tls://doh.pysio.online:853</span>
+<span class="line"></span>
+<span class="line">DoH (Non-Mainland China Cloudflare): https://dohk.pysio.online/dns-query</span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+    </item>
+    <item>
+      <title>Remove PVE &amp;quot;No valid subscription&amp;quot; Popup</title>
+      <link>https://www.pysio.online/en/posts/develop/Remove%20Pve%20No%20valid%20subscription.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/Remove%20Pve%20No%20valid%20subscription.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Remove PVE &amp;quot;No valid subscription&amp;quot; Popup</source>
+      <description>Modify /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js change to Execute the following command to restart PveProxy and remove the popup</description>
+      <category>develop</category>
+      <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>Modify <code>/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js</code> change</p>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line">Ext<span class="token punctuation">.</span>Msg<span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">{</span></span>
+<span class="line"></span></code></pre>
+</div><p>to</p>
+<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line">Ext<span class="token punctuation">.</span>Msg<span class="token punctuation">.</span><span class="token function">noshow</span><span class="token punctuation">(</span><span class="token punctuation">{</span></span>
+<span class="line"></span></code></pre>
+</div><p>Execute the following command to restart PveProxy and remove the popup</p>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">systemctl restart pveproxy</span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+    </item>
+    <item>
+      <title>Complete Blog API Documentation</title>
+      <link>https://www.pysio.online/en/posts/develop/api.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/api.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Complete Blog API Documentation</source>
+      <description>General Information Note All APIs have been deployed to production environment, please use the following base URL for access. Base URL API Collection You can also download the J...</description>
+      <category>develop</category>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<h2>General Information</h2>
+<div class="hint-container note">
+<p class="hint-container-title">Note</p>
+<p>All APIs have been deployed to production environment, please use the following base URL for access.</p>
+</div>
+<h3>Base URL</h3>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">https://blogapi.pysio.online</span>
+<span class="line"></span></code></pre>
+</div><h3>API Collection</h3>
+<p>You can also download the JSON file directly: <a href="https://www.pysio.online/json/blog-api-collection.json" target="_blank" rel="noopener noreferrer">Download API Collection</a> and import it into Postman for use</p>
+<div class="hint-container important">
+<p class="hint-container-title">Important</p>
+<p>When making API calls, please note the following:</p>
+<ul>
+<li>All requests must use HTTPS protocol</li>
+<li>APIs may have rate limiting</li>
+<li>Please keep your authentication tokens secure</li>
+<li>Image storage uses Minio object storage with CDN acceleration</li>
+</ul>
+</div>
+<h3>Common Response Format</h3>
+<p>All JSON responses follow this format:</p>
+<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"success/error"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"data/error"</span><span class="token operator">:</span> <span class="token string">"response data/error message"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div><div class="hint-container tip">
+<p class="hint-container-title">Tips</p>
+<p>For API debugging, we recommend using the following tools:</p>
+<ul>
+<li><a href="https://www.postman.com/" target="_blank" rel="noopener noreferrer">Postman</a></li>
+<li><a href="https://insomnia.rest/" target="_blank" rel="noopener noreferrer">Insomnia</a></li>
+<li><a href="https://curl.se/" target="_blank" rel="noopener noreferrer">curl</a></li>
+</ul>
+</div>
+<h3>Authentication Header Format</h3>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {TOKEN}</span>
+<span class="line"></span></code></pre>
+</div><div class="hint-container warning">
+<p class="hint-container-title">Warning</p>
+<p>Do not store admin tokens directly in client-side code.
+Ensure secure token storage methods in production environments.</p>
+</div>
+<h2>System Status Endpoints</h2>
+<div class="hint-container note">
+<p class="hint-container-title">Note</p>
+<p>System status endpoints can be used to monitor service health.</p>
+</div>
+<h3>1. System Status Check</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Response Format</strong>: text/plain</li>
+<li><strong>Response Example</strong>: <code>What are you doing here? Meow?</code></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<div class="hint-container tip">
+<p class="hint-container-title">Tips</p>
+<p>Recommended to use this endpoint for basic connectivity testing.</p>
+</div>
+<h3>2. FastFetch System Information</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/fastfetch</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"success"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"output"</span><span class="token operator">:</span> <span class="token string">"System information in HTML format"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/fastfetch</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>3. Heartbeat Detection</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/heartbeat</code></li>
+<li><strong>Request Method</strong>: POST</li>
+<li><strong>Request Headers</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {TOKEN}</span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Request Parameters</strong>:
+<ul>
+<li><code>application</code>: Application name</li>
+<li><code>introduce</code>: Application description</li>
+<li><code>rgba</code>: Color value</li>
+<li><code>applicationOnline</code>: Application status</li>
+</ul>
+</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Heartbeat received"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"application"</span><span class="token operator">:</span> <span class="token string">"MyApp"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"introduce"</span><span class="token operator">:</span> <span class="token string">"My Application Description"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"rgba"</span><span class="token operator">:</span> <span class="token string">"233,30,99,0.17"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"applicationOnline"</span><span class="token operator">:</span> <span class="token boolean">true</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer your_token"</span> https://blogapi.pysio.online/heartbeat</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>4. Status Check</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/check</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"alive"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"last_heartbeat"</span><span class="token operator">:</span> <span class="token number">1234567890</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"application"</span><span class="token operator">:</span> <span class="token string">"MyApp"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"introduce"</span><span class="token operator">:</span> <span class="token string">"My Application Description"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"rgba"</span><span class="token operator">:</span> <span class="token string">"233,30,99,0.17"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"applicationOnline"</span><span class="token operator">:</span> <span class="token boolean">true</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/check</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h2>Image Management Endpoints</h2>
+<div class="hint-container important">
+<p class="hint-container-title">Important</p>
+<p>All images are stored in Minio object storage with CDN acceleration.
+Uploaded images are automatically converted to WebP format for optimized storage and transmission.</p>
+</div>
+<h3>1. Get Random Image</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/random_image</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Response</strong>: 302 redirect to Minio stored image</li>
+<li><strong>Redirect Format</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
+<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"No images available"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># Use -L parameter to follow redirects</span></span>
+<span class="line"><span class="token function">curl</span> <span class="token parameter variable">-L</span> https://blogapi.pysio.online/random_image <span class="token parameter variable">-o</span> random.webp</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>2. Get Specific Image</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/images/:hash</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Parameters</strong>:
+<ul>
+<li><code>hash</code>: Image hash value</li>
+</ul>
+</li>
+<li><strong>Response</strong>: 302 redirect to Minio stored image</li>
+<li><strong>Redirect Format</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
+<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image not found"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>3. Get Image (Optimized)</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/i/:hash</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Parameters</strong>:
+<ul>
+<li><code>hash</code>: Image hash value</li>
+</ul>
+</li>
+<li><strong>Response</strong>: 302 redirect to Minio stored image</li>
+<li><strong>Redirect Format</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
+<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image not found"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>4. Upload Image</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/images/add</code></li>
+<li><strong>Request Method</strong>: POST</li>
+<li><strong>Request Headers</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {ADMIN_TOKEN}</span>
+<span class="line">Content-Type: multipart/form-data</span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Request Parameters</strong>:
+<ul>
+<li><code>image</code>: Image file (form-data)</li>
+</ul>
+</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Success Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"image hash value"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"size"</span><span class="token operator">:</span> image_size_in_bytes</span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image file is required"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div>or<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image already exists"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"existing image hash"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer your_admin_token"</span> <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-F</span> <span class="token string">"image=@/path/to/your/image.jpg"</span> <span class="token punctuation">\</span></span>
+<span class="line">  https://blogapi.pysio.online/images/add</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>5. Get Image List</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/images/list</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Query Parameters</strong>:
+<ul>
+<li><code>page</code>: Page number (default: 1)</li>
+<li><code>limit</code>: Items per page (default: 10)</li>
+</ul>
+</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"images"</span><span class="token operator">:</span> <span class="token punctuation">[</span></span>
+<span class="line">    <span class="token punctuation">{</span></span>
+<span class="line">      <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"image hash"</span><span class="token punctuation">,</span></span>
+<span class="line">      <span class="token property">"contentType"</span><span class="token operator">:</span> <span class="token string">"image/webp"</span><span class="token punctuation">,</span></span>
+<span class="line">      <span class="token property">"createdAt"</span><span class="token operator">:</span> <span class="token string">"creation time"</span></span>
+<span class="line">    <span class="token punctuation">}</span></span>
+<span class="line">  <span class="token punctuation">]</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"pagination"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">    <span class="token property">"current"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
+<span class="line">    <span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">10</span><span class="token punctuation">,</span></span>
+<span class="line">    <span class="token property">"total"</span><span class="token operator">:</span> <span class="token number">100</span></span>
+<span class="line">  <span class="token punctuation">}</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token string">"https://blogapi.pysio.online/images/list?page=1&amp;limit=10"</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>6. Get Image Count</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/images/count</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">100</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/images/count</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>7. Delete Image</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/images/:hash</code></li>
+<li><strong>Request Method</strong>: DELETE</li>
+<li><strong>Request Headers</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {ADMIN_TOKEN}</span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Parameters</strong>:
+<ul>
+<li><code>hash</code>: Hash of image to delete</li>
+</ul>
+</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Success Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Image deleted successfully"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image not found"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> DELETE <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer your_admin_token"</span> <span class="token punctuation">\</span></span>
+<span class="line">  https://blogapi.pysio.online/images/your_image_hash</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>8. Batch Upload Tools</h3>
+<p>Two batch upload tools are provided:</p>
+<ol>
+<li>Go command line tool:</li>
+</ol>
+<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># Compile tool</span></span>
+<span class="line">go build <span class="token parameter variable">-o</span> uploader cmd/upload/main.go</span>
+<span class="line"></span>
+<span class="line"><span class="token comment"># Use tool</span></span>
+<span class="line">./uploader <span class="token parameter variable">-folder</span> /path/to/images <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-api</span> https://blogapi.pysio.online <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-token</span> your_admin_token <span class="token punctuation">\</span></span>
+<span class="line">  <span class="token parameter variable">-concurrent</span> <span class="token number">5</span></span>
+<span class="line"></span></code></pre>
+</div><ol start="2">
+<li>PowerShell script:</li>
+</ol>
+<div class="language-powershell" data-highlighter="prismjs" data-ext="powershell"><pre><code class="language-powershell"><span class="line"><span class="token comment"># Run script</span></span>
+<span class="line"><span class="token punctuation">.</span>\upload<span class="token punctuation">.</span>ps1 <span class="token operator">-</span>folder <span class="token string">"C:\Images"</span> `</span>
+<span class="line">  <span class="token operator">-</span>token <span class="token string">"your_token"</span> `</span>
+<span class="line">  <span class="token operator">-</span>retries 5 `</span>
+<span class="line">  <span class="token operator">-</span>timeout 60 `</span>
+<span class="line">  <span class="token operator">-</span>api <span class="token string">"https://blogapi.pysio.online"</span></span>
+<span class="line"></span></code></pre>
+</div><h2>Steam Status Endpoints</h2>
+<h3>1. Steam Game Status</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/steam_status</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example (In Game)</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"In Game"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"game"</span><span class="token operator">:</span> <span class="token string">"Game Name"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"game_id"</span><span class="token operator">:</span> <span class="token string">"Game ID"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Game Description"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"price"</span><span class="token operator">:</span> <span class="token string">"Game Price"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"playtime"</span><span class="token operator">:</span> <span class="token string">"Playtime"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"achievement_percentage"</span><span class="token operator">:</span> <span class="token string">"Achievement Completion"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Response Example (Not In Game)</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"Online"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/steam_status</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h2>IP Query Endpoints</h2>
+<h3>1. IP Information Query</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/ipcheck</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Query Parameters</strong>:
+<ul>
+<li><code>ip</code>: IP address</li>
+</ul>
+</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"ip"</span><span class="token operator">:</span> <span class="token string">"IP Address"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"hostname"</span><span class="token operator">:</span> <span class="token string">"Hostname"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"city"</span><span class="token operator">:</span> <span class="token string">"City"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"region"</span><span class="token operator">:</span> <span class="token string">"Region"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"Country"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"loc"</span><span class="token operator">:</span> <span class="token string">"Location Coordinates"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"org"</span><span class="token operator">:</span> <span class="token string">"Organization"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"postal"</span><span class="token operator">:</span> <span class="token string">"Postal Code"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"timezone"</span><span class="token operator">:</span> <span class="token string">"Timezone"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token string">"https://blogapi.pysio.online/ipcheck?ip=8.8.8.8"</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h2>API Statistics Endpoints</h2>
+<h3>1. Get All API Call Statistics</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/api_stats</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">[</span></span>
+<span class="line">  <span class="token punctuation">{</span></span>
+<span class="line">    <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"API Path"</span><span class="token punctuation">,</span></span>
+<span class="line">    <span class="token property">"count"</span><span class="token operator">:</span> call_count<span class="token punctuation">,</span></span>
+<span class="line">    <span class="token property">"lastUpdated"</span><span class="token operator">:</span> <span class="token string">"last call time"</span></span>
+<span class="line">  <span class="token punctuation">}</span></span>
+<span class="line"><span class="token punctuation">]</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/api_stats</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h3>2. Get Specific API Call Statistics</h3>
+<ul>
+<li><strong>Request Path</strong>: <code>/api_stats/:key</code></li>
+<li><strong>Request Method</strong>: GET</li>
+<li><strong>Parameters</strong>:
+<ul>
+<li><code>key</code>: API path</li>
+</ul>
+</li>
+<li><strong>Response Format</strong>: application/json</li>
+<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"API Path"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"count"</span><span class="token operator">:</span> call_count<span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"lastUpdated"</span><span class="token operator">:</span> <span class="token string">"last call time"</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div>or<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"API Path"</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span></span>
+<span class="line">  <span class="token property">"lastUpdated"</span><span class="token operator">:</span> <span class="token null keyword">null</span></span>
+<span class="line"><span class="token punctuation">}</span></span>
+<span class="line"></span></code></pre>
+</div></li>
+<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/api_stats/random_image</span>
+<span class="line"></span></code></pre>
+</div></li>
+</ul>
+<h2>Error Handling</h2>
+<div class="hint-container warning">
+<p class="hint-container-title">Warning</p>
+<p>Please ensure your application properly handles the following error responses:</p>
+</div>
+<h3>Common Error Codes</h3>
+<p>| Error Code | Description | Handling Suggestion |
+|</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Free CDN</title>
+      <link>https://www.pysio.online/en/posts/develop/freecdn.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/freecdn.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Free CDN</source>
+      <description>This blog provides a free domestic CDN. You can get access by leaving a contact method in the comments/contacting me/creating a new Issue. Tips You need to ensure that your webs...</description>
+      <category>develop</category>
+      <pubDate>Wed, 19 Mar 2025 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>This blog provides a free domestic CDN. You can get access by leaving a contact method in the comments/contacting me/creating a new <a href="https://github.com/pysio2007/Vue-blog" target="_blank" rel="noopener noreferrer">Issue</a>.</p>
+<div class="hint-container tip">
+<p class="hint-container-title">Tips</p>
+<p>You need to ensure that your website does not violate the laws and regulations of the People's Republic of China, and does not contain pornography, gambling, drugs (drug overdose), violence and other content.</p>
+</div>
+<p>The CDN only provides 1GB of traffic per day for a single website. Access will be prohibited after exceeding the limit. (Can be extended with reasonable justification)</p>
+<p>The CDN does not support HTTP3/WebSocket.</p>
+<p>We will conduct regular inspections to check the content of your website. If we find anything that violates the laws of the People's Republic of China, we will unilaterally stop the resolution.</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Random Image API</title>
+      <link>https://www.pysio.online/en/posts/develop/randomimage.html</link>
+      <guid>https://www.pysio.online/en/posts/develop/randomimage.html</guid>
+      <source url="https://www.pysio.online/en/rss.xml">Random Image API</source>
+      <description>This site now provides a random image API. You can directly use the URL below to get a random image</description>
+      <category>develop</category>
+      <pubDate>Thu, 07 Nov 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>This site now provides a random image API. You can directly use the URL below to get a random image</p>
+<div class="language-url" data-highlighter="prismjs" data-ext="url"><pre><code class="language-url"><span class="line"><span class="token scheme">https<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">blogapi.pysio.online</span></span><span class="token path"><span class="token path-separator">/</span>random_image</span></span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+      <enclosure url="https://blogapi.pysio.online/random_image" type="image/"/>
+    </item>
+    <item>
       <title>Building an IXP - A Small Journal</title>
       <link>https://www.pysio.online/en/posts/daily/AKIX.html</link>
       <guid>https://www.pysio.online/en/posts/daily/AKIX.html</guid>
@@ -3000,616 +3610,6 @@
 <figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250215080441.png" alt="Waline Comment System" tabindex="0" loading="lazy"><figcaption>Waline Comment System</figcaption></figure>
 ]]></content:encoded>
       <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20250215075819.png" type="image/png"/>
-    </item>
-    <item>
-      <title>Current Blog Architecture</title>
-      <link>https://www.pysio.online/en/posts/develop/Blog%20Architecture.html</link>
-      <guid>https://www.pysio.online/en/posts/develop/Blog%20Architecture.html</guid>
-      <source url="https://www.pysio.online/en/rss.xml">Current Blog Architecture</source>
-      <description>Main Site Framework Using framework Vuepress-Theme-Hope Image/Avatar/Font Distribution All files are distributed using Pysio-Files-API Fonts use Font Awesome with custom icons a...</description>
-      <category>develop</category>
-      <pubDate>Sun, 24 Nov 2024 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<h2>Main Site Framework</h2>
-<p>Using framework <a href="https://github.com/vuepress-theme-hope/vuepress-theme-hope/" target="_blank" rel="noopener noreferrer">Vuepress-Theme-Hope</a></p>
-<h2>Image/Avatar/Font Distribution</h2>
-<p>All files are distributed using <a href="https://github.com/pysio2007/Files-API/" target="_blank" rel="noopener noreferrer">Pysio-Files-API</a></p>
-<p>Fonts use <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">Font Awesome</a> with <a href="https://www.pysio.online/posts/develop/icon.html" target="_blank" rel="noopener noreferrer">custom icons</a> added</p>
-<p>Images are stored in repository <a href="https://github.com/pysio2007/Imges" target="_blank" rel="noopener noreferrer">pysio2007/Imges</a></p>
-<p>Avatars are automatically fetched and updated using Github Actions in repository <a href="https://github.com/pysio2007/avatar-to-img" target="_blank" rel="noopener noreferrer">pysio2007/Avatar-To-Img</a></p>
-<h2>Analytics Scripts</h2>
-<p><a href="https://www.cloudflare.com/" target="_blank" rel="noopener noreferrer">Cloudflare Browser Insights</a></p>
-<p><a href="https://umami.is/" target="_blank" rel="noopener noreferrer">Umami</a></p>
-<h2>Web Hosting and Distribution</h2>
-<p>Currently, the website is deployed in 2 places: self-built cluster and <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener noreferrer">Cloudflare Pages</a> <s>All traffic is distributed by Cloudflare</s></p>
-<p>EDIT: Due to self-built Anycast network, the website is now distributed by Anycast cluster</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>Enabling xterm.js Console for OpenSuse in PVE</title>
-      <link>https://www.pysio.online/en/posts/develop/Enabling%20the%20xterm.js%20console%20for%20OpenSuse%20in%20PVE%20.html</link>
-      <guid>https://www.pysio.online/en/posts/develop/Enabling%20the%20xterm.js%20console%20for%20OpenSuse%20in%20PVE%20.html</guid>
-      <source url="https://www.pysio.online/en/rss.xml">Enabling xterm.js Console for OpenSuse in PVE</source>
-      <description>Shut down VM and add a serial port to the VM Use the qm command in PVE Host to create a serial port, assuming my VM ID is 100 Then restart the VM and use dmesg to confirm if tty...</description>
-      <category>develop</category>
-      <pubDate>Fri, 13 Sep 2024 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<h2>Shut down VM and add a serial port to the VM</h2>
-<p>Use the qm command in PVE Host to create a serial port, assuming my VM ID is 100</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">qm <span class="token builtin class-name">set</span> <span class="token number">100</span> <span class="token parameter variable">-serial0</span> socket</span>
-<span class="line"></span></code></pre>
-</div><p>Then restart the VM and use dmesg to confirm if ttyS appears</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">dmesg</span> <span class="token operator">|</span> <span class="token function">grep</span> ttyS</span>
-<span class="line"></span></code></pre>
-</div><h2>Modify grub configuration in OpenSuse</h2>
-<p>In <code>/etc/default/grub</code> add to the <code>GRUB_CMDLINE_LINUX</code> parameter:</p>
-<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">console=tty0 console=ttyS0,115200</span>
-<span class="line"></span></code></pre>
-</div><p>Update Grub configuration</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">grub2-mkconfig <span class="token parameter variable">--output</span><span class="token operator">=</span>/boot/grub2/grub.cfg</span>
-<span class="line"></span></code></pre>
-</div><p>Restart the OpenSuse virtual machine and check if xterm.js is available</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>Manually Merge Pull Requests from GitHub Locally</title>
-      <link>https://www.pysio.online/en/posts/develop/Manual%20merge%20Pull%20requests.html</link>
-      <guid>https://www.pysio.online/en/posts/develop/Manual%20merge%20Pull%20requests.html</guid>
-      <source url="https://www.pysio.online/en/rss.xml">Manually Merge Pull Requests from GitHub Locally</source>
-      <description>First, add remote repository information using the command After successfully adding the repository, use git fetch [remote repository name] to pull the repository locally Finall...</description>
-      <category>develop</category>
-      <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>First, add remote repository information using the command</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">git</span> remote <span class="token function">add</span> <span class="token punctuation">[</span>remote repository name<span class="token punctuation">]</span> <span class="token punctuation">[</span>remote repository address<span class="token punctuation">]</span> </span>
-<span class="line"></span></code></pre>
-</div><p>After successfully adding the repository, use <code>git fetch [remote repository name]</code> to pull the repository locally</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">❯ <span class="token function">git</span> fetch pr2</span>
-<span class="line">remote: Enumerating objects: <span class="token number">26</span>, done.</span>
-<span class="line">remote: Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">26</span>/26<span class="token punctuation">)</span>, done.</span>
-<span class="line">remote: Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">9</span>/9<span class="token punctuation">)</span>, done.</span>
-<span class="line">remote: Total <span class="token number">18</span> <span class="token punctuation">(</span>delta <span class="token number">8</span><span class="token punctuation">)</span>, reused <span class="token number">17</span> <span class="token punctuation">(</span>delta <span class="token number">7</span><span class="token punctuation">)</span>, pack-reused <span class="token number">0</span> <span class="token punctuation">(</span>from <span class="token number">0</span><span class="token punctuation">)</span></span>
-<span class="line">Unpacking objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">18</span>/18<span class="token punctuation">)</span>, <span class="token number">3.26</span> KiB <span class="token operator">|</span> <span class="token number">371.00</span> KiB/s, done.</span>
-<span class="line">From github.com:pysio2007/SkyBlock-CN-WIKI</span>
-<span class="line"> * <span class="token punctuation">[</span>new branch<span class="token punctuation">]</span>      main       -<span class="token operator">&gt;</span> pr2/main</span>
-<span class="line"></span></code></pre>
-</div><p>Finally, use <code>merge</code> or <code>cherry-pick</code> to merge the entire branch or a specific commit</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># Merge specific commit ID</span></span>
-<span class="line">❯ <span class="token function">git</span> cherry-pick <span class="token punctuation">[</span>Commitid<span class="token punctuation">]</span></span>
-<span class="line"></span>
-<span class="line"><span class="token comment"># Merge specific branch</span></span>
-<span class="line">❯ <span class="token function">git</span> merge <span class="token punctuation">[</span>remote repository name<span class="token punctuation">]</span>/<span class="token punctuation">[</span>branch name<span class="token punctuation">]</span></span>
-<span class="line"></span></code></pre>
-</div><p>After we finish merging, clean up the remote repository information</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">git</span> remote <span class="token function">rm</span> <span class="token punctuation">[</span>remote repository name<span class="token punctuation">]</span></span>
-<span class="line"></span></code></pre>
-</div>]]></content:encoded>
-    </item>
-    <item>
-      <title>New Blog Project Started!</title>
-      <link>https://www.pysio.online/en/posts/develop/NewBlog.html</link>
-      <guid>https://www.pysio.online/en/posts/develop/NewBlog.html</guid>
-      <source url="https://www.pysio.online/en/rss.xml">New Blog Project Started!</source>
-      <description>Yes, you read that right, I&amp;apos;m bored again and started refactoring my blog (UWU) Currently planning to write it with Next.js. Here&amp;apos;s a super early-stage webpage QWQ ( Early webpa...</description>
-      <category>develop</category>
-      <pubDate>Sun, 05 Jan 2025 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>Yes, you read that right, I'm bored again and started refactoring my blog (UWU)</p>
-<p>Currently planning to write it with Next.js. Here's a super early-stage webpage QWQ (</p>
-<figure><img src="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/73dc30f2d6ec844cda13e6aaa3ca03f2.png" alt="Early webpage" tabindex="0" loading="lazy"><figcaption>Early webpage</figcaption></figure>
-]]></content:encoded>
-      <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/73dc30f2d6ec844cda13e6aaa3ca03f2.png" type="image/png"/>
-    </item>
-    <item>
-      <title>Public DNS/DOH Services</title>
-      <link>https://www.pysio.online/en/posts/develop/Public%20DNS%20DOH.html</link>
-      <guid>https://www.pysio.online/en/posts/develop/Public%20DNS%20DOH.html</guid>
-      <source url="https://www.pysio.online/en/rss.xml">Public DNS/DOH Services</source>
-      <description>Warning Note: If you abuse DNS, your IP address may be banned</description>
-      <category>develop</category>
-      <pubDate>Sun, 19 May 2024 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<div class="hint-container warning">
-<p class="hint-container-title">Warning</p>
-<p>Note: If you abuse DNS, your IP address may be banned</p>
-</div>
-<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line"></span>
-<span class="line">DNS Server: 101.43.154.197 (Port 53 temporarily unavailable)</span>
-<span class="line"></span>
-<span class="line">DNS Server: 93.177.67.6 (Port 53 available)</span>
-<span class="line"></span>
-<span class="line">DNS Server: dns.pysio.online supports any DNS protocol </span>
-<span class="line"></span>
-<span class="line">DOH globally available: https://dns-doh.pysio.online/</span>
-<span class="line"></span>
-<span class="line">DoH (Mainland China): https://doh.pysio.online/dns-query</span>
-<span class="line"></span>
-<span class="line">DoT (Mainland China): tls://doh.pysio.online:853</span>
-<span class="line"></span>
-<span class="line">DoH (Non-Mainland China Cloudflare): https://dohk.pysio.online/dns-query</span>
-<span class="line"></span></code></pre>
-</div>]]></content:encoded>
-    </item>
-    <item>
-      <title>Remove PVE &amp;quot;No valid subscription&amp;quot; Popup</title>
-      <link>https://www.pysio.online/en/posts/develop/Remove%20Pve%20No%20valid%20subscription.html</link>
-      <guid>https://www.pysio.online/en/posts/develop/Remove%20Pve%20No%20valid%20subscription.html</guid>
-      <source url="https://www.pysio.online/en/rss.xml">Remove PVE &amp;quot;No valid subscription&amp;quot; Popup</source>
-      <description>Modify /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js change to Execute the following command to restart PveProxy and remove the popup</description>
-      <category>develop</category>
-      <pubDate>Thu, 26 Sep 2024 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>Modify <code>/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js</code> change</p>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line">Ext<span class="token punctuation">.</span>Msg<span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">{</span></span>
-<span class="line"></span></code></pre>
-</div><p>to</p>
-<div class="language-javascript" data-highlighter="prismjs" data-ext="js"><pre><code class="language-javascript"><span class="line">Ext<span class="token punctuation">.</span>Msg<span class="token punctuation">.</span><span class="token function">noshow</span><span class="token punctuation">(</span><span class="token punctuation">{</span></span>
-<span class="line"></span></code></pre>
-</div><p>Execute the following command to restart PveProxy and remove the popup</p>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line">systemctl restart pveproxy</span>
-<span class="line"></span></code></pre>
-</div>]]></content:encoded>
-    </item>
-    <item>
-      <title>Complete Blog API Documentation</title>
-      <link>https://www.pysio.online/en/posts/develop/api.html</link>
-      <guid>https://www.pysio.online/en/posts/develop/api.html</guid>
-      <source url="https://www.pysio.online/en/rss.xml">Complete Blog API Documentation</source>
-      <description>General Information Note All APIs have been deployed to production environment, please use the following base URL for access. Base URL API Collection You can also download the J...</description>
-      <category>develop</category>
-      <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<h2>General Information</h2>
-<div class="hint-container note">
-<p class="hint-container-title">Note</p>
-<p>All APIs have been deployed to production environment, please use the following base URL for access.</p>
-</div>
-<h3>Base URL</h3>
-<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">https://blogapi.pysio.online</span>
-<span class="line"></span></code></pre>
-</div><h3>API Collection</h3>
-<p>You can also download the JSON file directly: <a href="https://www.pysio.online/json/blog-api-collection.json" target="_blank" rel="noopener noreferrer">Download API Collection</a> and import it into Postman for use</p>
-<div class="hint-container important">
-<p class="hint-container-title">Important</p>
-<p>When making API calls, please note the following:</p>
-<ul>
-<li>All requests must use HTTPS protocol</li>
-<li>APIs may have rate limiting</li>
-<li>Please keep your authentication tokens secure</li>
-<li>Image storage uses Minio object storage with CDN acceleration</li>
-</ul>
-</div>
-<h3>Common Response Format</h3>
-<p>All JSON responses follow this format:</p>
-<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"success/error"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"data/error"</span><span class="token operator">:</span> <span class="token string">"response data/error message"</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div><div class="hint-container tip">
-<p class="hint-container-title">Tips</p>
-<p>For API debugging, we recommend using the following tools:</p>
-<ul>
-<li><a href="https://www.postman.com/" target="_blank" rel="noopener noreferrer">Postman</a></li>
-<li><a href="https://insomnia.rest/" target="_blank" rel="noopener noreferrer">Insomnia</a></li>
-<li><a href="https://curl.se/" target="_blank" rel="noopener noreferrer">curl</a></li>
-</ul>
-</div>
-<h3>Authentication Header Format</h3>
-<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {TOKEN}</span>
-<span class="line"></span></code></pre>
-</div><div class="hint-container warning">
-<p class="hint-container-title">Warning</p>
-<p>Do not store admin tokens directly in client-side code.
-Ensure secure token storage methods in production environments.</p>
-</div>
-<h2>System Status Endpoints</h2>
-<div class="hint-container note">
-<p class="hint-container-title">Note</p>
-<p>System status endpoints can be used to monitor service health.</p>
-</div>
-<h3>1. System Status Check</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/</code></li>
-<li><strong>Request Method</strong>: GET</li>
-<li><strong>Response Format</strong>: text/plain</li>
-<li><strong>Response Example</strong>: <code>What are you doing here? Meow?</code></li>
-<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/</span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<div class="hint-container tip">
-<p class="hint-container-title">Tips</p>
-<p>Recommended to use this endpoint for basic connectivity testing.</p>
-</div>
-<h3>2. FastFetch System Information</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/fastfetch</code></li>
-<li><strong>Request Method</strong>: GET</li>
-<li><strong>Response Format</strong>: application/json</li>
-<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"success"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"output"</span><span class="token operator">:</span> <span class="token string">"System information in HTML format"</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/fastfetch</span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<h3>3. Heartbeat Detection</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/heartbeat</code></li>
-<li><strong>Request Method</strong>: POST</li>
-<li><strong>Request Headers</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {TOKEN}</span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Request Parameters</strong>:
-<ul>
-<li><code>application</code>: Application name</li>
-<li><code>introduce</code>: Application description</li>
-<li><code>rgba</code>: Color value</li>
-<li><code>applicationOnline</code>: Application status</li>
-</ul>
-</li>
-<li><strong>Response Format</strong>: application/json</li>
-<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Heartbeat received"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"application"</span><span class="token operator">:</span> <span class="token string">"MyApp"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"introduce"</span><span class="token operator">:</span> <span class="token string">"My Application Description"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"rgba"</span><span class="token operator">:</span> <span class="token string">"233,30,99,0.17"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"applicationOnline"</span><span class="token operator">:</span> <span class="token boolean">true</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer your_token"</span> https://blogapi.pysio.online/heartbeat</span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<h3>4. Status Check</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/check</code></li>
-<li><strong>Request Method</strong>: GET</li>
-<li><strong>Response Format</strong>: application/json</li>
-<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"alive"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"last_heartbeat"</span><span class="token operator">:</span> <span class="token number">1234567890</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"application"</span><span class="token operator">:</span> <span class="token string">"MyApp"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"introduce"</span><span class="token operator">:</span> <span class="token string">"My Application Description"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"rgba"</span><span class="token operator">:</span> <span class="token string">"233,30,99,0.17"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"applicationOnline"</span><span class="token operator">:</span> <span class="token boolean">true</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/check</span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<h2>Image Management Endpoints</h2>
-<div class="hint-container important">
-<p class="hint-container-title">Important</p>
-<p>All images are stored in Minio object storage with CDN acceleration.
-Uploaded images are automatically converted to WebP format for optimized storage and transmission.</p>
-</div>
-<h3>1. Get Random Image</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/random_image</code></li>
-<li><strong>Request Method</strong>: GET</li>
-<li><strong>Response</strong>: 302 redirect to Minio stored image</li>
-<li><strong>Redirect Format</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
-<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"No images available"</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># Use -L parameter to follow redirects</span></span>
-<span class="line"><span class="token function">curl</span> <span class="token parameter variable">-L</span> https://blogapi.pysio.online/random_image <span class="token parameter variable">-o</span> random.webp</span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<h3>2. Get Specific Image</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/images/:hash</code></li>
-<li><strong>Request Method</strong>: GET</li>
-<li><strong>Parameters</strong>:
-<ul>
-<li><code>hash</code>: Image hash value</li>
-</ul>
-</li>
-<li><strong>Response</strong>: 302 redirect to Minio stored image</li>
-<li><strong>Redirect Format</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
-<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image not found"</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<h3>3. Get Image (Optimized)</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/i/:hash</code></li>
-<li><strong>Request Method</strong>: GET</li>
-<li><strong>Parameters</strong>:
-<ul>
-<li><code>hash</code>: Image hash value</li>
-</ul>
-</li>
-<li><strong>Response</strong>: 302 redirect to Minio stored image</li>
-<li><strong>Redirect Format</strong>: <code>https://minioapi.pysio.online/randomimg/{hash}.webp</code></li>
-<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image not found"</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<h3>4. Upload Image</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/images/add</code></li>
-<li><strong>Request Method</strong>: POST</li>
-<li><strong>Request Headers</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {ADMIN_TOKEN}</span>
-<span class="line">Content-Type: multipart/form-data</span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Request Parameters</strong>:
-<ul>
-<li><code>image</code>: Image file (form-data)</li>
-</ul>
-</li>
-<li><strong>Response Format</strong>: application/json</li>
-<li><strong>Success Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"image hash value"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"size"</span><span class="token operator">:</span> image_size_in_bytes</span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image file is required"</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div>or<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image already exists"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"existing image hash"</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token punctuation">\</span></span>
-<span class="line">  <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer your_admin_token"</span> <span class="token punctuation">\</span></span>
-<span class="line">  <span class="token parameter variable">-F</span> <span class="token string">"image=@/path/to/your/image.jpg"</span> <span class="token punctuation">\</span></span>
-<span class="line">  https://blogapi.pysio.online/images/add</span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<h3>5. Get Image List</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/images/list</code></li>
-<li><strong>Request Method</strong>: GET</li>
-<li><strong>Query Parameters</strong>:
-<ul>
-<li><code>page</code>: Page number (default: 1)</li>
-<li><code>limit</code>: Items per page (default: 10)</li>
-</ul>
-</li>
-<li><strong>Response Format</strong>: application/json</li>
-<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"images"</span><span class="token operator">:</span> <span class="token punctuation">[</span></span>
-<span class="line">    <span class="token punctuation">{</span></span>
-<span class="line">      <span class="token property">"hash"</span><span class="token operator">:</span> <span class="token string">"image hash"</span><span class="token punctuation">,</span></span>
-<span class="line">      <span class="token property">"contentType"</span><span class="token operator">:</span> <span class="token string">"image/webp"</span><span class="token punctuation">,</span></span>
-<span class="line">      <span class="token property">"createdAt"</span><span class="token operator">:</span> <span class="token string">"creation time"</span></span>
-<span class="line">    <span class="token punctuation">}</span></span>
-<span class="line">  <span class="token punctuation">]</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"pagination"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
-<span class="line">    <span class="token property">"current"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
-<span class="line">    <span class="token property">"size"</span><span class="token operator">:</span> <span class="token number">10</span><span class="token punctuation">,</span></span>
-<span class="line">    <span class="token property">"total"</span><span class="token operator">:</span> <span class="token number">100</span></span>
-<span class="line">  <span class="token punctuation">}</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token string">"https://blogapi.pysio.online/images/list?page=1&amp;limit=10"</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<h3>6. Get Image Count</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/images/count</code></li>
-<li><strong>Request Method</strong>: GET</li>
-<li><strong>Response Format</strong>: application/json</li>
-<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">100</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/images/count</span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<h3>7. Delete Image</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/images/:hash</code></li>
-<li><strong>Request Method</strong>: DELETE</li>
-<li><strong>Request Headers</strong>:<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line">Authorization: Bearer {ADMIN_TOKEN}</span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Parameters</strong>:
-<ul>
-<li><code>hash</code>: Hash of image to delete</li>
-</ul>
-</li>
-<li><strong>Response Format</strong>: application/json</li>
-<li><strong>Success Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"Image deleted successfully"</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Error Response</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Image not found"</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> DELETE <span class="token punctuation">\</span></span>
-<span class="line">  <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer your_admin_token"</span> <span class="token punctuation">\</span></span>
-<span class="line">  https://blogapi.pysio.online/images/your_image_hash</span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<h3>8. Batch Upload Tools</h3>
-<p>Two batch upload tools are provided:</p>
-<ol>
-<li>Go command line tool:</li>
-</ol>
-<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token comment"># Compile tool</span></span>
-<span class="line">go build <span class="token parameter variable">-o</span> uploader cmd/upload/main.go</span>
-<span class="line"></span>
-<span class="line"><span class="token comment"># Use tool</span></span>
-<span class="line">./uploader <span class="token parameter variable">-folder</span> /path/to/images <span class="token punctuation">\</span></span>
-<span class="line">  <span class="token parameter variable">-api</span> https://blogapi.pysio.online <span class="token punctuation">\</span></span>
-<span class="line">  <span class="token parameter variable">-token</span> your_admin_token <span class="token punctuation">\</span></span>
-<span class="line">  <span class="token parameter variable">-concurrent</span> <span class="token number">5</span></span>
-<span class="line"></span></code></pre>
-</div><ol start="2">
-<li>PowerShell script:</li>
-</ol>
-<div class="language-powershell" data-highlighter="prismjs" data-ext="powershell"><pre><code class="language-powershell"><span class="line"><span class="token comment"># Run script</span></span>
-<span class="line"><span class="token punctuation">.</span>\upload<span class="token punctuation">.</span>ps1 <span class="token operator">-</span>folder <span class="token string">"C:\Images"</span> `</span>
-<span class="line">  <span class="token operator">-</span>token <span class="token string">"your_token"</span> `</span>
-<span class="line">  <span class="token operator">-</span>retries 5 `</span>
-<span class="line">  <span class="token operator">-</span>timeout 60 `</span>
-<span class="line">  <span class="token operator">-</span>api <span class="token string">"https://blogapi.pysio.online"</span></span>
-<span class="line"></span></code></pre>
-</div><h2>Steam Status Endpoints</h2>
-<h3>1. Steam Game Status</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/steam_status</code></li>
-<li><strong>Request Method</strong>: GET</li>
-<li><strong>Response Format</strong>: application/json</li>
-<li><strong>Response Example (In Game)</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"In Game"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"game"</span><span class="token operator">:</span> <span class="token string">"Game Name"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"game_id"</span><span class="token operator">:</span> <span class="token string">"Game ID"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Game Description"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"price"</span><span class="token operator">:</span> <span class="token string">"Game Price"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"playtime"</span><span class="token operator">:</span> <span class="token string">"Playtime"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"achievement_percentage"</span><span class="token operator">:</span> <span class="token string">"Achievement Completion"</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Response Example (Not In Game)</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"Online"</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/steam_status</span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<h2>IP Query Endpoints</h2>
-<h3>1. IP Information Query</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/ipcheck</code></li>
-<li><strong>Request Method</strong>: GET</li>
-<li><strong>Query Parameters</strong>:
-<ul>
-<li><code>ip</code>: IP address</li>
-</ul>
-</li>
-<li><strong>Response Format</strong>: application/json</li>
-<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"ip"</span><span class="token operator">:</span> <span class="token string">"IP Address"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"hostname"</span><span class="token operator">:</span> <span class="token string">"Hostname"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"city"</span><span class="token operator">:</span> <span class="token string">"City"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"region"</span><span class="token operator">:</span> <span class="token string">"Region"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"country"</span><span class="token operator">:</span> <span class="token string">"Country"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"loc"</span><span class="token operator">:</span> <span class="token string">"Location Coordinates"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"org"</span><span class="token operator">:</span> <span class="token string">"Organization"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"postal"</span><span class="token operator">:</span> <span class="token string">"Postal Code"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"timezone"</span><span class="token operator">:</span> <span class="token string">"Timezone"</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> <span class="token string">"https://blogapi.pysio.online/ipcheck?ip=8.8.8.8"</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<h2>API Statistics Endpoints</h2>
-<h3>1. Get All API Call Statistics</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/api_stats</code></li>
-<li><strong>Request Method</strong>: GET</li>
-<li><strong>Response Format</strong>: application/json</li>
-<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">[</span></span>
-<span class="line">  <span class="token punctuation">{</span></span>
-<span class="line">    <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"API Path"</span><span class="token punctuation">,</span></span>
-<span class="line">    <span class="token property">"count"</span><span class="token operator">:</span> call_count<span class="token punctuation">,</span></span>
-<span class="line">    <span class="token property">"lastUpdated"</span><span class="token operator">:</span> <span class="token string">"last call time"</span></span>
-<span class="line">  <span class="token punctuation">}</span></span>
-<span class="line"><span class="token punctuation">]</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/api_stats</span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<h3>2. Get Specific API Call Statistics</h3>
-<ul>
-<li><strong>Request Path</strong>: <code>/api_stats/:key</code></li>
-<li><strong>Request Method</strong>: GET</li>
-<li><strong>Parameters</strong>:
-<ul>
-<li><code>key</code>: API path</li>
-</ul>
-</li>
-<li><strong>Response Format</strong>: application/json</li>
-<li><strong>Response Example</strong>:<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"API Path"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"count"</span><span class="token operator">:</span> call_count<span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"lastUpdated"</span><span class="token operator">:</span> <span class="token string">"last call time"</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div>or<div class="language-json" data-highlighter="prismjs" data-ext="json"><pre><code class="language-json"><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">  <span class="token property">"key"</span><span class="token operator">:</span> <span class="token string">"API Path"</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"lastUpdated"</span><span class="token operator">:</span> <span class="token null keyword">null</span></span>
-<span class="line"><span class="token punctuation">}</span></span>
-<span class="line"></span></code></pre>
-</div></li>
-<li><strong>Debug Example</strong>:<div class="language-bash" data-highlighter="prismjs" data-ext="sh"><pre><code class="language-bash"><span class="line"><span class="token function">curl</span> https://blogapi.pysio.online/api_stats/random_image</span>
-<span class="line"></span></code></pre>
-</div></li>
-</ul>
-<h2>Error Handling</h2>
-<div class="hint-container warning">
-<p class="hint-container-title">Warning</p>
-<p>Please ensure your application properly handles the following error responses:</p>
-</div>
-<h3>Common Error Codes</h3>
-<p>| Error Code | Description | Handling Suggestion |
-|</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>Free CDN</title>
-      <link>https://www.pysio.online/en/posts/develop/freecdn.html</link>
-      <guid>https://www.pysio.online/en/posts/develop/freecdn.html</guid>
-      <source url="https://www.pysio.online/en/rss.xml">Free CDN</source>
-      <description>This blog provides a free domestic CDN. You can get access by leaving a contact method in the comments/contacting me/creating a new Issue. Tips You need to ensure that your webs...</description>
-      <category>develop</category>
-      <pubDate>Wed, 19 Mar 2025 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>This blog provides a free domestic CDN. You can get access by leaving a contact method in the comments/contacting me/creating a new <a href="https://github.com/pysio2007/Vue-blog" target="_blank" rel="noopener noreferrer">Issue</a>.</p>
-<div class="hint-container tip">
-<p class="hint-container-title">Tips</p>
-<p>You need to ensure that your website does not violate the laws and regulations of the People's Republic of China, and does not contain pornography, gambling, drugs (drug overdose), violence and other content.</p>
-</div>
-<p>The CDN only provides 1GB of traffic per day for a single website. Access will be prohibited after exceeding the limit. (Can be extended with reasonable justification)</p>
-<p>The CDN does not support HTTP3/WebSocket.</p>
-<p>We will conduct regular inspections to check the content of your website. If we find anything that violates the laws of the People's Republic of China, we will unilaterally stop the resolution.</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>Random Image API</title>
-      <link>https://www.pysio.online/en/posts/develop/randomimage.html</link>
-      <guid>https://www.pysio.online/en/posts/develop/randomimage.html</guid>
-      <source url="https://www.pysio.online/en/rss.xml">Random Image API</source>
-      <description>This site now provides a random image API. You can directly use the URL below to get a random image</description>
-      <category>develop</category>
-      <pubDate>Thu, 07 Nov 2024 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>This site now provides a random image API. You can directly use the URL below to get a random image</p>
-<div class="language-url" data-highlighter="prismjs" data-ext="url"><pre><code class="language-url"><span class="line"><span class="token scheme">https<span class="token scheme-delimiter">:</span></span><span class="token authority"><span class="token authority-delimiter">//</span><span class="token host">blogapi.pysio.online</span></span><span class="token path"><span class="token path-separator">/</span>random_image</span></span>
-<span class="line"></span></code></pre>
-</div>]]></content:encoded>
-      <enclosure url="https://blogapi.pysio.online/random_image" type="image/"/>
     </item>
     <item>
       <title>Recording a DDOS Attack</title>
