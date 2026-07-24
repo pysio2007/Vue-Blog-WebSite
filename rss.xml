@@ -6,8 +6,8 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 25 Mar 2026 21:59:00 GMT</pubDate>
-    <lastBuildDate>Wed, 25 Mar 2026 21:59:00 GMT</lastBuildDate>
+    <pubDate>Fri, 24 Jul 2026 23:23:47 GMT</pubDate>
+    <lastBuildDate>Fri, 24 Jul 2026 23:23:47 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
@@ -2955,7 +2955,7 @@
       <link>https://www.pysio.online/posts/daily/AnyCast.html</link>
       <guid>https://www.pysio.online/posts/daily/AnyCast.html</guid>
       <source url="https://www.pysio.online/rss.xml">记一次AnyCast+博客搭建</source>
-      <description>因为闲着没事干, 就打算搭建一个Anycast 然后把博客和DNS都放上去, 本文暂且记录一下Anycast+博客的搭建过程。 Anycast 是什么? Anycast 是一种网络寻址和路由方法, 可以将传入请求路由到各种不同的位置或&amp;quot;节点&amp;quot;。在 CDN 的上下文中, Anycast 通常会将传入的流量路由到距离最近并且能够有效处理请求的数据中心。选择...</description>
+      <description>因为闲着没事干, 就打算搭建一个Anycast 然后把博客和DNS都放上去, 本文暂且记录一下Anycast+博客的搭建过程。 Anycast 是什么? Anycast 是一种网络寻址和路由方法, 可以将传入请求路由到各种不同的位置或&amp;quot;节点&amp;quot;。在 CDN 的上下文中, Anycast 通常会将传入的流量路由到距离最近并且能够有效处理...</description>
       <category>daily</category>
       <pubDate>Sat, 15 Feb 2025 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>因为闲着没事干, 就打算搭建一个Anycast 然后把博客和DNS都放上去, 本文暂且记录一下Anycast+博客的搭建过程。</p>
@@ -3873,7 +3873,7 @@
       <link>https://www.pysio.online/posts/develop/1Panel%20Redis%20Object%20Cache.html</link>
       <guid>https://www.pysio.online/posts/develop/1Panel%20Redis%20Object%20Cache.html</guid>
       <source url="https://www.pysio.online/rss.xml">1panel面板配置Redis Object Cache插件</source>
-      <description>第一步 获取Redis的密码 [应用商店] -&amp;gt; [已安装] -&amp;gt; [Redis 参数] 就可以看见密码了 把密码记下来 第二步 修改object-cache.php文件 在网站根目录 wp-content/plugins/redis-cache/includes 下 可以找到 object-cache.php 文件 打开并编辑 添加或修改以下部分 其...</description>
+      <description>第一步 获取Redis的密码 [应用商店] -&amp;gt; [已安装] -&amp;gt; [Redis 参数] 就可以看见密码了 把密码记下来 第二步 修改object-cache.php文件 在网站根目录 wp-content/plugins/redis-cache/includes 下 可以找到 object-cache.php 文件 打开并编辑 添加或修改...</description>
       <category>develop</category>
       <pubDate>Sat, 14 Sep 2024 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<h2>第一步 获取Redis的密码</h2>
