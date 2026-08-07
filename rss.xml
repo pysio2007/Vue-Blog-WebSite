@@ -6,8 +6,8 @@
     <link>https://www.pysio.online/</link>
     <description>一个温暖的家</description>
     <language>zh-CN</language>
-    <pubDate>Fri, 24 Jul 2026 23:23:47 GMT</pubDate>
-    <lastBuildDate>Fri, 24 Jul 2026 23:23:47 GMT</lastBuildDate>
+    <pubDate>Fri, 07 Aug 2026 04:47:49 GMT</pubDate>
+    <lastBuildDate>Fri, 07 Aug 2026 04:47:49 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>daily</category>
@@ -3798,6 +3798,36 @@
 ]]></content:encoded>
     </item>
     <item>
+      <title>公共DNS/DOH服务</title>
+      <link>https://www.pysio.online/posts/develop/Public%20DNS%20DOH.html</link>
+      <guid>https://www.pysio.online/posts/develop/Public%20DNS%20DOH.html</guid>
+      <source url="https://www.pysio.online/rss.xml">公共DNS/DOH服务</source>
+      <description>注意 注意 如果你滥用DNS 则可能导致你的IP地址被封禁</description>
+      <category>develop</category>
+      <pubDate>Sun, 19 May 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<div class="hint-container warning">
+<p class="hint-container-title">注意</p>
+<p>注意 如果你滥用DNS 则可能导致你的IP地址被封禁</p>
+</div>
+<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line"></span>
+<span class="line">DNS Server：101.43.154.197 (53端口暂不可用)</span>
+<span class="line"></span>
+<span class="line">DNS Server：93.177.67.6 (53可用)</span>
+<span class="line"></span>
+<span class="line">DNS Server：dns.pysio.online 支持任何DNS协议 </span>
+<span class="line"></span>
+<span class="line">DOH 全球可用: https://dns-doh.pysio.online/</span>
+<span class="line"></span>
+<span class="line">DoH（中国大陆）: https://doh.pysio.online/dns-query</span>
+<span class="line"></span>
+<span class="line">DoT（中国大陆）：tls://doh.pysio.online:853</span>
+<span class="line"></span>
+<span class="line">DoH (非中国大陆 Cloudflare): https://dohk.pysio.online/dns-query</span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+</div>]]></content:encoded>
+    </item>
+    <item>
       <title>命运2 年7</title>
       <link>https://www.pysio.online/posts/daily/Destiny%20Year7.html</link>
       <guid>https://www.pysio.online/posts/daily/Destiny%20Year7.html</guid>
@@ -3837,36 +3867,6 @@
 <p>一日后 重庆96110告诉我域名加白，网站就不跳转反诈中心了</p>
 ]]></content:encoded>
       <enclosure url="https://s3.pysio.online/cdn-cgi/image/f=avif,onerror=redirect,slow-connection-quality=50/https://s3.pysio.online/pysioimages/20241006004058.png" type="image/png"/>
-    </item>
-    <item>
-      <title>公共DNS/DOH服务</title>
-      <link>https://www.pysio.online/posts/develop/Public%20DNS%20DOH.html</link>
-      <guid>https://www.pysio.online/posts/develop/Public%20DNS%20DOH.html</guid>
-      <source url="https://www.pysio.online/rss.xml">公共DNS/DOH服务</source>
-      <description>注意 注意 如果你滥用DNS 则可能导致你的IP地址被封禁</description>
-      <category>develop</category>
-      <pubDate>Sun, 19 May 2024 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<div class="hint-container warning">
-<p class="hint-container-title">注意</p>
-<p>注意 如果你滥用DNS 则可能导致你的IP地址被封禁</p>
-</div>
-<div class="language-text" data-highlighter="prismjs" data-ext="text"><pre><code class="language-text"><span class="line"></span>
-<span class="line">DNS Server：101.43.154.197 (53端口暂不可用)</span>
-<span class="line"></span>
-<span class="line">DNS Server：93.177.67.6 (53可用)</span>
-<span class="line"></span>
-<span class="line">DNS Server：dns.pysio.online 支持任何DNS协议 </span>
-<span class="line"></span>
-<span class="line">DOH 全球可用: https://dns-doh.pysio.online/</span>
-<span class="line"></span>
-<span class="line">DoH（中国大陆）: https://doh.pysio.online/dns-query</span>
-<span class="line"></span>
-<span class="line">DoT（中国大陆）：tls://doh.pysio.online:853</span>
-<span class="line"></span>
-<span class="line">DoH (非中国大陆 Cloudflare): https://dohk.pysio.online/dns-query</span>
-<span class="line"></span>
-<span class="line"></span></code></pre>
-</div>]]></content:encoded>
     </item>
     <item>
       <title>1panel面板配置Redis Object Cache插件</title>
